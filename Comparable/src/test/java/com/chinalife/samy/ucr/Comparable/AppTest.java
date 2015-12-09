@@ -41,6 +41,7 @@ public class AppTest extends TestCase {
 	public void testApp() {
 		// assertTrue( true );
 		int maxNumBits = (int) Math.pow(2, 15);
+		int length = 100;
 		// average running time
 		double aver_time = 0.0;
 		// total running times
@@ -48,9 +49,12 @@ public class AppTest extends TestCase {
 		for (int i = 0; i < running_time; i++) {
 			// generate a random BigInteger array, but each number has the same high
 			// order
+
 			BigInteger[] bia = App.getRandomBigIntegerWithSameHigherOrder(
 					(int) Math.round(maxNumBits * 0.99),
-					(int) Math.floor(maxNumBits * 0.01), 100);
+					(int) Math.floor(maxNumBits * 0.01), length);
+
+			// BigInteger[] bia = App.getRandomBigInteger(maxNumBits, length);
 			long start = System.nanoTime();
 			Arrays.sort(bia, 0, bia.length);
 			long end = System.nanoTime();
