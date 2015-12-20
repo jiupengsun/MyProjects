@@ -3443,7 +3443,7 @@ public class BigInteger extends Number implements Comparable<BigInteger> {
 		int len1 = m1.length;
 		int[] m2 = val.mag;
 		int len2 = m2.length;
-		float threhold = 0.95f;
+		float threhold = 0.50f;
 		if (len1 < len2)
 			return -1;
 		if (len1 > len2)
