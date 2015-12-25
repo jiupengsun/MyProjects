@@ -30,15 +30,14 @@ public class PageRank {
 	/**
 	 * 
 	 * @param connM
-	 * @param weight
 	 * @return 2015年12月24日
 	 * @author Jiupeng
 	 * @description Generate a transform matrix according to the connected graph
 	 */
-	public static float[][] transformMatrix(int[][] connM, int weight) {
+	public static double[][] transformMatrix(int[][] connM) {
 		int row = connM.length;
 		int col = connM[0].length;
-		float[][] transform = new float[row][col];
+		double[][] transform = new double[row][col];
 		for (int j = 0; j < col; j++) {
 			int sum = 0;
 			for (int i = 0; i < row; i++)
@@ -47,7 +46,7 @@ public class PageRank {
 			if (sum > 0)
 				for (int i = 0; i < row; i++)
 					if (connM[i][j] > 0.99)
-						transform[i][j] = (float) weight / sum;
+						transform[i][j] = 1d / sum;
 		}
 		return transform;
 	}
@@ -62,8 +61,10 @@ public class PageRank {
 	 * @author Jiupeng
 	 * @description V' = aMV + (1-a)e
 	 */
-	public static float[] computeRank(float[][] transform, float[] _V, float[] _E, float dV) {
-		return Matrix.add(Matrix.multiply(Matrix.multiply(transform, _V), dV), Matrix.multiply(_E, 1 - dV));
+	public static double[] computeRank(double[][] transform, double[] _V,
+			double[] _E, double dV) {
+		return Matrix.add(Matrix.multiply(Matrix.multiply(transform, _V), dV),
+				Matrix.multiply(_E, 1 - dV));
 	}
 
 	/**
@@ -74,7 +75,7 @@ public class PageRank {
 	 * @description sort the array of Page, and return the stability. Bubble sort
 	 *              | desc
 	 */
-	public static float sortAndComputeStability(Page[] pages) {
+	public static double sortAndComputeStability(Page[] pages) {
 		int times = 0;
 		int length = pages.length;
 		int max_times = length * (length - 1) / 2;
@@ -86,6 +87,6 @@ public class PageRank {
 					pages[j + 1] = p;
 					times++;
 				}
-		return (float) times / max_times;
+		return (double) times / max_times;
 	}
 }

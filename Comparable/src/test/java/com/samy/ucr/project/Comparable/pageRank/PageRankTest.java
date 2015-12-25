@@ -23,23 +23,25 @@ public class PageRankTest {
 		 * step5: then sort the pages according to the rank value, calculate the
 		 * stability
 		 */
-		final int size = 10000;
-		float threshold = 0.00005f;
+		final int size = 5000;
+		double threshold = 0.00001d / Math.pow(size, 3);
+		double percent = 0.5;
+		double dEle = 0.8f;
+
 		Page[] pages = new Page[size];
 		// unit vector
-		float[] _E = new float[size];
+		double[] _E = new double[size];
 		for (int i = 0; i < size; i++) {
 			pages[i] = new Page(i);
-			_E[i] = 1f / size;
+			_E[i] = 1d;
 		}
 		//////
-		double percent = 0.5;
-		int weight = size / 10;
+
 		// transform matrix
-		float[][] transformMatrix = PageRank.transformMatrix(PageRank.randomConnectedGraph(size, percent), weight);
-		float[] result;
-		float[] page = _E;
-		float dEle = 0.8f;
+		double[][] transformMatrix = PageRank
+				.transformMatrix(PageRank.randomConnectedGraph(size, percent));
+		double[] result;
+		double[] page = _E;
 		int loop = 0;
 		//////
 		while (true) {
@@ -47,9 +49,10 @@ public class PageRankTest {
 			loop++;
 			for (int i = 0; i < size; i++)
 				pages[i].setRankValue(result[pages[i].getId()]);
-			float stability = PageRank.sortAndComputeStability(pages);
+			double stability = PageRank.sortAndComputeStability(pages);
 			System.out.println("loop " + loop + ", stability:" + stability);
-			if (Matrix.absoluteLessThanThreshold(Matrix.minus(result, page), threshold))
+			if (Matrix.absoluteLessThanThreshold(Matrix.minus(result, page),
+					threshold))
 				break;
 			page = result;
 		}
