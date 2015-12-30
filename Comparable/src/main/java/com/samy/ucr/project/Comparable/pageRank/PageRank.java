@@ -1,5 +1,15 @@
 package com.samy.ucr.project.Comparable.pageRank;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class PageRank {
 
 	/**
@@ -61,10 +71,8 @@ public class PageRank {
 	 * @author Jiupeng
 	 * @description V' = aMV + (1-a)e
 	 */
-	public static double[] computeRank(double[][] transform, double[] _V,
-			double[] _E, double dV) {
-		return Matrix.add(Matrix.multiply(Matrix.multiply(transform, _V), dV),
-				Matrix.multiply(_E, 1 - dV));
+	public static double[] computeRank(double[][] transform, double[] _V, double[] _E, double dV) {
+		return Matrix.add(Matrix.multiply(Matrix.multiply(transform, _V), dV), Matrix.multiply(_E, 1 - dV));
 	}
 
 	/**
@@ -88,5 +96,80 @@ public class PageRank {
 					times++;
 				}
 		return (double) times / max_times;
+	}
+
+	/**
+	 * 
+	 * @param dataFile
+	 * @param outputFile
+	 *          2015年12月30日
+	 * @author Jiupeng
+	 * @description Load data file, then compute the rank of page and output the
+	 *              results in specific file
+	 */
+	public static void computeRank(String dataFile, String outputFile) throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader(dataFile));
+		String path = System.getProperty("user.dir") + "\\tmp\\";
+		BufferedWriter bw = new BufferedWriter(new FileWriter(path + "data1"));
+		String line = "";
+		String regex = "[ \t]+";
+		int mapMaxLength = 5000;
+		Map<Integer, List<Integer>> nodeMap = new HashMap<Integer, List<Integer>>(mapMaxLength);
+		while ((line = br.readLine().trim()) != null) {
+			if (line.startsWith("#"))
+				continue;// # means comment
+			String[] ss = line.split(regex);
+			int nodeId = Integer.parseInt(ss[0]);
+			int edge = Integer.parseInt(ss[1]);
+			if (nodeMap.size() < mapMaxLength) {
+				// put in
+				if (nodeMap.containsKey(nodeId)) {
+					nodeMap.get(nodeId).add(edge);
+				} else {
+					List<Integer> al = new ArrayList<Integer>();
+					al.add(edge);
+					nodeMap.put(nodeId, al);
+				}
+			} else {
+				// output to file
+
+			}
+
+		}
+	}
+
+	private void test() throws IOException {
+		BufferedReader graphbr = new BufferedReader(new FileReader("aaa"));
+		BufferedReader probbr = new BufferedReader(new FileReader("bbb"));
+
+		int mapMaxLength = 5000;
+		// read file of probability
+		Map<Integer, Float> probMap = new HashMap<Integer, Float>(mapMaxLength);
+		String line = "";
+		String regex = "[ \t]+";
+		while ((line = probbr.readLine().trim()) != null && probMap.size() <= mapMaxLength) {
+			String[] ss = line.split(regex);
+			int nodeid = Integer.parseInt(ss[0]);
+			float rank = Float.parseFloat(ss[1]);
+			probMap.put(nodeid, rank);
+		}
+
+		// read file of graphbr
+		Map<Integer, List<Integer>> nodeMap = new HashMap<Integer, List<Integer>>(mapMaxLength);
+		while ((line = graphbr.readLine().trim()) != null && nodeMap.size() <= mapMaxLength) {
+			String[] ss = line.split(regex);
+			int nodeId = Integer.parseInt(ss[0]);
+			int edge = Integer.parseInt(ss[1]);
+			if (nodeMap.containsKey(nodeId)) {
+				nodeMap.get(nodeId).add(edge);
+			} else {
+				List<Integer> al = new ArrayList<Integer>();
+				al.add(edge);
+				nodeMap.put(nodeId, al);
+			}
+		}
+
+		// match
+
 	}
 }
