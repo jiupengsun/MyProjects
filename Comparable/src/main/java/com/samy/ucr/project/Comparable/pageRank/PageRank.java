@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -169,7 +170,42 @@ public class PageRank {
 			}
 		}
 
-		// match
+		while ((nodeMap = loadNewNodesGraph(graphbr)) != null) {
+			while (nodeMap.size() > 0) {
+				probMap = loadNewNodesRank(probbr);
+				Iterator<Integer> it = nodeMap.keySet().iterator();
+				while (it.hasNext()) {
+					int id = it.next();
+					if (probMap.containsKey(it)) {
+						// do something
+						outputTmpRank(probMap.get(id), nodeMap.get(id));
+						/*
+						 * 
+						 */
+						nodeMap.remove(id);
+					}
+				}
+			}
+		}
 
+		boolean isConvergent = mergeAndComputeNewRank();
+		if (!isConvergent)
+			// to the next loop
+			;
+	}
+
+	private static Map<Integer, List<Integer>> loadNewNodesGraph(BufferedReader br) {
+		return null;
+	}
+
+	private static Map<Integer, Float> loadNewNodesRank(BufferedReader br) {
+		return null;
+	}
+
+	private static void outputTmpRank(float rank, List<Integer> edges) {
+	}
+
+	private static boolean mergeAndComputeNewRank() {
+		return false;
 	}
 }
