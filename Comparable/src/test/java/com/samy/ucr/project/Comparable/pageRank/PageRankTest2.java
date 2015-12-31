@@ -1,7 +1,6 @@
 package com.samy.ucr.project.Comparable.pageRank;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +16,8 @@ public class PageRankTest2 {
 		float dFactor = 0.8f;
 		float E = 1f;
 
-		String file = System.getProperty("user.dir").concat("\\dataset\\Wiki-Vote.txt");
+		String file = System.getProperty("user.dir")
+				.concat("\\dataset\\Wiki-Vote.txt");
 
 		try {
 			PageRank.computeRank(file, "", dFactor, E, threshold);
@@ -30,14 +30,16 @@ public class PageRankTest2 {
 
 	@Test
 	public void test() {
-		float threshold = 0.0001f;
+		float threshold = 0.01f;
 		float dFactor = 0.8f;
 		float E = 1f;
 
-		String file = System.getProperty("user.dir").concat("\\dataset\\web-Stanford.txt");
+		String file = System.getProperty("user.dir")
+				.concat("\\dataset\\web-Stanford.txt");
 
 		try {
-			Map<Integer, List<Integer>> mapNodeGraph = LoadData.getInstance().loadNodeGraph(file);
+			Map<Integer, List<Integer>> mapNodeGraph = LoadData.getInstance()
+					.loadNodeGraph(file);
 			Page[] pages = null, newPages = null;
 			int loop = 0;
 			while (true) {
@@ -45,16 +47,11 @@ public class PageRankTest2 {
 				long computeStartTag = System.currentTimeMillis();
 				newPages = PageRank.computeRank(mapNodeGraph, pages, dFactor, E);
 				long computeEndTag = System.currentTimeMillis();
-				// double stability = PageRank.sortAndComputeStability(newPages);
-				Arrays.sort(newPages);
+				double stability = PageRank.sortAndComputeStability(newPages);
 				long sortEndTag = System.currentTimeMillis();
-				/*
-				 * System.out.println("Loop:" + loop + " Stability:" + stability +
-				 * " Compute time:" + (computeEndTag - computeStartTag) + "ms" +
-				 * " Sort time:" + (sortEndTag - computeEndTag) + "ms");
-				 */
-				System.out.println("Loop:" + loop + " Compute time:" + (computeEndTag - computeStartTag) + "ms" + " Sort time:"
-						+ (sortEndTag - computeEndTag) + "ms");
+				System.out.println("Loop:" + loop + " Stability:" + stability
+						+ " Compute time:" + (computeEndTag - computeStartTag) + "ms"
+						+ " Sort time:" + (sortEndTag - computeEndTag) + "ms");
 				if ((PageRank.compareMaxDiff(pages, newPages) < threshold))
 					break;
 				pages = newPages;
