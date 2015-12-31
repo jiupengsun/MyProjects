@@ -73,8 +73,7 @@ public class Matrix {
 		return matrix;
 	}
 
-	public static boolean absoluteLessThanThreshold(double[][] m1,
-			double threshold) {
+	public static boolean absoluteLessThanThreshold(double[][] m1, double threshold) {
 		int row = m1.length;
 		int col = m1[0].length;
 		for (int i = 0; i < row; i++)
@@ -84,8 +83,7 @@ public class Matrix {
 		return true;
 	}
 
-	public static boolean absoluteLessThanThreshold(double[] m1,
-			double threshold) {
+	public static boolean absoluteLessThanThreshold(double[] m1, double threshold) {
 		int row = m1.length;
 		for (int i = 0; i < row; i++)
 			if (Math.abs(m1[i]) > threshold)
