@@ -3,7 +3,7 @@ package com.samy.ucr.project.Comparable.pageRank;
 public class Page implements Comparable<Page> {
 
 	private int id;
-	private double rankValue;
+	private float rankValue;
 
 	public Page(int id) {
 		this.id = id;
@@ -13,18 +13,18 @@ public class Page implements Comparable<Page> {
 		return id;
 	}
 
-	public void setRankValue(double rv) {
+	public void setRankValue(float rv) {
 		rankValue = rv;
 	}
 
-	public double getRankValue() {
+	public float getRankValue() {
 		return rankValue;
 	}
 
 	@Override
 	public int compareTo(Page o) {
 		// TODO Auto-generated method stub
-		double r = o.getRankValue();
+		float r = o.getRankValue();
 		return rankValue < r ? -1 : (rankValue == r ? 0 : 1);
 	}
 
