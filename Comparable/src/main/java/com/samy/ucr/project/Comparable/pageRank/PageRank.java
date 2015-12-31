@@ -86,7 +86,7 @@ public class PageRank {
 	public static double sortAndComputeStability(Page[] pages) {
 		int times = 0;
 		int length = pages.length;
-		int max_times = length * (length - 1) / 2;
+		long max_times = length * (length - 1) / 2;
 		for (int i = length - 1; i >= 1; i--)
 			for (int j = 0; j < i; j++)
 				if (pages[j].compareTo(pages[j + 1]) < 0) {

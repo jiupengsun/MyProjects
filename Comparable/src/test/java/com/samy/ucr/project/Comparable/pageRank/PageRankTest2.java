@@ -30,12 +30,12 @@ public class PageRankTest2 {
 
 	@Test
 	public void test() {
-		float threshold = 0.00001f;
+		float threshold = 0.01f;
 		float dFactor = 0.8f;
 		float E = 1f;
 
 		String file = System.getProperty("user.dir")
-				.concat("\\dataset\\Wiki-Vote.txt");
+				.concat("\\dataset\\web-Stanford.txt");
 
 		try {
 			Map<Integer, List<Integer>> mapNodeGraph = LoadData.getInstance()
