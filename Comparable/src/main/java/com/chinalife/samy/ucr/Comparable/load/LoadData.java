@@ -29,13 +29,6 @@ public class LoadData {
 		rankFile = file.concat("-rankfile");
 	}
 
-	public static void main(String[] args) {
-		// System.out.println(System.getProperty("user.dir"));
-		String a = "30  	7478";
-		// System.out.println(a.split("[ \t]+")[1]);
-		test();
-	}
-
 	public static void test() {
 		int max = 1000000;
 		Map<Integer, Integer> graph = new HashMap<Integer, Integer>(max);
