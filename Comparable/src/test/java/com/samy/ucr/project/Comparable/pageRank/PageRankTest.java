@@ -48,7 +48,7 @@ public class PageRankTest {
 			result = PageRank.computeRank(transformMatrix, page, _E, dEle);
 			loop++;
 			for (int i = 0; i < size; i++)
-				pages[i].setRankValue(result[pages[i].getId()]);
+				pages[i].setRankValue((float) result[pages[i].getId()]);
 			double stability = PageRank.sortAndComputeStability(pages);
 			System.out.println("loop " + loop + ", stability:" + stability);
 			if (Matrix.absoluteLessThanThreshold(Matrix.minus(result, page),

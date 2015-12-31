@@ -1,17 +1,19 @@
 package com.chinalife.samy.ucr.Comparable.load;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 public class LoadData {
 
 	private BufferedReader dataFile;
-	private String path = System.getProperty("user.dir").concat("\\tmp\\");
-	private String rankFile = "";
+
+	private final String REGEX = "[ \t]+";
 
 	private static LoadData instance;
 
@@ -24,9 +26,39 @@ public class LoadData {
 		return instance;
 	}
 
-	public void loadDataFile(String file) throws FileNotFoundException {
-		dataFile = new BufferedReader(new FileReader(file));
-		rankFile = file.concat("-rankfile");
+	public Map<Integer, List<Integer>> loadNodeGraph(String file)
+			throws IOException {
+		if (dataFile == null)
+			dataFile = new BufferedReader(new FileReader(file));
+		String line = "";
+		int mapInitialSize = 5000;
+		Map<Integer, List<Integer>> nodeGraph = new HashMap<Integer, List<Integer>>(
+				mapInitialSize);
+		try {
+			while ((line = dataFile.readLine()) != null) {
+				if (line.startsWith("#"))
+					continue;
+				String[] ss = line.split(REGEX);
+				int nodeId = Integer.parseInt(ss[0]);
+				int edgeId = Integer.parseInt(ss[1]);
+				if (nodeGraph.containsKey(nodeId))
+					nodeGraph.get(nodeId).add(edgeId);
+				else {
+					List<Integer> edgeList = new ArrayList<Integer>();
+					edgeList.add(edgeId);
+					nodeGraph.put(nodeId, edgeList);
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (dataFile != null) {
+				dataFile.close();
+				dataFile = null;
+			}
+		}
+		return nodeGraph;
 	}
 
 	public static void test() {
