@@ -11,9 +11,9 @@ import com.chinalife.samy.ucr.Comparable.load.LoadData;
 
 public class PageRankTest2 {
 
-	// @Test
+	@Test
 	public void testWiki() {
-		float threshold = 0.01f;
+		float threshold = 0.0000001f;
 		float dFactor = 0.8f;
 		float E = 1f;
 
@@ -42,7 +42,7 @@ public class PageRankTest2 {
 		}
 	}
 
-	@Test
+	// @Test
 	public void testStanford() {
 		float threshold = 0.0001f;
 		float dFactor = 0.8f;
