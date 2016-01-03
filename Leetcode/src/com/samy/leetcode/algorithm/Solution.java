@@ -118,8 +118,7 @@ public class Solution {
 		int i, m, n;
 		for (i = 0, m = 0, n = 0; i < nums.length && m < nums1.length && n < nums2.length; i++) {
 			nums[i] = nums1[order1 ? m : nums1.length - 1 - m] < nums2[order2 ? n : nums2.length - 1 - n]
-					? nums1[order1 ? m++ : nums1.length - 1 - (m++)]
-					: nums2[order2 ? n++ : nums2.length - 1 - (n++)];
+					? nums1[order1 ? m++ : nums1.length - 1 - (m++)] : nums2[order2 ? n++ : nums2.length - 1 - (n++)];
 		}
 		if (i < nums.length) {
 			if (m == nums1.length)
@@ -131,8 +130,7 @@ public class Solution {
 					nums[i++] = nums1[order1 ? m++ : nums1.length - 1 - (m++)];
 				}
 		}
-		return (nums1.length + nums2.length) % 2 == 0 ? (double) (nums[i - 1] + nums[i - 2]) / 2
-				: nums[i - 1];
+		return (nums1.length + nums2.length) % 2 == 0 ? (double) (nums[i - 1] + nums[i - 2]) / 2 : nums[i - 1];
 	}
 
 	/**
@@ -141,7 +139,7 @@ public class Solution {
 	 * @param nums2
 	 * @return
 	 * @description Find median in two sorted arrays -- ascending default
-	 *              algorithm complexity: O(m+n)
+	 *              algorithm complexity: O(m+n) construct a new ordered array
 	 */
 	public double findMedianSortedArrays2(int[] nums1, int[] nums2) {
 		int[] nums = new int[(nums1.length + nums2.length) / 2 + 1];
@@ -159,8 +157,7 @@ public class Solution {
 					nums[i++] = nums1[m++];
 				}
 		}
-		return (nums1.length + nums2.length) % 2 == 0 ? (double) (nums[i - 1] + nums[i - 2]) / 2
-				: nums[i - 1];
+		return (nums1.length + nums2.length) % 2 == 0 ? (double) (nums[i - 1] + nums[i - 2]) / 2 : nums[i - 1];
 	}
 
 	public static void println(Object s) {
