@@ -38,8 +38,7 @@ public class PageRankTest {
 		//////
 
 		// transform matrix
-		double[][] transformMatrix = PageRank
-				.transformMatrix(PageRank.randomConnectedGraph(size, percent));
+		double[][] transformMatrix = PageRank.transformMatrix(PageRank.randomConnectedGraph(size, percent));
 		double[] result;
 		double[] page = _E;
 		int loop = 0;
@@ -51,8 +50,7 @@ public class PageRankTest {
 				pages[i].setRankValue((float) result[pages[i].getId()]);
 			double stability = PageRank.sortAndComputeStability(pages);
 			System.out.println("loop " + loop + ", stability:" + stability);
-			if (Matrix.absoluteLessThanThreshold(Matrix.minus(result, page),
-					threshold))
+			if (Matrix.absoluteLessThanThreshold(Matrix.minus(result, page), threshold))
 				break;
 			page = result;
 		}
