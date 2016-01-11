@@ -73,7 +73,8 @@ public class Matrix {
 		return matrix;
 	}
 
-	public static boolean absoluteLessThanThreshold(double[][] m1, double threshold) {
+	public static boolean absoluteLessThanThreshold(double[][] m1,
+			double threshold) {
 		int row = m1.length;
 		int col = m1[0].length;
 		for (int i = 0; i < row; i++)
@@ -83,7 +84,8 @@ public class Matrix {
 		return true;
 	}
 
-	public static boolean absoluteLessThanThreshold(double[] m1, double threshold) {
+	public static boolean absoluteLessThanThreshold(double[] m1,
+			double threshold) {
 		int row = m1.length;
 		for (int i = 0; i < row; i++)
 			if (Math.abs(m1[i]) > threshold)
@@ -97,6 +99,16 @@ public class Matrix {
 		for (int i = 0; i < row; i++) {
 			for (int j = 0; j < col; j++)
 				System.out.print(m1[i][j] + " ");
+			System.out.println();
+		}
+	}
+
+	public static void printMatrixToRoundInt(double[][] m) {
+		int row = m.length;
+		int col = m[0].length;
+		for (int i = 0; i < row; i++) {
+			for (int j = 0; j < col; j++)
+				System.out.print(Math.round(m[i][j]) + " ");
 			System.out.println();
 		}
 	}
@@ -116,6 +128,15 @@ public class Matrix {
 		for (int i = 0; i < row; i++)
 			System.out.print(m1[i] + " ");
 		System.out.println();
+	}
+
+	public static void main(String[] args) {
+		double[][] M = { { 0.4435, 0.0619, 0.0619 }, { 0.0619, 0.4435, 0.0619 },
+				{ 0.0619, 0.0619, 0.4435 } };
+		double[][] X = { { 0.9067, 0.9067, 3.5211, 3.5211, 6.1482, 6.1482 },
+				{ 3.5211, 6.1482, 0.9067, 6.1482, 0.9067, 3.5211 },
+				{ 6.1482, 3.5211, 6.1482, 0.9067, 3.5211, 0.9067 } };
+		printMatrixToRoundInt(multiply(M, X));
 	}
 
 }

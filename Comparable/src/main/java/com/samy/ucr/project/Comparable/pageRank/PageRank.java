@@ -69,8 +69,10 @@ public class PageRank {
 	 * @author Jiupeng
 	 * @description V' = aMV + (1-a)e
 	 */
-	public static double[] computeRank(double[][] transform, double[] _V, double[] _E, double dV) {
-		return Matrix.add(Matrix.multiply(Matrix.multiply(transform, _V), dV), Matrix.multiply(_E, 1 - dV));
+	public static double[] computeRank(double[][] transform, double[] _V,
+			double[] _E, double dV) {
+		return Matrix.add(Matrix.multiply(Matrix.multiply(transform, _V), dV),
+				Matrix.multiply(_E, 1 - dV));
 	}
 
 	/**
@@ -98,6 +100,29 @@ public class PageRank {
 
 	/**
 	 * 
+	 * @param pages
+	 * @return
+	 * 2016年1月11日
+	 * @author Jiupeng
+	 * @description Sort the array, and compute the K-T distance
+	 * @reference
+	 */
+	public static int sortAndComputeKTDistance(Page[] pages) {
+		int times = 0;
+		int length = pages.length;
+		for (int i = length - 1; i >= 1; i--)
+			for (int j = 0; j < i; j++)
+				if (pages[j].compareTo(pages[j + 1]) < 0) {
+					Page p = pages[j];
+					pages[j] = pages[j + 1];
+					pages[j + 1] = p;
+					times++;
+				}
+		return times;
+	}
+
+	/**
+	 * 
 	 * @param dataFile
 	 * @param rankFile
 	 *          2015年12月30日
@@ -105,12 +130,15 @@ public class PageRank {
 	 * @description Load data file, then compute the rank of page and output the
 	 *              results in specific file
 	 */
-	public static void computeRank(String dataFile, String rankFile, float dFactor, float E, float threshold)
-			throws IOException {
+	public static void computeRank(String dataFile, String rankFile,
+			float dFactor, float E, float threshold) throws IOException {
 		// create rankFile
-		Map<Integer, List<Integer>> mapNodeGraph = LoadData.getInstance().loadNodeGraph(dataFile);
-		Map<Integer, Float> mapNodeRank = new HashMap<Integer, Float>(mapNodeGraph.size());
-		Map<Integer, Float> mapNodeRankTmp = new HashMap<Integer, Float>(mapNodeGraph.size());
+		Map<Integer, List<Integer>> mapNodeGraph = LoadData.getInstance()
+				.loadNodeGraph(dataFile);
+		Map<Integer, Float> mapNodeRank = new HashMap<Integer, Float>(
+				mapNodeGraph.size());
+		Map<Integer, Float> mapNodeRankTmp = new HashMap<Integer, Float>(
+				mapNodeGraph.size());
 		int loop = 0;
 		while (copyAndCompare(mapNodeRank, mapNodeRankTmp) > threshold) {
 			// continue to the next loop
@@ -125,7 +153,8 @@ public class PageRank {
 				int s = edges.size();
 				for (int i = 0; i < s; i++) {
 					int eid = edges.get(i);
-					float weight = mapNodeRank.get(nodeid) == null ? E : mapNodeRank.get(nodeid);
+					float weight = mapNodeRank.get(nodeid) == null ? E
+							: mapNodeRank.get(nodeid);
 					if (mapNodeRankTmp.containsKey(eid)) {
 						mapNodeRankTmp.put(eid, mapNodeRankTmp.get(eid) + weight / s);
 					} else
@@ -136,7 +165,8 @@ public class PageRank {
 			it = mapNodeRankTmp.keySet().iterator();
 			while (it.hasNext()) {
 				int nodeid = it.next();
-				mapNodeRankTmp.put(nodeid, dFactor * mapNodeRankTmp.get(nodeid) + (1 - dFactor) * E);
+				mapNodeRankTmp.put(nodeid,
+						dFactor * mapNodeRankTmp.get(nodeid) + (1 - dFactor) * E);
 			}
 		}
 
@@ -154,7 +184,8 @@ public class PageRank {
 	 *              each value, copy r -> o
 	 * @reference
 	 */
-	private static float copyAndCompare(Map<Integer, Float> o, Map<Integer, Float> r) {
+	private static float copyAndCompare(Map<Integer, Float> o,
+			Map<Integer, Float> r) {
 		if (o.isEmpty() && r.isEmpty())
 			return Float.MAX_VALUE;
 		float maxDiff = 0f;
@@ -163,7 +194,8 @@ public class PageRank {
 			int nid = it.next();
 			float o_rank = o.get(nid) == null ? 0f : o.get(nid);
 			float r_rank = r.get(nid);
-			maxDiff = maxDiff > Math.abs(o_rank - r_rank) ? maxDiff : Math.abs(o_rank - r_rank);
+			maxDiff = maxDiff > Math.abs(o_rank - r_rank) ? maxDiff
+					: Math.abs(o_rank - r_rank);
 			o.put(nid, r_rank);
 		}
 		return maxDiff;
@@ -181,10 +213,12 @@ public class PageRank {
 	 * @description
 	 * @reference
 	 */
-	public static Page[] computeRank(Map<Integer, List<Integer>> mapNodeGraph, Page[] pages, float dFactor, float E)
-			throws IOException {
-		Map<Integer, Float> mapNodeRank = new HashMap<Integer, Float>(mapNodeGraph.size());
-		Map<Integer, Float> mapNodeRankTmp = new HashMap<Integer, Float>(mapNodeGraph.size());
+	public static Page[] computeRank(Map<Integer, List<Integer>> mapNodeGraph,
+			Page[] pages, float dFactor, float E) throws IOException {
+		Map<Integer, Float> mapNodeRank = new HashMap<Integer, Float>(
+				mapNodeGraph.size());
+		Map<Integer, Float> mapNodeRankTmp = new HashMap<Integer, Float>(
+				mapNodeGraph.size());
 		int i = 0, length = 0;
 		// transform array of page rank to map, in case of using it more
 		// conviniently
@@ -200,7 +234,8 @@ public class PageRank {
 			int s = edges.size();
 			for (i = 0; i < s; i++) {
 				int eid = edges.get(i);
-				float weight = mapNodeRank.get(nodeid) != null ? mapNodeRank.get(nodeid) : E;
+				float weight = mapNodeRank.get(nodeid) != null ? mapNodeRank.get(nodeid)
+						: E;
 				if (mapNodeRankTmp.containsKey(eid)) {
 					mapNodeRankTmp.put(eid, mapNodeRankTmp.get(eid) + weight / s);
 				} else
@@ -224,7 +259,8 @@ public class PageRank {
 			while (it.hasNext()) {
 				int nodeid = it.next();
 				newPages[i] = new Page(nodeid);
-				newPages[i++].setRankValue(dFactor * mapNodeRankTmp.get(nodeid) + (1 - dFactor) * E);
+				newPages[i++].setRankValue(
+						dFactor * mapNodeRankTmp.get(nodeid) + (1 - dFactor) * E);
 			}
 		}
 
