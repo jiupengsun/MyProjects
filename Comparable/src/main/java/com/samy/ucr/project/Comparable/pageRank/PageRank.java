@@ -289,4 +289,25 @@ public class PageRank {
 		return max;
 	}
 
+	/**
+	 * 
+	 * @param o
+	 * @param r
+	 * @return
+	 * 2016年1月12日
+	 * @author Jiupeng
+	 * @description Compare each element in two arrays, and return the aver
+	 *              difference
+	 * @reference
+	 */
+	public static float compareAverDiff(Page[] o, Page[] r) {
+		if (o == null || r == null || o.length != r.length)
+			return Float.MAX_VALUE;
+		float aver = 0f;
+		int length = o.length;
+		for (int i = 0; i < length; ++i) {
+			aver += Math.abs(o[i].getRankValue() - r[i].getRankValue());
+		}
+		return aver / length;
+	}
 }

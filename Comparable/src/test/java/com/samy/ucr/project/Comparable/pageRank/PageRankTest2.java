@@ -17,10 +17,12 @@ public class PageRankTest2 {
 		float dFactor = 0.8f;
 		float E = 1f;
 
-		String file = System.getProperty("user.dir").concat("\\dataset\\Wiki-vote.txt");
+		String file = System.getProperty("user.dir")
+				.concat("\\dataset\\Wiki-vote.txt");
 
 		try {
-			Map<Integer, List<Integer>> mapNodeGraph = LoadData.getInstance().loadNodeGraph(file);
+			Map<Integer, List<Integer>> mapNodeGraph = LoadData.getInstance()
+					.loadNodeGraph(file);
 			Page[] pages = null, newPages = null;
 			int loop = 0;
 			while (true) {
@@ -30,9 +32,13 @@ public class PageRankTest2 {
 				long computeEndTag = System.currentTimeMillis();
 				double stability = PageRank.sortAndComputeStability(newPages);
 				long sortEndTag = System.currentTimeMillis();
-				System.out.println("Loop:" + loop + " Stability:" + stability + " Compute time:"
-						+ (computeEndTag - computeStartTag) + "ms" + " Sort time:" + (sortEndTag - computeEndTag) + "ms");
-				if ((PageRank.compareMaxDiff(pages, newPages) < threshold))
+				/*System.out.println("Loop:" + loop + " Stability:" + stability
+						+ " Compute time:" + (computeEndTag - computeStartTag) + "ms"
+						+ " Sort time:" + (sortEndTag - computeEndTag) + "ms");*/
+				float averDiff = PageRank.compareAverDiff(pages, newPages);
+				System.out.println("Loop:" + loop + " Stability:" + stability
+						+ " Average Diff:" + averDiff);
+				if (averDiff < threshold)
 					break;
 				pages = newPages;
 			}
@@ -48,10 +54,12 @@ public class PageRankTest2 {
 		float dFactor = 0.8f;
 		float E = 1f;
 
-		String file = System.getProperty("user.dir").concat("\\dataset\\web-Stanford.txt");
+		String file = System.getProperty("user.dir")
+				.concat("\\dataset\\web-Stanford.txt");
 
 		try {
-			Map<Integer, List<Integer>> mapNodeGraph = LoadData.getInstance().loadNodeGraph(file);
+			Map<Integer, List<Integer>> mapNodeGraph = LoadData.getInstance()
+					.loadNodeGraph(file);
 			Page[] pages = null, newPages = null;
 			int loop = 0;
 			while (true) {
@@ -61,7 +69,8 @@ public class PageRankTest2 {
 				long computeEndTag = System.currentTimeMillis();
 				Arrays.sort(newPages);
 				long sortEndTag = System.currentTimeMillis();
-				System.out.println("Loop:" + loop + " Compute time:" + (computeEndTag - computeStartTag) + "ms" + " Sort time:"
+				System.out.println("Loop:" + loop + " Compute time:"
+						+ (computeEndTag - computeStartTag) + "ms" + " Sort time:"
 						+ (sortEndTag - computeEndTag) + "ms");
 				if ((PageRank.compareMaxDiff(pages, newPages) < threshold))
 					break;

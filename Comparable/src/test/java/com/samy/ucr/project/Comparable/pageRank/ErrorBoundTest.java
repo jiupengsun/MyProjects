@@ -70,7 +70,7 @@ public class ErrorBoundTest {
 				ps[i].setRankValue(ps[i].getRankValue() + ebt.errorneous(e));
 			}
 			int rs = PageRank.sortAndComputeKTDistance(ps);
-			System.out.print("Loop " + loop + ": the estimated KTD is " + es + " ");
+			System.out.print("Loop " + loop + ": the estimated KTD is " + es + ", ");
 			System.out.print("the real KTD is " + rs + " ");
 			float proportion = es == 0 ? 0f : (float) (Math.abs(rs - es)) / es;
 			aver += proportion;
