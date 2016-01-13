@@ -224,10 +224,10 @@ public class Solution {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] nums1 = new int[] { 2, 3 };
-		int[] nums2 = new int[] {};
-		Solution S = new Solution();
-		println(S.findMedianSortedArrays(nums1, nums2));
+		Solution so = new Solution();
+		String s = "acdcd";
+		System.out.println(so.lengthOfLongestSubstring(s));
+		System.out.println(so.lengthOfLongestSubstring2(s));
 	}
 
 }
@@ -239,4 +239,25 @@ class ListNode {
 	ListNode(int x) {
 		val = x;
 	}
+
+	static ListNode constructListSample(int l) {
+		if (l < 1)
+			return null;
+		ListNode head = new ListNode(0);
+		ListNode p = head;
+		for (int i = 1; i < l; ++i) {
+			ListNode next = new ListNode(i);
+			p.next = next;
+			p = next;
+		}
+		return head;
+	}
+
+	static void printList(ListNode head) {
+		while (head != null) {
+			System.out.print(head.val);
+			head = head.next;
+		}
+	}
+
 }
