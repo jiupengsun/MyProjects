@@ -253,11 +253,26 @@ class ListNode {
 		return head;
 	}
 
+	static ListNode constructListSampleFromArray(int[] n) {
+		ListNode head = null;
+		if (n.length > 0) {
+			head = new ListNode(n[0]);
+			ListNode current = head;
+			for (int i = 1; i < n.length; ++i) {
+				ListNode next = new ListNode(n[i]);
+				current.next = next;
+				current = current.next;
+			}
+		}
+		return head;
+	}
+
 	static void printList(ListNode head) {
 		while (head != null) {
-			System.out.print(head.val);
+			System.out.print(head.val + " ");
 			head = head.next;
 		}
+		System.out.println();
 	}
 
 }

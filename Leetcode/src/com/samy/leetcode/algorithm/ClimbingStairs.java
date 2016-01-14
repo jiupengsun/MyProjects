@@ -19,6 +19,15 @@ public class ClimbingStairs {
 		return sum;
 	}
 
+	/**
+	 * 
+	 * @param n
+	 * @return
+	 * 2016年1月14日
+	 * @author Jiupeng
+	 * @description Faster, this is the Fibonacci Number: F(n) = F(n-1) + F(n-2)
+	 * @reference
+	 */
 	public static int climbStairsSample(int n) {
 		int step = 1;
 		int prestep = 1;
@@ -29,6 +38,23 @@ public class ClimbingStairs {
 			prestep = temp;
 		}
 		return step;
+	}
+
+	/**
+	 * 
+	 * @param n
+	 * @return
+	 * 2016年1月14日
+	 * @author Jiupeng
+	 * @description
+	 * @reference https://en.wikipedia.org/wiki/Fibonacci_number
+	 */
+	public static int climbStairsSample2(int n) {
+		++n;
+		double sqrt5 = Math.sqrt(5);
+		double ret = (1 / sqrt5)
+				* (Math.pow((1 + sqrt5) / 2, n) - Math.pow((1 - sqrt5) / 2, n));
+		return (int) ret;
 	}
 
 	/**

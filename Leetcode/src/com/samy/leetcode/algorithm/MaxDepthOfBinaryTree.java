@@ -38,7 +38,8 @@ class TreeNode {
 	 * 									6
 	 * 					2								8
 	 * 			0				4				7				9
-	 * 						3		5
+	 * 						3		5								10
+	 * 																		11
 	 * @reference
 	 */
 	static TreeNode constructABinaryTreeSample() {
@@ -51,6 +52,47 @@ class TreeNode {
 		root.right.right = new TreeNode(9);
 		root.left.right.left = new TreeNode(3);
 		root.left.right.right = new TreeNode(5);
+		root.right.right.right = new TreeNode(10);
+		root.right.right.right.right = new TreeNode(11);
 		return root;
+	}
+
+	/**
+	 * 
+	 * @param n
+	 * @return
+	 * 2016年1月14日
+	 * @author Jiupeng
+	 * @description construct a binary tree according to the array
+	 * the element of array should meet the position of a complete binary tree, and equal -1 if the node is null
+	 * @reference
+	 */
+	static TreeNode constructABinaryTreeSampleByArray(int[] n) {
+		return constructSubTree(0, 0, n);
+	}
+
+	private static TreeNode constructSubTree(int h, int i, int[] n) {
+		if (i >= n.length || n[i] < 0)
+			return null;
+		TreeNode tn = new TreeNode(n[i]);
+		tn.left = constructSubTree(h + 1, 2 * i + 1, n);
+		tn.right = constructSubTree(h + 1, 2 * i + 2, n);
+		return tn;
+	}
+
+	/**
+	 * 
+	 * @param root
+	 * 2016年1月14日
+	 * @author Jiupeng
+	 * @description print a binary tree with inorder traversal
+	 * @reference
+	 */
+	static void printBinaryTreeInorderTraversal(TreeNode root) {
+		if (root == null)
+			return;
+		System.out.print(root.val + " ");
+		printBinaryTreeInorderTraversal(root.left);
+		printBinaryTreeInorderTraversal(root.right);
 	}
 }
