@@ -79,10 +79,8 @@ public class ClimbingStairs {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		for (int i = 0; i < 5; ++i) {
-			System.out.println(Math.round(Math.random() * 69));
-		}
-		System.out.println(Math.round(Math.random() * 27));
+
+		System.out.println(climbStairs(10));
 	}
 
 }
