@@ -31,7 +31,7 @@ public class ContainsDuplicate {
 	 * @return
 	 * 2016Äê1ÔÂ12ÈÕ
 	 * @author Jiupeng
-	 * @description Though HashMap is faster than HashSet(since HashSet is actual a HashMap), this case is faster. Becaue it 
+	 * @description Though HashMap is faster than HashSet(since HashSet is actual a HashMap), this case is faster. Because it 
 	 * only execute once put and return a value, while if using hashmap, I have to check firstly, then put it in
 	 * @reference
 	 */

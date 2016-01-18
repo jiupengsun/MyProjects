@@ -21,12 +21,16 @@ public class RectangleArea {
 	 * @description 
 	 * @reference https://leetcode.com/problems/rectangle-area/
 	 */
-	public int computeArea(int A, int B, int C, int D, int E, int F, int G,
-			int H) {
+	public int computeArea(int A, int B, int C, int D, int E, int F, int G, int H) {
+		int total = (C - A) * (D - B) + (G - E) * (H - F);
 		int x1 = Math.max(A, E);
+		int y1 = Math.max(B, F);
 		int x2 = Math.min(C, G);
-		//左边靠最右，右边靠最左，上边靠最下，下边靠最上
-		return 0;
+		int y2 = Math.min(D, H);
+		if (x1 < x2 && y1 < y2) {
+			return total - (x2 - x1) * (y2 - y1);
+		}
+		return total;
 	}
 
 	/**
@@ -45,8 +49,7 @@ public class RectangleArea {
 	 * @description Wrong however meaningful
 	 * @reference
 	 */
-	public int computeAreaWrongAnswer(int A, int B, int C, int D, int E, int F,
-			int G, int H) {
+	public int computeAreaWrongAnswer(int A, int B, int C, int D, int E, int F, int G, int H) {
 		int[][] rec1 = { { A, D }, { A, B }, { C, B }, { C, D } };
 		int[][] rec2 = { { E, H }, { E, F }, { G, F }, { G, H } };
 		int[] p = check(rec1, rec2, true);
@@ -67,8 +70,8 @@ public class RectangleArea {
 		Queue<Integer> q = new LinkedList<Integer>();
 		for (int i = 0; i < 4; ++i)
 			// in the rec2
-			if (rec1[i][0] >= rec2[0][0] && rec1[i][0] <= rec2[2][0]
-					&& rec1[i][1] >= rec2[2][1] && rec1[i][1] <= rec2[0][1]) {
+			if (rec1[i][0] >= rec2[0][0] && rec1[i][0] <= rec2[2][0] && rec1[i][1] >= rec2[2][1]
+					&& rec1[i][1] <= rec2[0][1]) {
 				q.add(rec1[i][0]);
 				q.add(rec1[i][1]);
 			}
