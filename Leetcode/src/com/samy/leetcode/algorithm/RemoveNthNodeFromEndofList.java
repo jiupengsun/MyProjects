@@ -22,11 +22,10 @@ public class RemoveNthNodeFromEndofList {
 	 */
 	public ListNode removeNthFromEnd(ListNode head, int n) {
 		ListNode current = head, tail = head;
-		int i = 1;
-		while (tail.next != null && (i++) <= n) {
+		while ((n--) > 0) {
 			tail = tail.next;
 		}
-		if (i <= n)
+		if (tail == null)
 			return head.next;
 
 		while (tail.next != null) {
