@@ -49,7 +49,7 @@ public class RangeSumQueryImmutable {
 		/*int[] nums = new int[10000];
 		for (int i = 0; i < 10000; ++i)
 			nums[i] = i;*/
-		RangeSumQueryImmutable rs = new RangeSumQueryImmutable(nums);
+		NumArray rs = new NumArray(nums);
 		System.out.println(rs.sumRange(0, 1));
 		System.out.println(rs.sumRange(1, 2));
 		/*System.out.println(rs.sumRange(3, 123));
@@ -57,4 +57,35 @@ public class RangeSumQueryImmutable {
 		System.out.println(rs.sumRange(7654, 9876));*/
 	}
 
+}
+
+class NumArray {
+
+	private int[] sum;
+	private int length;
+
+	public NumArray(int[] nums) {
+		length = nums.length;
+		sum = nums;
+		for (int i = length - 2; i >= 0; --i) {
+			sum[i] = sum[i] + sum[i + 1];
+		}
+	}
+
+	/**
+	 * 
+	 * @param i
+	 * @param j
+	 * @return
+	 * 2016Äê1ÔÂ22ÈÕ
+	 * @author Jiupeng
+	 * @description much faster! o(n) space and o(n) time, search operation costs o(1) time
+	 * @reference 
+	 */
+	public int sumRange(int i, int j) {
+		if (j >= length - 1)
+			return sum[i];
+		else
+			return sum[i] - sum[j + 1];
+	}
 }
