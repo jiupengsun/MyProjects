@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.chinalife.samy.ucr.Comparable.load.LoadData;
+import com.samy.ucr.project.Comparable.pageRank.load.LoadData;
 
 public class PageRank {
 
@@ -203,68 +203,49 @@ public class PageRank {
 
 	/**
 	 * 
-	 * @param dataFile
-	 * @param rankFile
+	 * @param graph
+	 * @param V
 	 * @param dFactor
 	 * @param E
-	 *          2015年12月31日
+	 * @return
+	 * 2016年1月29日
 	 * @author Jiupeng
-	 * @throws IOException
-	 * @description
+	 * @description compute new page rank, using sparse matrix, formula: aMV + (1-a)E
 	 * @reference
 	 */
-	public static Page[] computeRank(Map<Integer, List<Integer>> mapNodeGraph,
-			Page[] pages, float dFactor, float E) throws IOException {
-		Map<Integer, Float> mapNodeRank = new HashMap<Integer, Float>(
-				mapNodeGraph.size());
-		Map<Integer, Float> mapNodeRankTmp = new HashMap<Integer, Float>(
-				mapNodeGraph.size());
-		int i = 0, length = 0;
-		// transform array of page rank to map, in case of using it more
-		// conviniently
-		if (pages != null && (length = pages.length) > 0)
-			for (; i < length; i++) {
-				mapNodeRank.put(pages[i].getId(), pages[i].getRankValue());
-			}
-		Iterator<Integer> it = mapNodeGraph.keySet().iterator();
-		while (it.hasNext()) {
-			int nodeid = it.next();
-			List<Integer> edges = mapNodeGraph.get(nodeid);
-			mapNodeRankTmp.put(nodeid, 0f);
-			int s = edges.size();
-			for (i = 0; i < s; i++) {
-				int eid = edges.get(i);
-				float weight = mapNodeRank.get(nodeid) != null ? mapNodeRank.get(nodeid)
-						: E;
-				if (mapNodeRankTmp.containsKey(eid)) {
-					mapNodeRankTmp.put(eid, mapNodeRankTmp.get(eid) + weight / s);
-				} else
-					mapNodeRankTmp.put(eid, weight / s);
+	public static Page[] computeRank(Map<Integer, List<Integer>> graph, Page[] V,
+			float dFactor, float E) {
+		if (graph.isEmpty() || V.length == 0)
+			return null;
+		int size = V.length;
+		Map<Integer, Float> pages = new HashMap<Integer, Float>(size);
+		//compute new page rank and put in map
+		for (int i = 0; i < size; ++i) {
+			List<Integer> link = graph.get(V[i].getId());
+			// exists out link
+			if (link != null) {
+				float rank = V[i].getRankValue() / link.size();
+				for (int id : link) {
+					Float tmp = pages.get(id);
+					if (tmp == null) {
+						// not existed
+						pages.put(id, rank);
+					} else {
+						pages.put(id, tmp + rank);
+					}
+				}
 			}
 		}
-		mapNodeRank.clear();
-		mapNodeRank = null;
-		// aMV + (1-a)E
-		Page[] newPages = new Page[mapNodeRankTmp.size()];
-		i = 0;
-		if (length > 0) {
-			for (; i < length; i++) {
-				int nodeid = pages[i].getId();
-				newPages[i] = new Page(nodeid);
-				newPages[i].setRankValue(mapNodeRankTmp.get(nodeid));
-			}
-		} else {
-			// the first time of loop
-			it = mapNodeRankTmp.keySet().iterator();
-			while (it.hasNext()) {
-				int nodeid = it.next();
-				newPages[i] = new Page(nodeid);
-				newPages[i++].setRankValue(
-						dFactor * mapNodeRankTmp.get(nodeid) + (1 - dFactor) * E);
-			}
+		//transform the matrix to page array
+		Page[] _V = new Page[size];
+		for (int i = 0; i < size; ++i) {
+			_V[i] = new Page(V[i].getId());
+			Float f = pages.get(V[i].getId());
+			float rank = f == null ? 0 : f;
+			rank = dFactor * rank + (1 - dFactor) * E;
+			_V[i].setRankValue(rank);
 		}
-
-		return newPages;
+		return _V;
 	}
 
 	/**
@@ -309,5 +290,14 @@ public class PageRank {
 			aver += Math.abs(o[i].getRankValue() - r[i].getRankValue());
 		}
 		return aver / length;
+	}
+
+	public static float[] compareDiff(Page[] o, Page[] r) {
+		int l = o.length;
+		float[] f = new float[l];
+		for (int i = 0; i < l; ++i) {
+			f[i] = o[i].getRankValue() - r[i].getRankValue();
+		}
+		return f;
 	}
 }

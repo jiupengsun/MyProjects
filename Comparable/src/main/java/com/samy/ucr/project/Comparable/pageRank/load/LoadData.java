@@ -1,4 +1,4 @@
-package com.chinalife.samy.ucr.Comparable.load;
+package com.samy.ucr.project.Comparable.pageRank.load;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -17,6 +17,8 @@ public class LoadData {
 
 	private static LoadData instance;
 
+	private final int mapInitialSize = 5000;
+
 	private LoadData() {
 	}
 
@@ -28,10 +30,8 @@ public class LoadData {
 
 	public Map<Integer, List<Integer>> loadNodeGraph(String file)
 			throws IOException {
-		if (dataFile == null)
-			dataFile = new BufferedReader(new FileReader(file));
+		dataFile = new BufferedReader(new FileReader(file));
 		String line = "";
-		int mapInitialSize = 5000;
 		Map<Integer, List<Integer>> nodeGraph = new HashMap<Integer, List<Integer>>(
 				mapInitialSize);
 		try {

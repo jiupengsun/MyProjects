@@ -63,6 +63,16 @@ public class Matrix {
 		return matrix;
 	}
 
+	public static float[] minus(float[] m1, float[] m2) {
+		if (m1.length != m2.length)
+			return null;
+		int row = m1.length;
+		float[] matrix = new float[row];
+		for (int i = 0; i < row; i++)
+			matrix[i] = m1[i] - m2[i];
+		return matrix;
+	}
+
 	public static double[] add(double[] m1, double[] m2) {
 		if (m1.length != m2.length)
 			return null;
@@ -71,6 +81,46 @@ public class Matrix {
 		for (int i = 0; i < row; i++)
 			matrix[i] = m1[i] + m2[i];
 		return matrix;
+	}
+
+	/**
+	 * 
+	 * @param m
+	 * @return
+	 * 2016年1月29日
+	 * @author Jiupeng
+	 * @description Get the L1-Normal of two-dimension matrix m
+	 * @reference
+	 */
+	public static float L1_normalization(float[][] m) {
+		float max = Float.MIN_VALUE;
+		int row = m.length;
+		int col = row > 0 ? m[0].length : 0;
+		for (int i, j = 0, sum; j < col; ++j) {
+			for (i = 0, sum = 0; i < row; ++i)
+				sum += Math.abs(m[i][j]);
+			if (sum > max)
+				max = sum;
+		}
+		return max;
+	}
+
+	/**
+	 * 
+	 * @param m
+	 * @return
+	 * 2016年1月29日
+	 * @author Jiupeng
+	 * @description Get the L1-Normal of column vector
+	 * @reference
+	 */
+	public static float L1_normalization(float[] m) {
+		float sum = 0f;
+		int row = m.length;
+		for (int i = 0; i < row; ++i) {
+			sum += Math.abs(m[i]);
+		}
+		return sum;
 	}
 
 	public static boolean absoluteLessThanThreshold(double[][] m1,
