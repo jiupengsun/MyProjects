@@ -207,6 +207,7 @@ public class PageRank {
 	 * @param V
 	 * @param dFactor
 	 * @param E
+	 * @param diffThreshold
 	 * @return
 	 * 2016年1月29日
 	 * @author Jiupeng
@@ -214,7 +215,7 @@ public class PageRank {
 	 * @reference
 	 */
 	public static Page[] computeRank(Map<Integer, List<Integer>> graph, Page[] V,
-			float dFactor, float E) {
+			float dFactor, float E, float diffThreshold) {
 		if (graph.isEmpty() || V.length == 0)
 			return null;
 		int size = V.length;
@@ -244,6 +245,10 @@ public class PageRank {
 			float rank = f == null ? 0 : f;
 			rank = dFactor * rank + (1 - dFactor) * E;
 			_V[i].setRankValue(rank);
+			if (Math.abs(V[i].getRankValue() - rank) > diffThreshold) {
+				_V[i].setConvertTimes(V[i].getConvertTimes() + 1);
+			} else
+				_V[i].setConvertTimes(V[i].getConvertTimes());
 		}
 		return _V;
 	}
@@ -299,5 +304,29 @@ public class PageRank {
 			f[i] = o[i].getRankValue() - r[i].getRankValue();
 		}
 		return f;
+	}
+
+	/**
+	 * 
+	 * @param p
+	 * @return
+	 * 2016年2月2日
+	 * @author Jiupeng
+	 * @description compute average converge times and the correspondent pagerank
+	 * @reference 
+	 * @interpretation
+	 */
+	public static Map<Integer, Float> computeAverConvergeTimes(Page[] p) {
+		Map<Integer, Float> map = new HashMap<Integer, Float>();
+		for (int i = 0, j, l = p.length; i < l; ++i) {
+			float r = p[i].getRankValue();
+			for (j = i + 1; j < l
+					&& p[j].getConvertTimes() == p[j - 1].getConvertTimes(); ++j) {
+				r += p[j].getRankValue();
+			}
+			map.put(p[i].getConvertTimes(), r / (j - i));
+			i = j - 1;
+		}
+		return map;
 	}
 }
