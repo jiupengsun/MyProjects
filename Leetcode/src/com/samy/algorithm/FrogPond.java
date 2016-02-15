@@ -1,4 +1,4 @@
-package com.samy.leetcode.algorithm.sort;
+package com.samy.algorithm;
 
 public class FrogPond {
 
