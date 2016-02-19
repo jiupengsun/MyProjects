@@ -1,4 +1,4 @@
-package com.samy.leetcode.algorithm.easy;
+package com.samy.leetcode.algorithm.medium;
 
 public class Searcha2DMatrixII {
 

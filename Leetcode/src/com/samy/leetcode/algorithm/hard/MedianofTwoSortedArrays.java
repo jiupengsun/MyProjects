@@ -1,4 +1,4 @@
-package com.samy.leetcode.algorithm.easy;
+package com.samy.leetcode.algorithm.hard;
 
 public class MedianofTwoSortedArrays {
 

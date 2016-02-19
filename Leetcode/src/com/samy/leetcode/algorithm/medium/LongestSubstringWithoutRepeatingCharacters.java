@@ -1,4 +1,4 @@
-package com.samy.leetcode.algorithm.easy;
+package com.samy.leetcode.algorithm.medium;
 
 import java.util.HashMap;
 import java.util.Map;

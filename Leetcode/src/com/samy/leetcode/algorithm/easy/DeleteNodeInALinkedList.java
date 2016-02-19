@@ -23,3 +23,48 @@ public class DeleteNodeInALinkedList {
 	}
 
 }
+
+class ListNode {
+	int val;
+	ListNode next;
+
+	ListNode(int x) {
+		val = x;
+	}
+
+	static ListNode constructListSample(int l) {
+		if (l < 1)
+			return null;
+		ListNode head = new ListNode(0);
+		ListNode p = head;
+		for (int i = 1; i < l; ++i) {
+			ListNode next = new ListNode(i);
+			p.next = next;
+			p = next;
+		}
+		return head;
+	}
+
+	static ListNode constructListSampleFromArray(int[] n) {
+		ListNode head = null;
+		if (n.length > 0) {
+			head = new ListNode(n[0]);
+			ListNode current = head;
+			for (int i = 1; i < n.length; ++i) {
+				ListNode next = new ListNode(n[i]);
+				current.next = next;
+				current = current.next;
+			}
+		}
+		return head;
+	}
+
+	static void printList(ListNode head) {
+		while (head != null) {
+			System.out.print(head.val + " ");
+			head = head.next;
+		}
+		System.out.println();
+	}
+
+}
