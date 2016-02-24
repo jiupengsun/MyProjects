@@ -2,7 +2,6 @@ package com.samy.leetcode.algorithm.medium;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 public class CombinationSumIII {
 
@@ -55,26 +54,25 @@ public class CombinationSumIII {
 
 	public List<List<Integer>> combinationSumIII2(int k, int n) {
 		List<List<Integer>> collection = new ArrayList<List<Integer>>();
-		Stack<Integer> stack = new Stack<Integer>();
-		int end = 9, total = k;
-		while (end > 0) {
-
-			while (k > 1 && n > 0) {
-				end = end < n ? end : n;
-				stack.push(end);
-				n -= end;
-				--k;
-				--end;
-			}
-			if (k == 1) {
-				if (n > 0 && n <= end) {
-					List<Integer> list = stack.subList(0, total - 1);
-					list.add(0, end);
-					collection.add(list);
-				} else if (n < 0) {
-
+		int end = 9;
+		if (k > 0 && k <= end) {
+			int[] sum = new int[k];
+			while (end > 0) {
+				while (k > 0 && n >= (k + 1) * k >> 1) {
+					end = end < n ? end : n;
+					sum[(k--) - 1] = end;
+					n -= end--;
 				}
-
+				if (k == 0) {
+					List<Integer> list = new ArrayList<Integer>();
+					for (int i : sum)
+						list.add(i);
+					collection.add(list);
+				} else if (k < sum.length) {
+					end = sum[(++k) - 1];
+					n += end--;
+				} else
+					break;
 			}
 		}
 
@@ -83,7 +81,9 @@ public class CombinationSumIII {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		int k = 3, n = 9;
+		CombinationSumIII c = new CombinationSumIII();
+		c.combinationSumIII2(k, n);
 	}
 
 }
