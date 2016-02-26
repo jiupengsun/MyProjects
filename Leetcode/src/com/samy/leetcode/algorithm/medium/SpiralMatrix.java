@@ -11,7 +11,7 @@ public class SpiralMatrix {
 	 * @return
 	 * 2016Äê2ÔÂ25ÈÕ
 	 * @author Jiupeng
-	 * @description
+	 * @description 22 test cases, 1ms beats 3.40%
 	 * @reference https://leetcode.com/problems/spiral-matrix/
 	 * @interpretation
 	 */
@@ -20,31 +20,27 @@ public class SpiralMatrix {
 		//left, top, right, bottom
 		int bottom = matrix.length - 1, top = 0, left = 0;
 		int right = bottom >= 0 ? matrix[0].length - 1 : -1;
-		int i = top, j = left;
+		int i, j;
 		while (top <= bottom || left <= right) {
 			//to the right
 			if (top <= bottom) {
-				for (; j < right; ++j)
+				for (i = top++, j = left; j <= right; ++j)
 					spiral.add(matrix[i][j]);
-				++top;
 			}
 			//to the bottom
 			if (left <= right) {
-				for (; i < bottom; ++i)
+				for (i = top, j = right--; i <= bottom; ++i)
 					spiral.add(matrix[i][j]);
-				--right;
 			}
 			//to the left
 			if (top <= bottom) {
-				for (; j > left; --j)
+				for (i = bottom--, j = right; j >= left; --j)
 					spiral.add(matrix[i][j]);
-				--bottom;
 			}
 			//to the top
 			if (left <= right) {
-				for (; i > top; --i)
+				for (i = bottom, j = left++; i >= top; --i)
 					spiral.add(matrix[i][j]);
-				++left;
 			}
 		}
 		return spiral;
@@ -52,7 +48,8 @@ public class SpiralMatrix {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[][] matrix = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+		//int[][] matrix = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+		int[][] matrix = { { 1, 2, 3 } };
 		SpiralMatrix sm = new SpiralMatrix();
 		sm.spiralOrder(matrix);
 	}
