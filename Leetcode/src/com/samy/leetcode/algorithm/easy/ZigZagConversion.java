@@ -12,7 +12,7 @@ public class ZigZagConversion {
 	 * @description More efficient!!!
 	 * @reference 
 	 */
-	public String convertSample1(String s, int numRows) {
+	public String convertSample(String s, int numRows) {
 		if (numRows < 2 || s.length() < numRows)
 			return s;
 		char[] converted = new char[s.length()];
