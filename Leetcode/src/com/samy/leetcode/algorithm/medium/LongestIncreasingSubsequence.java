@@ -8,27 +8,26 @@ public class LongestIncreasingSubsequence {
 	 * @return
 	 * 2016Äê3ÔÂ1ÈÕ
 	 * @author Jiupeng
-	 * @description
+	 * @description 22 test cases, 1ms beats 86.18%
 	 * @reference https://leetcode.com/problems/longest-increasing-subsequence/
 	 * @interpretation
 	 */
 	public int lengthOfLIS(int[] nums) {
 		int l = nums.length;
-		int[] inc = new int[l];
-		int i = 1, j = 0, max = 0;
-		//out of considering zero
-		inc[0] = nums[0];
+		int[] inc = new int[l + 1];
+		inc[0] = Integer.MIN_VALUE;
+		int i = 0, j = 0, max = 0;
 		while (i < l) {
-			if (nums[i] > nums[i - 1]) {
-				inc[++j] = nums[i++];
-				max = j > max ? j : max;
+			if (nums[i] > inc[max]) {
+				inc[++max] = nums[i++];
+				j = max;
 			} else {
-				while (j >= 0 && inc[j] > nums[i])
+				while (inc[j] > nums[i])
 					--j;
 				inc[++j] = nums[i++];
 			}
 		}
-		return max + 1;
+		return max;
 	}
 
 	public static void main(String[] args) {
