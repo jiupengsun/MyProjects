@@ -13,7 +13,7 @@ public class HParTest {
 
 	private final String baseUri = System.getProperty("user.dir");
 
-	@Test
+	//@Test
 	public void parseFromFileTest() {
 		String filePath = baseUri + "\\resource\\index.html";
 		File html = new File(filePath);
@@ -29,10 +29,11 @@ public class HParTest {
 		}
 	}
 
-	//@Test
-	public void test() {
+	@Test
+	public void parseFromUrl() {
 		try {
-			Document doc = Jsoup.connect("http://www.baidu.com").get();
+			Document doc = Jsoup.connect("http://localhost:8080/WebTest/index.html")
+					.get();
 			Element body = doc.body();
 			System.out.println(body.html());
 		} catch (IOException e) {
