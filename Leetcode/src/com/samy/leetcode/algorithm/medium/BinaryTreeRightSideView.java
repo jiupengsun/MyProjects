@@ -68,6 +68,33 @@ public class BinaryTreeRightSideView {
 		return list;
 	}
 
+	/**
+	 * 
+	 * @param root
+	 * @return
+	 * 2016Äê3ÔÂ7ÈÕ
+	 * @author Jiupeng
+	 * @description
+	 * @reference https://leetcode.com/discuss/85020/java-easy-solution-beats-90%25-using-dfs
+	 * @interpretation
+	 */
+	public List<Integer> rightSideViewSample(TreeNode root) {
+		List<Integer> view = new ArrayList<Integer>();
+		if (null == root)
+			return view;
+		dfs(view, root, 1);
+		return view;
+	}
+
+	private void dfs(List<Integer> view, TreeNode root, int layer) {
+		if (root == null)
+			return;
+		if (layer > view.size())
+			view.add(root.val);
+		dfs(view, root.right, layer + 1);
+		dfs(view, root.left, layer + 1);
+	}
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
