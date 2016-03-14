@@ -26,6 +26,14 @@ public class DifferentWaystoAddParentheses {
 			Stack<Integer> numbers) {
 		List<Integer> list = new ArrayList<Integer>();
 
+		if (numbers.size() != signs.size() + 1)
+			return list;
+		int n1 = numbers.pop();
+		char c1 = signs.pop();
+		switch (c1) {
+		case '+':
+
+		}
 		return list;
 	}
 
