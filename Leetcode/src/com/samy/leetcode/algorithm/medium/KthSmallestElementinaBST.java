@@ -16,6 +16,8 @@ import java.util.Stack;
  */
 public class KthSmallestElementinaBST {
 
+	private int count = 0;
+
 	/**
 	 * 
 	 * @param root
@@ -48,6 +50,33 @@ public class KthSmallestElementinaBST {
 	 * @param root
 	 * @param k
 	 * @return
+	 * 2016年3月22日
+	 * @author Jiupeng
+	 * @description 91 test cases, 0ms beats 95.82%
+	 * @reference 
+	 * @interpretation http://blog.csdn.net/beiyeqingteng/article/details/7485763
+	 */
+	public int kthSmallest2(TreeNode root, int k) {
+		this.count = 0;
+		return getKthNode(root, k).val;
+	}
+
+	private TreeNode getKthNode(TreeNode root, int k) {
+		if (root == null)
+			return null;
+		TreeNode left = getKthNode(root.left, k);
+		if (left != null)
+			return left;
+		if ((++this.count) == k)
+			return root;
+		return getKthNode(root.right, k);
+	}
+
+	/**
+	 * 
+	 * @param root
+	 * @param k
+	 * @return
 	 * 2016年2月20日
 	 * @author Jiupeng
 	 * @description 91 test cases, 1ms beats 45.85%
@@ -57,9 +86,9 @@ public class KthSmallestElementinaBST {
 	public int kthSmallestSample(TreeNode root, int k) {
 		int count = countNodes(root.left);
 		if (k <= count) {
-			return kthSmallest(root.left, k);
+			return kthSmallestSample(root.left, k);
 		} else if (k > count + 1) {
-			return kthSmallest(root.right, k - 1 - count); // 1 is counted as current node
+			return kthSmallestSample(root.right, k - 1 - count); // 1 is counted as current node
 		}
 
 		return root.val;
@@ -74,7 +103,10 @@ public class KthSmallestElementinaBST {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		int[] tree = { 4, 2, 5, 1, 3, -1, 6 };
+		TreeNode root = TreeNode.constructABinaryTreeSampleByArray(tree);
+		KthSmallestElementinaBST kbst = new KthSmallestElementinaBST();
+		System.out.println(kbst.kthSmallest2(root, 6));
 	}
 
 }
