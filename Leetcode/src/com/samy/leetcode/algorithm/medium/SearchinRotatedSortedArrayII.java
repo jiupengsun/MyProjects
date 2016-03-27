@@ -9,30 +9,30 @@ public class SearchinRotatedSortedArrayII {
 	 * @return
 	 * 2016Äê3ÔÂ25ÈÕ
 	 * @author Jiupeng
-	 * @description
+	 * @description 127 test cases, 1ms beats 21.8%
 	 * @reference https://leetcode.com/problems/search-in-rotated-sorted-array-ii/
 	 * @interpretation
 	 */
 	public boolean search(int[] nums, int target) {
-		int l = nums.length;
-		if (target >= nums[0]) {
-			if (target == nums[0])
-				return false;
-			for (int i = 1; i < l && nums[i] >= nums[i - 1]; ++i)
-				if (nums[i] == target)
-					return true;
-		} else if (target <= nums[l - 1]) {
-			if (target == nums[l - 1])
+		int i = 0, j = nums.length - 1, mid;
+		while (j > i && nums[j] == nums[i])
+			--j;
+		while (i < j) {
+			mid = (i + j) >> 1;
+			if (target < nums[mid]) {
+				if (nums[mid] < nums[0] || target >= nums[i])
+					j = mid - 1;
+				else
+					i = mid + 1;
+			} else if (target > nums[mid]) {
+				if (nums[mid] >= nums[0] || target <= nums[j])
+					i = mid + 1;
+				else
+					j = mid - 1;
+			} else
 				return true;
-			for (int i = l - 2; i >= 0 && nums[i] <= nums[i + 1]; --i)
-				if (nums[i] == target)
-					return true;
 		}
-		return true;
-	}
-
-	public boolean search2(int[] nums, int target) {
-
+		return nums[i] == target;
 	}
 
 	public static void main(String[] args) {

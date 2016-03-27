@@ -15,8 +15,7 @@ public class LinkedListCycle {
 	 */
 	public boolean hasCycle(ListNode head) {
 		ListNode tortoise = head, hare = head;
-		while (tortoise != null && hare != null && hare.next != null
-				&& hare.next != tortoise) {
+		while (tortoise != null && hare != null && hare.next != null && hare.next != tortoise) {
 			tortoise = tortoise.next;
 			hare = hare.next.next;
 			if (hare == tortoise)
@@ -29,10 +28,37 @@ public class LinkedListCycle {
 	 * 
 	 * @param head
 	 * @return
+	 * 2016年3月26日
+	 * @author Jiupeng
+	 * @description 16 test cases, 1ms beats 9.18%
+	 * @reference http://www.siafoo.net/algorithm/11
+	 * @interpretation This algorithm is based on Brent's Cycle Detection Algorithm(The Teleporting Turtle)
+	 */
+	public boolean hasCycle2(ListNode head) {
+		ListNode tortoise = head, hare = head;
+		int stepTaken = 0, stepLimit = 2;
+		while (true) {
+			if (hare == null)
+				return false;
+			while (hare != null && stepTaken++ < stepLimit) {
+				hare = hare.next;
+				if (hare == tortoise)
+					return true;
+			}
+			stepTaken = 0;
+			stepLimit <<= 1;
+			tortoise = hare;
+		}
+	}
+
+	/**
+	 * 
+	 * @param head
+	 * @return
 	 * 2016年2月19日
 	 * @author Jiupeng
 	 * @description By reversing the list, the pointer will finally go back to head if exists a circle, otherwise
-	 * reach tail. Another solution but will break the structre
+	 * reach tail. Another solution but will break the structure
 	 * @reference 
 	 * @interpretation https://leetcode.com/discuss/81318/java-1ms-reversing-list
 	 */
