@@ -12,7 +12,7 @@ public class TwoSum {
 	 * @return
 	 * 2016Äê1ÔÂ18ÈÕ
 	 * @author Jiupeng
-	 * @description
+	 * @description 6ms, beats 58.79%
 	 * @reference https://leetcode.com/problems/two-sum/
 	 */
 	public int[] twoSum(int[] nums, int target) {
