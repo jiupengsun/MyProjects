@@ -19,15 +19,17 @@ public class _3Sum {
 	public List<List<Integer>> threeSum(int[] nums) {
 		List<List<Integer>> sumList = new ArrayList<List<Integer>>();
 		Arrays.sort(nums);
-		int last = Integer.MAX_VALUE;
 		for (int i = 0, l = nums.length; i < l - 3; ++i) {
-			if (nums[i] == last)
-				continue;
-			last = nums[i];
 			int st = i + 1, en = l - 1;
 			for (; st < en;) {
 				int sum = nums[i] + nums[st] + nums[en];
 				if (sum == 0) {
+					if (sumList.size() > 0) {
+						List<Integer> lastList = sumList.get(sumList.size() - 1);
+						if (nums[i] == lastList.get(0) && nums[st] == lastList.get(1)
+								&& nums[en] == lastList.get(2))
+							continue;
+					}
 					List<Integer> list = new ArrayList<Integer>();
 					list.add(nums[i]);
 					list.add(nums[st]);
