@@ -17,11 +17,11 @@ public class PathSumII {
 	/**
 	 * 
 	 * @param root
-	 * @param sum
+	 * @param target
 	 * @return
-	 * 2016Äê4ÔÂ6ÈÕ
+	 * Apr 6, 2016
 	 * @author Jiupeng
-	 * @description
+	 * @description 114 test cases, 3ms beats 41.57%
 	 * @reference https://leetcode.com/problems/path-sum-ii/
 	 * @interpretation
 	 */
@@ -32,22 +32,22 @@ public class PathSumII {
 		return path;
 	}
 
-	private void helper(List<List<Integer>> path, List<Integer> prePath,
-			TreeNode root, int target) {
-		if (root.left == null) {
-			if (target == 0 && prePath.size() > 0) {
+	private void helper(List<List<Integer>> path, List<Integer> prePath, TreeNode root, int target) {
+		if (root == null)
+			return;
+		if (root.left == null && root.right == null) {
+			if (target == root.val) {
 				List<Integer> tmp = new ArrayList<Integer>();
 				tmp.addAll(prePath);
+				tmp.add(root.val);
 				path.add(tmp);
 			}
 		} else {
-			if (target - root.val >= 0) {
-				target -= root.val;
-				prePath.add(root.val);
-				helper(path, prePath, root.left, target);
-				helper(path, prePath, root.right, target);
-				prePath.remove(prePath.size() - 1);
-			}
+			target -= root.val;
+			prePath.add(root.val);
+			helper(path, prePath, root.left, target);
+			helper(path, prePath, root.right, target);
+			prePath.remove(prePath.size() - 1);
 		}
 	}
 
