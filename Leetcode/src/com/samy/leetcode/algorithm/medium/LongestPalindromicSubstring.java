@@ -8,7 +8,7 @@ public class LongestPalindromicSubstring {
 	 * @return
 	 * Apr 7, 2016
 	 * @author Jiupeng
-	 * @description Using Manacher algorithm
+	 * @description Using Manacher algorithm, 88 test cases, 18ms beats 71.43%
 	 * @reference https://leetcode.com/problems/longest-palindromic-substring/
 	 * @interpretation
 	 */
@@ -67,6 +67,43 @@ public class LongestPalindromicSubstring {
 
 		return max % 2 == 0 ? s.substring((pos - 1) / 2 - max / 2 + 1, (pos + 1) / 2 + max / 2)
 				: s.substring((pos - 1) / 2 - (max - 1) / 2, (pos - 1) / 2 + (max + 1) / 2);
+	}
+
+	/**
+	 * 
+	 * @param s
+	 * @return
+	 * Apr 7, 2016
+	 * @author Jiupeng
+	 * @description
+	 * @reference 88 test cases, 103ms beats 13.13%
+	 * @interpretation
+	 */
+	public String longestPalindrome2(String s) {
+		int l = s.length();
+		boolean[][] p = new boolean[l][l];
+		int max = 0, mi = 0, mj = 0;
+		// initiate palindrome array
+		// p[i][j] is true when s.substring(i,j+1) is palindromic, otherwise is
+		// false
+		for (int j = 0; j < l; ++j)
+			for (int i = 0; i <= j; ++i) {
+				if (i == j) {
+					p[i][j] = true;
+					continue;
+				}
+				if (s.charAt(i) == s.charAt(j) && (j == i + 1 || p[i + 1][j - 1])) {
+					p[i][j] = true;
+					if (j - i > max) {
+						max = j - i;
+						mi = i;
+						mj = j;
+					}
+				} else
+					p[i][j] = false;
+			}
+
+		return s.substring(mi, mj + 1);
 	}
 
 	public static void main(String[] args) {
