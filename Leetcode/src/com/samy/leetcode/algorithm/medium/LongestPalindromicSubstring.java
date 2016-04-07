@@ -6,10 +6,11 @@ public class LongestPalindromicSubstring {
 	 * 
 	 * @param s
 	 * @return
-	 * 2016Äê1ÔÂ18ÈÕ
+	 * Apr 7, 2016
 	 * @author Jiupeng
 	 * @description Using Manacher algorithm
 	 * @reference https://leetcode.com/problems/longest-palindromic-substring/
+	 * @interpretation
 	 */
 	public String longestPalindrome(String s) {
 		int i = 0;
@@ -21,7 +22,7 @@ public class LongestPalindromicSubstring {
 		}
 		sb.append("#");
 
-		// define the rightest position
+		// define the rightmost position
 		int max_right = -1;
 		// define the position with max radius
 		int max_center = -1;
@@ -40,8 +41,7 @@ public class LongestPalindromicSubstring {
 			}
 
 			// try the bigger radius
-			while (i - r >= 0 && i + r < sb.length()
-					&& sb.charAt(i - r) == sb.charAt(i + r)) {
+			while (i - r >= 0 && i + r < sb.length() && sb.charAt(i - r) == sb.charAt(i + r)) {
 				r++;
 			}
 
@@ -53,7 +53,7 @@ public class LongestPalindromicSubstring {
 			rad[i] = r;
 		}
 
-		// scan the radius array and get the max length of palindromic
+		// scan the radius array and get the max length of Palindromic
 		// rad[i]-1 = the max length of origin string array
 		// judge whether rad[pos] is "#"
 		int length = rad.length;
@@ -65,10 +65,8 @@ public class LongestPalindromicSubstring {
 			}
 		}
 
-		return max % 2 == 0
-				? s.substring((pos - 1) / 2 - max / 2 + 1, (pos + 1) / 2 + max / 2)
-				: s.substring((pos - 1) / 2 - (max - 1) / 2,
-						(pos - 1) / 2 + (max + 1) / 2);
+		return max % 2 == 0 ? s.substring((pos - 1) / 2 - max / 2 + 1, (pos + 1) / 2 + max / 2)
+				: s.substring((pos - 1) / 2 - (max - 1) / 2, (pos - 1) / 2 + (max + 1) / 2);
 	}
 
 	public static void main(String[] args) {

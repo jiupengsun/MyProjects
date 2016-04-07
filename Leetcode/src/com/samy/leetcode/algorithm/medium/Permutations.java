@@ -9,7 +9,7 @@ public class Permutations {
 	 * 
 	 * @param nums
 	 * @return
-	 * 2016Äê2ÔÂ22ÈÕ
+	 * Apr 7, 2016
 	 * @author Jiupeng
 	 * @description 25 test cases, 2ms beats 93.8%
 	 * @reference https://leetcode.com/problems/permutations/
@@ -30,13 +30,13 @@ public class Permutations {
 			return;
 		}
 		for (int i = st, l = nums.length; i < l; ++i) {
-			//exchange
+			// exchange
 			int tmp = nums[st];
 			nums[st] = nums[i];
 			nums[i] = tmp;
-			//permute elements after st
+			// permute elements after st
 			permutation(nums, st + 1, collection);
-			//exchange back
+			// exchange back
 			tmp = nums[st];
 			nums[st] = nums[i];
 			nums[i] = tmp;
@@ -45,9 +45,14 @@ public class Permutations {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] nums = { 1, 2, 3, 4 };
+		int[] nums = { 1, 1, 2 };
 		Permutations perm = new Permutations();
-		perm.permute(nums);
+		List<List<Integer>> list = perm.permute(nums);
+		for (List<Integer> l : list) {
+			for (int i : l)
+				System.out.print(i + " ");
+			System.out.println();
+		}
 	}
 
 }
