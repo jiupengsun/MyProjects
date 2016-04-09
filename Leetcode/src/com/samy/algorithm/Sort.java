@@ -36,6 +36,16 @@ public class Sort {
 			}
 	}
 
+	public static void countingSort(int[] a, int min, int max) {
+		int[] c = new int[max - min + 1];
+		for (int i : a)
+			c[i - min]++;
+		for (int i = 0, j = 0; i < c.length; ++i) {
+			while (c[i]-- > 0)
+				a[j++] = min + i;
+		}
+	}
+
 	public static void print(int[] a) {
 		for (int i : a)
 			System.out.print(i + " ");
@@ -46,10 +56,17 @@ public class Sort {
 
 		// int[] a = { 1, 5, 6, 23, 8, 3, 7, 9, 213 };
 		int[] a = { 2, 3, 1, 4 };
-
-		bubbleSort(a, 0, a.length - 1, false);
-
-		print(a);
+		String s = "abkefesicegesxklfehwalt";
+		int[] character = new int[s.length()];
+		for (int i = 0, l = s.length(); i < l; ++i)
+			character[i] = s.charAt(i) - 'a';
+		//bubbleSort(a, 0, a.length - 1, false);
+		countingSort(character, 0, 25);
+		print(character);
+		StringBuilder sb = new StringBuilder();
+		for (int i : character)
+			sb.append((char) (i + 'a'));
+		System.out.println(sb.toString());
 	}
 
 }
