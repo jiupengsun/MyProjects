@@ -1,10 +1,8 @@
 package com.samy.leetcode.algorithm.medium;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public class MinimumHeightTrees {
@@ -14,7 +12,7 @@ public class MinimumHeightTrees {
 	 * @param n
 	 * @param edges
 	 * @return
-	 * 2016Äê4ÔÂ9ÈÕ
+	 * 2016ï¿½ï¿½4ï¿½ï¿½9ï¿½ï¿½
 	 * @author Jiupeng
 	 * @description
 	 * @reference https://leetcode.com/problems/minimum-height-trees/
@@ -23,21 +21,12 @@ public class MinimumHeightTrees {
 	public List<Integer> findMinHeightTrees(int n, int[][] edges) {
 		List<Integer> roots = new ArrayList<Integer>();
 		int[] degree = new int[n];
-		Map<Integer, Set<Integer>> links = new HashMap<Integer, Set<Integer>>();
-		for (int[] edge : edges) {
-			degree[edge[0]]++;
-			degree[edge[1]]++;
-			Set<Integer> setX = links.get(edge[0]);
-			if (setX == null)
-				setX = new HashSet<Integer>();
-			setX.add(edge[1]);
-			links.put(edge[0], setX);
-
-			Set<Integer> setY = links.get(edge[1]);
-			if (setY == null)
-				setY = new HashSet<Integer>();
-			setY.add(edge[0]);
-			links.put(edge[1], setY);
+		List<Set<Integer>> links = new ArrayList<Set<Integer>>(n);
+		for (int i = 0; i < n; ++i)
+			links.add(new HashSet<Integer>());
+		for (int[] i : edges) {
+			links.get(i[0]).add(i[1]);
+			links.get(i[1]).add(i[0]);
 		}
 
 		int l = n;
@@ -65,7 +54,7 @@ public class MinimumHeightTrees {
 	 * @param n
 	 * @param edges
 	 * @return
-	 * 2016Äê4ÔÂ9ÈÕ
+	 * 2016ï¿½ï¿½4ï¿½ï¿½9ï¿½ï¿½
 	 * @author Jiupeng
 	 * @description not finished, O(n^2) time complexity, too slow
 	 * @reference 
