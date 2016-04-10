@@ -22,15 +22,21 @@ public class CourseSchedule {
 		boolean[] visited = new boolean[numCourses];
 		Map<Integer, Set<Integer>> edges = generateEdges(numCourses, prerequisites);
 		for (int i = 0; i < numCourses; ++i)
-			if (!visited[i] && DFS(numCourses, visited, i, i, edges))
-				return true;
-		return false;
+			if (!visited[i] && DFS(visited, i, i, edges))
+				return false;
+		return true;
 	}
 
-	private boolean DFS(int numCourses, boolean[] visited, int from, int now, Map<Integer, Set<Integer>> edges) {
+	private boolean DFS(boolean[] visited, int[] backVerticle, int now, Map<Integer, Set<Integer>> edges) {
+		visited[now] = true;
 		Set<Integer> links = edges.get(now);
-		if(links == null)
-			
+		if (links == null)
+			return false;
+		for (int descent : links)
+			if (descent == from || DFS(visited, from, descent, edges))
+				return true;
+
+		return false;
 	}
 
 	private Map<Integer, Set<Integer>> generateEdges(int numCourse, int[][] prerequisites) {
@@ -48,7 +54,10 @@ public class CourseSchedule {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		int numCourses = 4;
+		int[][] prerequisites = new int[][] { { 0, 1 }, { 3, 1 }, { 1, 3 }, { 3, 2 } };
+		CourseSchedule cs = new CourseSchedule();
+		System.out.println(cs.canFinish(numCourses, prerequisites));
 	}
 
 }
