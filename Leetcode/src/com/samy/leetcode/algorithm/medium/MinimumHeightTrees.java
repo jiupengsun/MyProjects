@@ -1,9 +1,7 @@
 package com.samy.leetcode.algorithm.medium;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class MinimumHeightTrees {
 
@@ -14,30 +12,39 @@ public class MinimumHeightTrees {
 	 * @return
 	 * 2016��4��9��
 	 * @author Jiupeng
-	 * @description
+	 * @description 66 test cases, 130ms beats 14.65%
 	 * @reference https://leetcode.com/problems/minimum-height-trees/
-	 * @interpretation
+	 * @interpretation https://www.hrwhisper.me/leetcode-minimum-height-trees/
 	 */
 	public List<Integer> findMinHeightTrees(int n, int[][] edges) {
 		List<Integer> roots = new ArrayList<Integer>();
 		int[] degree = new int[n];
-		List<Set<Integer>> links = new ArrayList<Set<Integer>>(n);
+		boolean[] leaves = new boolean[n];
+		List<List<Integer>> links = new ArrayList<List<Integer>>(n);
 		for (int i = 0; i < n; ++i)
-			links.add(new HashSet<Integer>());
+			links.add(new ArrayList<Integer>());
 		for (int[] i : edges) {
+			degree[i[0]]++;
+			degree[i[1]]++;
 			links.get(i[0]).add(i[1]);
 			links.get(i[1]).add(i[0]);
 		}
 
 		int l = n;
 		while (n > 2) {
+			for (int d = 0; d < l; ++d)
+				if (degree[d] == 1)
+					leaves[d] = true;
+
 			for (int i = 0; i < l; ++i) {
-				if (degree[i] == 1) {
+				if (leaves[i]) {
+					// remove leaves
 					degree[i] = -1;
-					Set<Integer> set = links.get(i);
+					List<Integer> set = links.get(i);
 					for (int node : set)
 						degree[node]--;
 					--n;
+					leaves[i] = false;
 				}
 			}
 		}
