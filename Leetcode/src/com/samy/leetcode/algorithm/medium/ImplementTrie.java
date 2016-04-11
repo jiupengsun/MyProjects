@@ -12,8 +12,8 @@ public class ImplementTrie {
 	 * Apr 11, 2016
 	 * @author Jiupeng
 	 * @description 14 test cases, 16ms beats 85.64%
-	 * @reference 
-	 * @interpretation
+	 * @reference https://leetcode.com/problems/implement-trie-prefix-tree/
+	 * @interpretation https://en.wikipedia.org/wiki/Trie
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
