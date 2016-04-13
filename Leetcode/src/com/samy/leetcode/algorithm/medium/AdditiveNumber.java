@@ -19,24 +19,26 @@ public class AdditiveNumber {
 			for (int j = i + 1; j <= t; ++j) {
 				n1 = Long.parseLong(num.substring(0, i + 1));
 				n2 = Long.parseLong(num.substring(i + 1, j + 1));
-				n3 = n1 + n2;
-				String s = String.valueOf(n3);
-				int p = 0, q = s.length();
-				while (p < q && j + 1 + p < l && num.charAt(j + 1 + p) == s.charAt(p))
-					++p;
-				if (p == q) {
+				int p = j + 1;
+				while(p<l){
+					n3 = n1+n2;
+					String s3 = String.valueOf(n3);
+					if(l-p < s3.length())
+						break;
+					for(int k=0, l3 = s3.length(); k<l3; ++k, ++p){
+						if(s3.charAt(k) != num.charAt(p))
+							break;
+					} 
 
-				} else {
-					// not equal
+				}
 				}
 			}
-		}
+		
 		return false;
 	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
 	}
 
 }
