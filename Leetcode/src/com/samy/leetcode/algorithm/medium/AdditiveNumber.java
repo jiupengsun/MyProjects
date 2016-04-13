@@ -19,15 +19,12 @@ public class AdditiveNumber {
 			for (int j = i + 1; j <= t; ++j) {
 				n1 = Long.parseLong(num.substring(0, i + 1));
 				n2 = Long.parseLong(num.substring(i + 1, j + 1));
-				n3 = n1 + n2;
-				String s = String.valueOf(n3);
-				int p = 0, q = s.length();
-				while (p < q && j + 1 + p < l && num.charAt(j + 1 + p) == s.charAt(p))
-					++p;
-				if (p == q) {
-
-				} else {
-					// not equal
+				int p = j + 1;
+				while(p < l){
+					n3 = n1 + n2;
+					String s3 = String.valueOf(n3);
+					if(l-p < n3.length())
+						break;
 				}
 			}
 		}
