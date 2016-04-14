@@ -16,19 +16,19 @@ public class WordBreak {
 	 * @interpretation
 	 */
 	public boolean wordBreak(String s, Set<String> wordDict) {
-		int i = 0, last = i, l = s.length();
-		while (i < l) {
-			for (String w : wordDict) {
-				if (s.startsWith(w, i)) {
-					i += w.length();
-					break;
-				}
+		List<Integer[]> pairs = new ArrayList<Integer[]>();
+		int l = s.length();
+		Iterator<String> words = wordDict.iterator();
+		while(words.hasNext()){
+			String word = words.next();
+			int i=-1,j=-1;
+			i = s.indexOf(word);
+			j = i+word.length();
+			for(int p=0, q=pairs.size(); p<q; ++p){
+				int[] pair = pairs.get(p);
+
 			}
-			if (last == i)
-				return false;
-			last = i;
 		}
-		return true;
 	}
 
 	public static void main(String[] args) {
