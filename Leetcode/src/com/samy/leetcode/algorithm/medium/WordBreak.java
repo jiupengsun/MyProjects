@@ -1,10 +1,8 @@
 package com.samy.leetcode.algorithm.medium;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class WordBreak {
 
@@ -13,47 +11,71 @@ public class WordBreak {
 	 * @param s
 	 * @param wordDict
 	 * @return
-	 * 2016Äê4ÔÂ14ÈÕ
+	 * Apr 18, 2016
 	 * @author Jiupeng
-	 * @description
+	 * @description 34 test cases, 12ms beats 31.03%
 	 * @reference https://leetcode.com/problems/word-break/
-	 * @interpretation
+	 * @interpretation http://www.programcreek.com/2012/12/leetcode-solution-word-break/
 	 */
 	public boolean wordBreak(String s, Set<String> wordDict) {
-		Map<Integer, Set<Integer>> seq = new HashMap<Integer, Set<Integer>>();
-		Iterator<String> words = wordDict.iterator();
-		// match the string with each word
-		// if matched, then put the start and end index in the map
-		while (words.hasNext()) {
-			String word = words.next();
-			int l = word.length();
-			//greedy search
-			int i = 0;
-			while (true) {
-				i = s.indexOf(word, i);
-				if (i == -1)
-					break;
-				Set<Integer> set = seq.get(i);
-				if (set == null)
-					set = new HashSet<Integer>();
-				set.add(i + l);
-				seq.put(i, set);
-				i += l;
+		int l = s.length();
+		boolean[] dp = new boolean[l + 1];
+		dp[0] = true;
+		for (int i = 0; i <= l; ++i) {
+			if (dp[i])
+				continue;
+			for (String word : wordDict) {
+				int len = word.length();
+				if (len > i)
+					continue;
+				int st = i - len;
+				if (dp[st] && s.substring(st, i).equals(word))
+					dp[i] = true;
 			}
 		}
 
-		return couldBreak(seq, 0, s.length());
+		return dp[l];
 	}
 
-	private boolean couldBreak(Map<Integer, Set<Integer>> seq, int start, int end) {
-		Set<Integer> set = seq.get(start);
-		if (set == null)
-			return false;
-		for (int index : set) {
-			if (index == end || couldBreak(seq, index, end))
-				return true;
+	/**
+	 * 
+	 * @param s
+	 * @param wordDict
+	 * @return
+	 * Apr 18, 2016
+	 * @author Jiupeng
+	 * @description 34 test cases, 10ms beats 63.20%
+	 * @reference 
+	 * @interpretation
+	 */
+	public boolean wordBreak2(String s, Set<String> wordDict) {
+		int l = s.length();
+		boolean[] dp = new boolean[l + 1];
+		dp[0] = true;
+		for (int i = 0; i < l; ++i) {
+			if (dp[i]) {
+				for (String word : wordDict) {
+					int len = word.length();
+					int end = i + len;
+					if (end > l)
+						continue;
+					if (word.equals(s.substring(i, end)))
+						dp[end] = true;
+				}
+			}
 		}
-		return false;
+		return dp[l];
+	}
+
+	public boolean wordBreak3(String s, Set<String> wordDict) {
+		StringBuilder sb = new StringBuilder();
+		for (String word : wordDict)
+			sb.append(word + "|");
+		String pattern = sb.deleteCharAt(sb.length() - 1).toString();
+		pattern = "(" + pattern + ")*";
+		Pattern p = Pattern.compile(pattern);
+		Matcher m = p.matcher(s);
+		return m.matches();
 	}
 
 	public static void main(String[] args) {
