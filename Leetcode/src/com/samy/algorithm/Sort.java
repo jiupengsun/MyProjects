@@ -55,7 +55,7 @@ public class Sort {
 		// TODO Auto-generated method stub
 
 		// int[] a = { 1, 5, 6, 23, 8, 3, 7, 9, 213 };
-		int[] a = { 2, 3, 1, 4 };
+		// int[] a = { 2, 3, 1, 4 };
 		String s = "abkefesicegesxklfehwalt";
 		int[] character = new int[s.length()];
 		for (int i = 0, l = s.length(); i < l; ++i)
