@@ -8,16 +8,15 @@ public class AdditiveNumber {
 	 * @return
 	 * Apr 11, 2016
 	 * @author Jiupeng
-	 * @description
+	 * @description 37 test cases, 2ms beats 68.74%
 	 * @reference https://leetcode.com/problems/additive-number/
 	 * @interpretation
 	 */
 	public boolean isAdditiveNumber(String num) {
 		int l = num.length();
 		long n1, n2, n3;
-		for (int i = 1, t = l >> 1; i <= t; ++i) {
-			for (int j = i + 1; j <= t + 1; ++j) {
-
+		for (int i = 1; i <= l-1; ++i) {
+			for (int j = i + 1; j <= l; ++j) {
 				n1 = Long.parseLong(num.substring(0, i));
 				n2 = Long.parseLong(num.substring(i, j));
 				int k = j;
@@ -36,7 +35,11 @@ public class AdditiveNumber {
 					} else
 						break;
 				}
+				if(num.charAt(i) == '0')
+					break;
 			}
+			if(num.startsWith("0"))
+				return false;
 		}
 		return false;
 	}
