@@ -12,17 +12,21 @@ set ignorecase
 set enc=utf-8
 set fencs=utf-8,gb2312,gbk
 set encoding=utf-8
+set backspace=indent,eol,start 
 
 if has("win32")
 	"windows platform
-	set guifont=Monospace:h14
-	colorscheme torte
+	set guifont=consolas:h14
+	colorscheme desert
 else
 	" distinguish vim and gvim
 	if has('gui_running')
 		"gvim
 		set guifont=Courier\ 10\ Pitch\ 12	
-		colorscheme desert
+		"colorscheme desert
+		"colorscheme welpe
+		"colorscheme ego
+		colorscheme mod8
 	else
 		"vim
 		set guifont=Courier\ New\ 14
@@ -39,6 +43,10 @@ set cot=menu
 syntax on
 filetype plugin indent on
 
+set langmenu=en_US
+let $LANG= 'en_US'
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
 
 " automated add comment
 "autocmd BufNewFile *.java exec ":call SetTitle()"
