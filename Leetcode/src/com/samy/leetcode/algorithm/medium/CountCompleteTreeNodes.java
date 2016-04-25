@@ -27,6 +27,16 @@ public class CountCompleteTreeNodes {
 		return countNodes(root.left) + countNodes(root.right) + 1;
 	}
 
+	/**
+	 * 
+	 * @param root
+	 * @return
+	 * 2016年4月24日
+	 * @author Jiupeng
+	 * @description 18 test cases, 78ms beats 83.42%
+	 * @reference https://leetcode.com/problems/count-complete-tree-nodes/
+	 * @interpretation 
+	 */
 	public int countNodes2(TreeNode root) {
 		int result = 0;
 		while (root != null) {
@@ -37,7 +47,7 @@ public class CountCompleteTreeNodes {
 				result += (1 << (h - 1)) - 1;
 				root = root.right;
 			} else {
-				result += (1 << (h - 1)) - 1;
+				result += (1 << (h - 2)) - 1;
 				root = root.left;
 			}
 		}
