@@ -8,73 +8,118 @@ public class BasicCalculatorII {
 	 * @return
 	 * Apr 25, 2016
 	 * @author Jiupeng
-	 * @description
+	 * @description It words, while may overflow if the input sequence is too long
 	 * @reference https://leetcode.com/problems/basic-calculator-ii/
 	 * @interpretation
 	 */
-	public int calculate(String s){
+	public int calculate(String s) {
 		// construct the tree
-		TreeNode root = parseTree(s);
+		Tree root = parseTree(s);
 		return calculate(root);
 	}
 
-	private TreeNode parseTree(String s){
-		TreeNode root, right;
-		int i=0, j=0, l=s.length();
-		while(i < l){
-			char c;
-			while(i < l){
+	private Tree parseTree(String s) {
+		int l = s.length(), i = 0, j = 0;
+		Tree root = null;
+		while (i < l) {
+			char c = 0;
+			while (i < l) {
 				c = s.charAt(i);
-				if(c != ' ' && c >= '9' || c <= '0')
+				if (c == ' ' || c <= '9' && c >= '0')
+					++i;
+				else
 					break;
-				++i;
 			}
-			TreeNode num = new TreeNode(Integer.parseInt(s.substring(j, i)), true);
-			if(root == null){
+			// truncate and transform to int
+			Tree num = new Tree(Integer.parseInt(s.substring(j, i).trim()), true);
+			if (root == null)
 				root = num;
-				right = root;
-			} else {
-				right.right = num;
+			else {
+				// always add data node to the rightmost
+				Tree tmp = root;
+				while (tmp.right != null)
+					tmp = tmp.right;
+				tmp.right = num;
 			}
 
-			if(i < l){
-				// c is an operator
-				TreeNode oper = new TreeNode(c, false);
-				if(right.type){
-					// operator
-					if (right.val == '+' || right.val == '-' && oper.val == '*' || oper.val == '/'){
-						// high priority
-						oper.left = right.left;
-						right.left = 
-					}
+			if (i < l) {
+				// contains next operator
+				Tree oper = new Tree(c, false);
+				// if root.type is true, which means root is a value node,
+				// the root should be an operator node if there are more than one numbers
+				// in the formula, thus we should replace root with new operator node
+				// on the other hand, if the root is an operator node with a non-lower priority
+				// let's say, the root is a + operator and new node is a - operator
+				// then we should replace root with new operator, and append root to 
+				// the left of the new operator
+				if (root.type || !hasHigherPriority(root, oper)) {
+					Tree tmp = root;
+					root = oper;
+					oper.left = tmp;
+				} else {
+					// otherwise, we should append the right node of root to the left of
+					// the new operator node, and replace right node of root with this
+					// new operator node
+					oper.left = root.right;
+					root.right = oper;
 				}
 			}
-			++i;
+			j = ++i;
 		}
 		return root;
 	}
 
-	private int calculate(TreeNode root){
-		if(root == null)
+	private boolean hasHigherPriority(Tree node1, Tree node2) {
+		return ((node1.val == '+' || node1.val == '-')
+				&& (node2.val == '*' || node2.val == '/'));
+	}
+
+	private int calculate(Tree root) {
+		if (root == null)
 			return 0;
-		if(root.type)	
+		if (root.type)
 			return root.val;
-		char c = (char)root.val;
+		char c = (char) root.val;
 		int left = calculate(root.left);
 		int right = calculate(root.right);
-		switch(c){
-			case '+':
-				return left + right;
-			case '-':
-				return left - right;
-			case '*':
-				return left * right;
-			case '/':
-				return left / right;
-			default:
-				return 0;
+		switch (c) {
+		case '+':
+			return left + right;
+		case '-':
+			return left - right;
+		case '*':
+			return left * right;
+		case '/':
+			return left / right;
+		default:
+			return 0;
 		}
-	
+
+	}
+
+	/**
+	 * 
+	 * @param s
+	 * @return
+	 * Apr 26, 2016
+	 * @author Jiupeng
+	 * @description
+	 * @reference 
+	 * @interpretation
+	 */
+	public int calculate2(String s) {
+		int l = s.length(), i = 0, j = 0;
+		Tree root = null;
+		while (i < l) {
+			char c = 0;
+			while (i < l) {
+				c = s.charAt(i);
+				if (c == ' ' || c <= '9' && c >= '0')
+					++i;
+				else
+					break;
+			}
+		}
 	}
 
 	public static void main(String[] args) {
@@ -83,18 +128,20 @@ public class BasicCalculatorII {
 		String s2 = " 3/2 ";
 		String s3 = " 3+5 / 2";
 		String s4 = "100000000/1/2/3/4/5/6/7/8/9/10";
+		String s5 = "1*2-3/4+5*6-7*8+9/10";
 		BasicCalculatorII bc = new BasicCalculatorII();
 		System.out.println(bc.calculate(s1));
 		System.out.println(bc.calculate(s2));
 		System.out.println(bc.calculate(s3));
 		System.out.println(bc.calculate(s4));
+		System.out.println(bc.calculate(s5));
 	}
 
 }
 
-class TreeNode {
-	
-	public TreeNode(int v, boolean t){
+class Tree {
+
+	public Tree(int v, boolean t) {
 		val = v;
 		type = t;
 	}
@@ -103,6 +150,6 @@ class TreeNode {
 	// false means operator, then val is the value of operator
 	// true means number
 	boolean type;
-	TreeNode left;
-	TreeNode right;
+	Tree left;
+	Tree right;
 }
