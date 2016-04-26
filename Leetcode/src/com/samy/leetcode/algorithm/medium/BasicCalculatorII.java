@@ -1,5 +1,7 @@
 package com.samy.leetcode.algorithm.medium;
 
+import java.util.Stack;
+
 public class BasicCalculatorII {
 
 	/**
@@ -70,8 +72,7 @@ public class BasicCalculatorII {
 	}
 
 	private boolean hasHigherPriority(Tree node1, Tree node2) {
-		return ((node1.val == '+' || node1.val == '-')
-				&& (node2.val == '*' || node2.val == '/'));
+		return ((node1.val == '+' || node1.val == '-') && (node2.val == '*' || node2.val == '/'));
 	}
 
 	private int calculate(Tree root) {
@@ -103,13 +104,14 @@ public class BasicCalculatorII {
 	 * @return
 	 * Apr 26, 2016
 	 * @author Jiupeng
-	 * @description
+	 * @description 109 test cases, 61ms beats 30.59%
 	 * @reference 
 	 * @interpretation
 	 */
 	public int calculate2(String s) {
 		int l = s.length(), i = 0, j = 0;
-		Tree root = null;
+		Stack<Integer> nums = new Stack<Integer>();
+		Stack<Character> opers = new Stack<Character>();
 		while (i < l) {
 			char c = 0;
 			while (i < l) {
@@ -119,6 +121,42 @@ public class BasicCalculatorII {
 				else
 					break;
 			}
+			int n = Integer.parseInt(s.substring(j, i).trim());
+			if (i < l) {
+				// get next operator	
+				while (!opers.isEmpty() && compare(opers.peek(), c) >= 0)
+					n = cal(nums.pop(), n, opers.pop());
+				nums.push(n);
+				opers.push(c);
+			} else {
+				while (!nums.isEmpty()) {
+					n = cal(nums.pop(), n, opers.pop());
+				}
+				return n;
+			}
+			j = ++i;
+		}
+		return 0;
+	}
+
+	private int compare(char c, char o) {
+		int c1 = (c == '+' || c == '-') ? 0 : 1;
+		int o1 = (o == '+' || o == '-') ? 0 : 1;
+		return c1 > o1 ? 1 : c1 == o1 ? 0 : -1;
+	}
+
+	private int cal(int m, int n, char c) {
+		switch (c) {
+		case '+':
+			return m + n;
+		case '-':
+			return m - n;
+		case '*':
+			return m * n;
+		case '/':
+			return m / n;
+		default:
+			return 0;
 		}
 	}
 
@@ -130,11 +168,11 @@ public class BasicCalculatorII {
 		String s4 = "100000000/1/2/3/4/5/6/7/8/9/10";
 		String s5 = "1*2-3/4+5*6-7*8+9/10";
 		BasicCalculatorII bc = new BasicCalculatorII();
-		System.out.println(bc.calculate(s1));
-		System.out.println(bc.calculate(s2));
-		System.out.println(bc.calculate(s3));
-		System.out.println(bc.calculate(s4));
-		System.out.println(bc.calculate(s5));
+		System.out.println(bc.calculate2(s1));
+		System.out.println(bc.calculate2(s2));
+		System.out.println(bc.calculate2(s3));
+		System.out.println(bc.calculate2(s4));
+		System.out.println(bc.calculate2(s5));
 	}
 
 }
