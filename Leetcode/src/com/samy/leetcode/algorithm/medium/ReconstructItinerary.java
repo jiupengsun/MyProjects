@@ -42,8 +42,8 @@ public class ReconstructItinerary {
 			String tmp = null;
 			for (int i = 0, l = next.size(); i < l; ++i) {
 				if (order.containsKey(next.get(i))) {
-					
-					tmp = next.remove(i);
+					while(i < l-- && (tmp=next.remove(i)).equals(next.get(i)))
+						cons.add(tmp);
 					break;
 				}
 			}
