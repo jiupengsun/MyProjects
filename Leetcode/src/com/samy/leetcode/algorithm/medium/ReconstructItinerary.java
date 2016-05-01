@@ -1,8 +1,6 @@
 package com.samy.leetcode.algorithm.medium;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -15,55 +13,61 @@ public class ReconstructItinerary {
 	 * @return
 	 * 2016年5月1日
 	 * @author Jiupeng
-	 * @description
+	 * @description 79 test cases, 21ms beats 33.30%
 	 * @reference https://leetcode.com/problems/reconstruct-itinerary/
-	 * @interpretation
+	 * @interpretation When facing the graph problem, dfs and bfs are the most common used methods
 	 */
 	public List<String> findItinerary(String[][] tickets) {
-		Map<String, List<String>> order = new HashMap<String, List<String>>();
-		for (String[] t : tickets) {
-			List<String> list = null;
-			if ((list = order.get(t[0])) != null) {
-				int i = 0, l = list.size();
-				while (i < l && t[1].compareTo(list.get(i)) > 0)
+		Map<String, List<String[]>> route = new HashMap<String, List<String[]>>();
+		List<String> order = new LinkedList<String>();
+		for (String[] ss : tickets) {
+			String[] f = new String[2];
+			f[0] = ss[1];
+			f[1] = "0";
+			List<String[]> l = route.get(ss[0]);
+			if (l != null) {
+				int i = 0, length = l.size();
+				while (i < length && f[0].compareTo(l.get(i)[0]) > 0)
 					++i;
-				list.add(i, t[1]);
+				l.add(i, f);
 			} else {
-				list = new LinkedList<String>();
-				list.add(t[1]);
-				order.put(t[0], list);
+				l = new LinkedList<String[]>();
+				l.add(f);
+				route.put(ss[0], l);
 			}
 		}
-		List<String> cons = new ArrayList<String>();
-		String last = "JFK";
-		while (true) {
-			cons.add(last);
-			List<String> next = order.get(last);
-			String tmp = null;
-			for (int i = 0, l = next.size(); i < l; ++i) {
-				if (order.containsKey(next.get(i))) {
-					while(i < l-- && (tmp=next.remove(i)).equals(next.get(i)))
-						cons.add(tmp);
-					break;
-				}
+		order.add("JFK");
+		dfs(route, order, "JFK", tickets.length + 1);
+		return order;
+	}
+
+	private boolean dfs(Map<String, List<String[]>> route, List<String> order, String flight, int total) {
+		if (order.size() == total)
+			return true;
+		List<String[]> next = route.get(flight);
+		if (next == null || next.size() == 0)
+			return false;
+		for (String[] ss : next) {
+			if (ss[1].equals("0")) {// not visited yet
+				ss[1] = "1";
+				order.add(ss[0]);
+				if (dfs(route, order, ss[0], total))
+					return true;
+				order.remove(order.size() - 1);
+				ss[1] = "0";
 			}
-			if (tmp == null) {
-				Iterator<String> keys = order.keySet().iterator();
-				while (keys.hasNext()) {
-					List<String> l = order.get(keys.next());
-					cons.addAll(l);
-				}
-				return cons;
-			}
-			if (next.size() == 0)
-				order.remove(last);
-			last = tmp;
 		}
+		return false;
 	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		String[][] tickets = { { "MUC", "LHR" }, { "JFK", "MUC" }, { "SFO", "SJC" }, { "LHR", "SFO" }, { "JFK", "MUC" } };
+		/*String[][] tickets = { { "EZE", "TIA" }, { "EZE", "HBA" }, { "AXA", "TIA" }, { "JFK", "AXA" }, { "ANU", "JFK" },
+				{ "ADL", "ANU" }, { "TIA", "AUA" }, { "ANU", "AUA" }, { "ADL", "EZE" }, { "ADL", "EZE" }, { "EZE", "ADL" },
+				{ "AXA", "EZE" }, { "AUA", "AXA" }, { "JFK", "AXA" }, { "AXA", "AUA" }, { "AUA", "ADL" }, { "ANU", "EZE" },
+				{ "TIA", "ADL" }, { "EZE", "ANU" }, { "AUA", "ANU" } };*/
+		String[][] tickets = { { "EZE", "AXA" }, { "TIA", "ANU" }, { "ANU", "JFK" }, { "JFK", "ANU" }, { "ANU", "EZE" },
+				{ "TIA", "ANU" }, { "AXA", "TIA" }, { "TIA", "JFK" }, { "ANU", "TIA" }, { "JFK", "TIA" } };
 		ReconstructItinerary ri = new ReconstructItinerary();
 		ri.findItinerary(tickets);
 	}
