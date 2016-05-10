@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="EclipseCodeFormatter">
+    <option name="defaultSettings" value="true" />
+    <option name="eclipseVersion" value="ECLIPSE_44" />
+    <option name="formatter" value="ECLIPSE" />
+    <option name="id" value="1462524800368" />
+    <option name="importOrderConfigFilePath" value="$PROJECT_DIR$/../../../workspace/ECISP/trunk/doc/idea_CodeTemplate.xml" />
+    <option name="importOrdering" value="ECLIPSE_451" />
+    <option name="name" value="default" />
+    <option name="pathToConfigFileJava" value="$PROJECT_DIR$/../../../workspace/ECISP/trunk/doc/idea_CodeTemplate.xml" />
+    <option name="pathToEclipse" value="$USER_HOME$/Applications/eclipse" />
+    <option name="selectedJavaProfile" value="Eclipse [samy]" />
+    <option name="useForLiveTemplates" value="true" />
+    <option name="useOldEclipseJavaFormatter" value="true" />
+  </component>
   <component name="EntryPointsManager">
     <entry_points version="2.0" />
   </component>
