@@ -98,6 +98,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -108,9 +111,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -556,7 +556,7 @@
     <option name="remove_strategy" value="false" />
   </component>
   <component name="SvnConfiguration">
-    <configuration />
+    <configuration>$USER_HOME$/.subversion</configuration>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -572,14 +572,15 @@
       <workItem from="1464010540944" duration="568000" />
       <workItem from="1464011129404" duration="249000" />
       <workItem from="1464011401455" duration="60000" />
+      <workItem from="1464048675542" duration="40000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15175000" />
+    <option name="totallyTimeSpent" value="15215000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="-37" width="1366" height="805" extended-state="1" />
+    <frame x="0" y="-37" width="1366" height="805" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
