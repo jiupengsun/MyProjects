@@ -3,7 +3,7 @@ package com.samy.algorithm;
 public class Sort {
 
 	public static void quickSort(int[] a, int st, int en, boolean asc) {
-		if (st >= en)
+/*		if (st >= en)
 			return;
 		int i = st, j = en, sentinel = a[st];
 		while (i < j) {
@@ -22,7 +22,26 @@ public class Sort {
 		}
 		a[i] = sentinel;
 		quickSort(a, st, i - 1, asc);
-		quickSort(a, i + 1, en, asc);
+		quickSort(a, i + 1, en, asc);*/
+    if (st >= en)
+      return;
+    int i = st, j = en, sentinel = a[i];
+    while(i < j) {
+      while(j > i && (a[j] <= sentinel ^ asc) )
+        j--;
+      if (j > i) {
+        a[i++] = a[j];
+      }
+      while(i < j && (a[i] > sentinel ^ asc)) {
+        i++;
+      }
+      if (i < j) {
+        a[j--] = a[i];
+      }
+    }
+    a[i] = sentinel;
+    quickSort(a, st, i-1, asc);
+    quickSort(a, i+1, en, asc);
 	}
 
 	public static void bubbleSort(int[] a, int st, int en, boolean asc) {

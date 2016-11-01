@@ -9,7 +9,6 @@ public class FrogPond {
 	 * @param X
 	 * @param D
 	 * @return
-	 * 2016Äê1ÔÂ26ÈÕ
 	 * @author Jiupeng
 	 * @description
 	 * @reference http://www.1point3acres.com/bbs/thread-137338-1-1.html

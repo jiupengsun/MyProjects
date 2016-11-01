@@ -8,7 +8,6 @@ public class VerifyPreorderSerializationofaBinaryTree {
 	 * 
 	 * @param preorder
 	 * @return
-	 * 2016年3月26日
 	 * @author Jiupeng
 	 * @description 150 test cases, 15ms beats 36.72%
 	 * @reference https://leetcode.com/problems/verify-preorder-serialization-of-a-binary-tree/
@@ -35,7 +34,6 @@ public class VerifyPreorderSerializationofaBinaryTree {
 	 * 
 	 * @param preorder
 	 * @return
-	 * 2016年3月27日
 	 * @author Jiupeng
 	 * @description 150 test cases, 6ms beats 97.70%. Using array instead of stack, and remove the split method
 	 * @reference 
@@ -66,7 +64,6 @@ public class VerifyPreorderSerializationofaBinaryTree {
 	 * 
 	 * @param preorder
 	 * @return
-	 * 2016年3月27日
 	 * @author Jiupeng
 	 * @description 150 test cases, 6ms beats 97.7%
 	 * Counting the in-degree and out-degree, in the normal cases, the total degree of a binary tree
