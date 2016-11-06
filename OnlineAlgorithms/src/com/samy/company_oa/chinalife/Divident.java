@@ -35,7 +35,7 @@ public class Divident {
   }
 
   private static void calculate(Insurance[] ins, int index, List<List<Integer>> list) {
-    if (index == ins.length - 1) {
+    if (index == ins.length) {
       int days = 0;
       int interest = 0;
       for(Insurance in : ins) {
@@ -62,10 +62,10 @@ public class Divident {
         list.add(lcur);
       }
     } else {
-      for(int i=index+1; i<ins.length; ++i) {
+      for(int i=index; i<ins.length; ++i) {
         swap(ins, index, i);
         // permutate elements after index
-        calculate(ins, i, list);
+        calculate(ins, i+1, list);
         swap(ins, i, index);
       }
     }
