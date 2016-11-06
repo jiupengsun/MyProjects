@@ -1,49 +1,21 @@
 package com.samy.leetcode.algorithm.medium;
 
-public class ImplementTrie {
-	// Your Trie object will be instantiated and called as such:
-	// Trie trie = new Trie();
-	// trie.insert("somestring");
-	// trie.search("key");
+import java.util.Stack;
 
-	/**
-	 * 
-	 * @param args
-	 * Apr 11, 2016
-	 * @author Jiupeng
-	 * @description 14 test cases, 16ms beats 85.64%
-	 * @reference https://leetcode.com/problems/implement-trie-prefix-tree/
-	 * @interpretation https://en.wikipedia.org/wiki/Trie
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Trie trie = new Trie();
-		trie.insert("something");
-		System.out.println(trie.search("some"));
-		System.out.println(trie.search("something"));
-		System.out.println(trie.search("key"));
-		System.out.println(trie.startsWith("ana"));
-		System.out.println(trie.startsWith("some"));
 
-		Trie trie2 = new Trie();
-		trie2.insert("abc");
-		System.out.println(trie2.search("abc"));
-		System.out.println(trie2.search("ab"));
-		trie2.insert("ab");
-		System.out.println(trie2.search("ab"));
-		trie2.insert("ab");
-		System.out.println(trie2.search("ab"));
-	}
-}
-
-class Trie {
+public class Trie {
 
 	private TrieNode root;
+  private boolean isEmpty;
 
 	public Trie() {
 		root = new TrieNode();
+    isEmpty = false;
 	}
 
+	public boolean isEmpty() {
+    return isEmpty;
+  }
 	// Inserts a word into the trie.
 	public void insert(String word) {
 		TrieNode father = root;
@@ -57,6 +29,7 @@ class Trie {
 			father = child;
 		}
 		father.stop = true;
+    isEmpty = false;
 	}
 
 	// Returns if the word is in the trie.
@@ -83,6 +56,43 @@ class Trie {
 		}
 		return true;
 	}
+
+	/**
+	 * delete a specific word
+	 * @param word
+	 */
+	public void delete(String word) {
+		Stack<TrieNode> stack = new Stack<>();
+		TrieNode father = root;
+    char[] array = word.toCharArray();
+		for(char c : array) {
+			if (father.branches[c - 'a'] == null)
+				return;
+			stack.push(father);
+			father = father.branches[c - 'a'];
+		}
+		father.stop = false;
+
+    // delete route that has no available children
+    for(int i=array.length - 1; i>=0; --i) {
+      father = stack.pop();
+      if (isFreeNode(father.branches[array[i] - 'a']))
+        // no branches, then delete the whole branch
+        father.branches[array[i] - 'a'] = null;
+    }
+
+    isEmpty = isFreeNode(root);
+	}
+
+	private boolean isFreeNode(TrieNode node) {
+    if (node == null)
+      return true;
+    for(TrieNode child : node.branches) {
+      if (child != null)
+        return false;
+    }
+    return true;
+  }
 
 }
 
