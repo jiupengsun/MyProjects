@@ -35,11 +35,16 @@ public class BitMagic {
     while(!que.isEmpty()) {
       Path p = que.poll();
       char[] s = p.current_state;
-      if (hasVisited.add(String.valueOf(s))) {
+      List<char[]> pre = p.prePath;
+      char[] last = pre.size()==0 ? new char[s.length] : pre.get(pre.size()-1);
+      if (hasVisited.add(String.valueOf(s) + String.valueOf(last))) {
         // not visited yet
-        List<char[]> pre = p.prePath;
-        List<char[]> next = getNextState(s);
-        for(char[]  n : next) {
+        List<char[]> next;
+        if (pre.size() == 0)
+          next = getNextState(s, null);
+        else
+          next = getNextState(s, pre.get(pre.size()-1));
+        for(char[] n : next) {
           if (dest.equals(String.valueOf(n))) {
             // find a path, add it into list
             pre.add(s);
@@ -66,36 +71,36 @@ public class BitMagic {
     return shortest;
   }
 
-  private static List<char[]> getNextState(char[] current) {
+  private static List<char[]> getNextState(char[] current, char[] last) {
     int length = current.length;
     List<char[]> next = new ArrayList<>();
-    for(int i=length-1; i>0; --i) {
-      if(current[i-1] == 'L') {
-        // previous bit is light
-        // then could change this one
-        char[] n = new char[length];
-        for(int j=0; j<length; ++j) {
-          if (j != i) {
-            n[j] = current[j];
-          } else {
-            if (current[j] == 'L')
-              n[j] = 'D';
-            else
-              n[j] = 'L';
-          }
-        }
-        next.add(n);
+    if (last != null) {
+      int change=0;
+      // find the first change
+      while(change<length && current[change] == last[change]) {
+        ++change;
       }
+      for(int i=length-1; i>change; --i) {
+        if(current[i-1] == 'L') {
+          // previous bit is light
+          // then could change this one
+          char[] n = Arrays.copyOf(current, length);
+          if (current[i] == 'L')
+            n[i] = 'D';
+          else
+            n[i] = 'L';
+          next.add(n);
+        }
+      }
+
     }
+
     // change the first bit state
-    char[] n = new char[length];
+    char[] n = Arrays.copyOf(current, length);
     if (current[0] == 'D')
       n[0] = 'L';
     else
       n[0] = 'D';
-    for(int i=1; i<length; ++i) {
-      n[i] = current[i];
-    }
     next.add(n);
 
     return next;
