@@ -1,5 +1,7 @@
 package com.samy.leetcode.algorithm.medium;
 
+import com.samy.datastructure.Heap;
+
 import java.util.Arrays;
 
 public class KthLargestElementinanArray {
@@ -9,7 +11,6 @@ public class KthLargestElementinanArray {
 	 * @param nums
 	 * @param k
 	 * @return
-	 * 2016年3月21日
 	 * @author Jiupeng
 	 * @description 31 test cases, 4ms beats 80.07%
 	 * @reference https://leetcode.com/problems/kth-largest-element-in-an-array/
@@ -25,7 +26,6 @@ public class KthLargestElementinanArray {
 	 * @param nums
 	 * @param k
 	 * @return
-	 * 2016年3月21日
 	 * @author Jiupeng
 	 * @description 31 test cases, 130ms beats 2.49%
 	 * @reference 
@@ -55,7 +55,6 @@ public class KthLargestElementinanArray {
 	 * @param nums
 	 * @param k
 	 * @return
-	 * 2016年3月23日
 	 * @author Jiupeng
 	 * @description 31 test cases, 4ms beats 80.07%
 	 * @reference 
@@ -85,11 +84,11 @@ public class KthLargestElementinanArray {
 	}
 
 	/**
-	 * 
+	 *
+   * quick selection algorithm to solve this problem
 	 * @param nums
 	 * @param k
 	 * @return
-	 * 2016年3月23日
 	 * @author Jiupeng
 	 * @description
 	 * @reference  https://en.wikipedia.org/wiki/Median_of_medians
@@ -127,7 +126,6 @@ public class KthLargestElementinanArray {
 	 * @param left
 	 * @param right
 	 * @return
-	 * 2016年3月23日
 	 * @author Jiupeng
 	 * @description passed
 	 * @reference 
@@ -150,7 +148,6 @@ public class KthLargestElementinanArray {
 	 * @param left
 	 * @param right
 	 * @return
-	 * 2016年3月23日
 	 * @author Jiupeng
 	 * @description not passed yet
 	 * @reference 
@@ -174,7 +171,6 @@ public class KthLargestElementinanArray {
 	 * @param left
 	 * @param right
 	 * @return
-	 * 2016年3月23日
 	 * @author Jiupeng
 	 * @description directly using insertion sort
 	 * @reference https://en.wikipedia.org/wiki/Insertion_sort
@@ -207,11 +203,32 @@ public class KthLargestElementinanArray {
 		nums[b] = t;
 	}
 
+  /**
+   * using heap to solve this problem
+   * @param nums
+   * @param k
+   * @return
+   */
+	public int findKthLargest4(int[] nums, int k) {
+    int length = nums.length;
+    // suppose k is always less or equal than length
+    // build min heap
+    Heap.min_heapify(nums, k);
+    for (int i=k; i<length; ++i) {
+      if (nums[i] > nums[0]) {
+        // stop top k largest elements in heap
+        swap(nums, 0, i);
+        Heap.min_heapify(nums, k);
+      }
+    }
+    return nums[0];
+  }
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int[] nums = { 3, 2, 1, 5, 6, 4 };
 		KthLargestElementinanArray ke = new KthLargestElementinanArray();
-		System.out.println(ke.findKthLargest3(nums, 2));
+		System.out.println(ke.findKthLargest4(nums, 6));
 	}
 
 }

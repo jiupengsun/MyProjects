@@ -8,33 +8,55 @@ package com.samy.leetcode.algorithm.easy;
  */
 public class MinStack {
 
-	private int[] stack = new int[20000];
-	private int point = -1;
-	private int[] minStack = new int[20000];
+	private int initialCapacity = 50;
+	private int[] stack;
+	private int pointer;
+	private int[] minStack;
+
+	public MinStack() {
+		stack = new int[initialCapacity];
+		minStack = new int[initialCapacity];
+		pointer = -1;
+	}
+
+	public MinStack(int size) {
+		initialCapacity = size;
+		new MinStack();
+	}
 
 	public void push(int x) {
-		++point;
-		stack[point] = x;
-		if (point == 0) {
+		ensureCapacity();
+		++pointer;
+		stack[pointer] = x;
+		if (pointer == 0) {
 			minStack[0] = 0;
 		} else {
-			if (x > stack[minStack[point - 1]])
-				minStack[point] = minStack[point - 1];
-			else
-				minStack[point] = point;
+			minStack[pointer] = x < stack[minStack[pointer-1]] ? pointer : minStack[pointer-1];
 		}
 	}
 
 	public void pop() {
-		--point;
+		if(pointer > -1)
+			--pointer;
 	}
 
 	public int top() {
-		return stack[point];
+		return stack[pointer];
 	}
 
 	public int getMin() {
-		return stack[minStack[point]];
+		return stack[minStack[pointer]];
+	}
+
+	private void ensureCapacity() {
+		if(pointer == stack.length-1) {
+			int old_size = stack.length;
+			int new_size = old_size + (old_size>>1) + 1;
+			int[] tmp_stack = new int[new_size];
+			int[] tmp_minStack = new int[new_size];
+			System.arraycopy(stack, 0, tmp_stack, 0, old_size);
+			System.arraycopy(minStack, 0, tmp_minStack, 0, old_size);
+		}
 	}
 
 	public static void main(String[] args) {
