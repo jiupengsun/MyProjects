@@ -1,5 +1,8 @@
 package com.samy.leetcode.algorithm.medium;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class NumberofIslands {
 
 	private final int[][] direction = new int[][] { { 0, -1 }, // left
@@ -31,7 +34,8 @@ public class NumberofIslands {
 		for (int i = 0; i < m; ++i)
 			for (int j = 0; j < n; ++j)
 				if (grid[i][j] == '1' && !visited[i][j]) {
-					DFS(grid, i, j, visited);
+					//DFS(grid, i, j, visited);
+					bfs(grid, m, n, i, j, visited);
 					++count;
 				}
 
@@ -48,6 +52,31 @@ public class NumberofIslands {
 		}
 	}
 
+	private void bfs(char[][] grid, int row, int col, int pos_i, int pos_j, boolean[][] visited) {
+		Queue<int[]> queue = new LinkedList<>();
+		queue.add(new int[]{pos_i, pos_j});
+		while(!queue.isEmpty()) {
+			int[] pos = queue.poll();
+			int i = pos[0], j= pos[1];
+			if(!visited[i][j]) {
+				visited[i][j] = true;
+				// check the surrounding
+				// left
+				if(j>0 && grid[i][j-1]=='1' && !visited[i][j-1])
+					queue.add(new int[]{i, j-1});
+				// up
+				if(i>0 && grid[i-1][j]=='1' && !visited[i-1][j])
+					queue.add(new int[]{i-1, j});
+				// right
+				if(j<col-1 && grid[i][j+1]=='1' && !visited[i][j+1])
+					queue.add(new int[]{i, j+1});
+				// bottom
+				if(i<row-1 && grid[i+1][j]=='1' && !visited[i+1][j])
+					queue.add(new int[]{i+1, j});
+			}
+		}
+	}
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		char[][] grid1 = new char[][] { { '1', '1', '1', '1', '0' }, { '1', '1', '0', '1', '0' },
@@ -57,9 +86,13 @@ public class NumberofIslands {
 		char[][] grid3 = new char[][] { { '1', '1', '1' }, { '0', '1', '0' }, { '1', '1', '1' } };
 		char[][] grid4 = new char[][] { { '1', '0', '1', '1', '1' }, { '1', '0', '1', '0', '1' },
 				{ '1', '1', '1', '0', '1' } };
+		String[] grid5_s = {"11111011111111101011","01111111111110111110","10111001101111111111","11110111111111111111","10011111111111111111","10111111011101110111","01111111111101101111","11111111111101111011","11111111110111111111","11111111111111111111","01111111011111111111","11111111111111111111","11111111111111111111","11111011111110111111","10111110111011110111","11111111111101111110","11111111111110111100","11111111111111111111","11111111111111111111","11111111111111111111"};
+		char[][] grid5 = new char[grid5_s.length][grid5_s[0].length()];
+		for(int i=0; i<grid5_s.length; ++i)
+			grid5[i] = grid5_s[i].toCharArray();
 
 		NumberofIslands ni = new NumberofIslands();
-		System.out.println(ni.numIslands(grid4));
+		System.out.println(ni.numIslands(grid5));
 
 	}
 
