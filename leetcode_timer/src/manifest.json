@@ -1,0 +1,25 @@
+{
+  "manifest_version": 2,
+
+  "name": "Leetcode Timer",
+  "description": "This extension add a countdown timer on Leetcode page",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  },
+	"background": {
+		"scripts": ["background.js"],
+		"persistent": true
+	},
+	"content_scripts": [
+		{
+			"matches": ["https://leetcode.com/*"],
+			"js": ["jquery.min.js", "content.js"]
+		}	
+	],
+  "permissions": [
+    "activeTab"
+  ]
+}
