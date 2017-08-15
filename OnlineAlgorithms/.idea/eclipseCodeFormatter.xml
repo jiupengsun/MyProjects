@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="EclipseCodeFormatterProjectSettings">
+    <option name="selectedGlobalProfile">
+      <Settings>
+        <option name="formatter" value="ECLIPSE" />
+        <option name="id" value="1469235050326" />
+        <option name="name" value="default" />
+        <option name="pathToConfigFileJava" value="$PROJECT_DIR$/../../../Nutstore/Configuration Files/idea_codeTemplate.xml" />
+        <option name="selectedJavaProfile" value="samparly" />
+      </Settings>
+    </option>
+  </component>
+</project>
