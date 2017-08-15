@@ -1,0 +1,49 @@
+<!doctype html>
+<!--
+ This page is shown when the extension button is clicked, because the
+ "browser_action" field in manifest.json contains the "default_popup" key with
+ value "popup.html".
+ -->
+<html>
+  <head>
+    <title>Getting Started Extension's Popup</title>
+    <style>
+      body {
+        font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+        font-size: 100%;
+      }
+      #status {
+        /* avoid an excessively wide status text */
+        width: 200px;
+      }
+
+			#status input {
+				width: 20px;	
+			}
+    </style>
+
+    <!--
+      - JavaScript and HTML must be in separate files: see our Content Security
+      - Policy documentation[1] for details and explanation.
+      -
+      - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
+     -->
+  </head>
+  <body>
+    <div id="status">
+			Easy: <input id="easy" type="text"/> minutes
+			<br>
+			Medium: <input id="medium" type="text" /> minutes
+			<br>
+			Hard: <input id="hard" type="text" /> minutes
+			<br>
+			Warn: <input id="warn" type="checkbox" />
+			<br>
+			<input id="OK" style="width:40px;" type="button" value="OK" />&nbsp;
+			<input id="Reset" style="width:40px" type="button" value="Reset" />
+		</div>
+  </body>
+	<script src="jquery.min.js"></script>
+	<script src="popup.js"></script>
+</html>
+
