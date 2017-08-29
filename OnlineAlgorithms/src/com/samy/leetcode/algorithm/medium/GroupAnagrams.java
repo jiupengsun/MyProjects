@@ -9,7 +9,7 @@ import java.util.Map;
 public class GroupAnagrams {
 
 	/**
-	 * 
+	 *
 	 * @param strs
 	 * @return
 	 * Apr 8, 2016
@@ -19,39 +19,22 @@ public class GroupAnagrams {
 	 * @interpretation
 	 */
 	public List<List<String>> groupAnagrams(String[] strs) {
-		List<List<String>> anagrams = new ArrayList<List<String>>();
-		Map<String, List<String>> maps = new HashMap<String, List<String>>();
-		int[] flag = new int[26];
-		for (String s : strs) {
-			for (int i = 0, l = s.length(); i < l; ++i)
-				flag[s.charAt(i) - 'a']++;
-			String h = hash(flag);
-			List<String> list = maps.get(h);
-			if (list != null) {
-				// contains
-				int j = 0, k = list.size();
-				while (j < k && s.compareTo(list.get(j)) > 0)
-					++j;
-				list.add(j, s);
-			} else {
-				list = new ArrayList<String>();
-				list.add(s);
-				maps.put(h, list);
+		Map<String, List<String>> map = new HashMap<>();
+		for(String s: strs) {
+			int[] letters = new int[26];
+			for(Character c: s.toCharArray()) {
+				letters[c - 'a']++;
 			}
-			flag = new int[26];
+			StringBuilder sb = new StringBuilder("");
+			for(int i: letters) {
+				sb.append(i + ",");
+			}
+			String iden = sb.toString();
+			List<String> list = map.getOrDefault(iden, new ArrayList<>());
+			list.add(s);
+			map.put(iden, list);
 		}
-		Iterator<String> keys = maps.keySet().iterator();
-		while (keys.hasNext())
-			anagrams.add(maps.get(keys.next()));
-
-		return anagrams;
-	}
-
-	private String hash(int[] flag) {
-		StringBuilder sb = new StringBuilder();
-		for (int f : flag)
-			sb.append(f + ".");
-		return sb.toString();
+		return new ArrayList<>(map.values());
 	}
 
 	public static void main(String[] args) {

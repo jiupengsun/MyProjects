@@ -8,113 +8,76 @@ import java.util.Map;
  * https://leetcode.com/problems/lru-cache/
  */
 public class LRUCache {
-
-  private class Block {
-    Block(int key, int value){
-      this.key = key;
-      this.value = value;
-    }
+  class Node {
     int key;
     int value;
-    Block prev;
-    Block next;
+    Node prev, next;
+
+    Node(int k, int v) {
+      key = k;
+      value = v;
+    }
   }
 
-  private Block head;
-  private Block tail;
-  private int max_capacity;
-  private int current_capacity;
-  private Map<Integer, Block> cacheMap;
+  int capacity;
+  int currentSize;
+  Map<Integer, Node> map;
+  Node head, tail;
 
   public LRUCache(int capacity) {
-    if (capacity > 0) {
-      this.max_capacity = capacity;
-      this.current_capacity = 0;
-      cacheMap = new HashMap<>(capacity);
-    }
+    this.capacity = capacity;
+    currentSize = 0;
+    map = new HashMap<>(capacity);
+    head = null;
+    tail = null;
   }
 
   public int get(int key) {
-    Block node = cacheMap.get(key);
-    if (node == null)
+    Node n = map.get(key);
+    if (n == null)
       return -1;
-    updateNode(node);
-    return node.value;
+    update(n);
+    return n.value;
   }
 
-  private Block getNode(int key) {
-    Block b = head;
-    while(b!=null && b.key!=key)
-      b = b.next;
-    // not found
-    if(b != null) {
-      // using LRU
-      updateNode(b);
-    }
-    return b;
-  }
-
-  public void set(int key, int value) {
-    Block node = cacheMap.get(key);
-    if (node != null) {
-      node.value = value;
-      cacheMap.put(key, node);
-      updateNode(node);
-      return;
-    }
-    if (current_capacity < max_capacity) {
-      this.current_capacity++;
-      node = new Block(key, value);
-      if (head == null) {
-        // empty list
-        head = node;
-        tail = node;
-      } else {
-        head.prev = node;
-        node.next = head;
-        head = node;
+  public void put(int key, int value) {
+    Node n = map.get(key);
+    if(n == null) {
+      n = new Node(key, value);
+      map.put(key, n);
+      if(head == null) {
+        head = n;
+        tail = n;
+        currentSize++;
+        return;
       }
-      cacheMap.put(key, node);
-    } else if(current_capacity == max_capacity) {
-      // reach the maximum size
-      // then evict tail node
-      cacheMap.remove(tail.key);
-      tail.key = key;
-      tail.value = value;
-      cacheMap.put(key, tail);
-      updateNode(tail);
+      n.next = head;
+      head.prev = n;
+      head = n;
+      if(currentSize == capacity) {
+        map.remove(tail.key);
+        tail = tail.prev;
+        tail.next = null;
+      } else
+        currentSize++;
+    } else {
+      n.value = value;
+      update(n);
     }
-
   }
 
-  /**
-   * when using a node, update it by inserting
-   * it before the head, and update the head and tail
-   * @param node
-   */
-  private void updateNode(Block node) {
-    if(node == head)
-      // no need to update
+  private void update(Node n) {
+    if(currentSize == 1 || head == n)
       return;
-    if(node == tail && tail.prev != null) {
-      // more than one node
-      // update tail
-      Block tt = tail.prev;
-      tt.next = null;
-      tail.prev = null;
-      tail.next = head;
-      head.prev = tail;
-      head = tail;
-      tail = tt;
-      return;
-    }
-    // not head or tail
-    node.prev.next = node.next;
-    node.next.prev = node.prev;
-    node.prev = null;
-    node.next = head;
-    head.prev = node;
-    head = node;
-  }
 
+    n.prev.next = n.next;
+    if(n.next != null)
+      n.next.prev = n.prev;
+    else
+      tail = n.prev;
+    n.prev = null;
+    n.next = head;
+    head.prev = n;
+    head = n;
+  }
 }

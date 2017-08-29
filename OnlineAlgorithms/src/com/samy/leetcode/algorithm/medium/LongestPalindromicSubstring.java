@@ -81,30 +81,27 @@ public class LongestPalindromicSubstring {
 	 */
 	public String longestPalindrome2(String s) {
 		int l = s.length();
-		boolean[][] p = new boolean[l][l];
-		int max = 0, mi = 0, mj = 0;
-		// initiate palindrome array
-		// p[i][j] is true when s.substring(i,j+1) is palindromic, otherwise is
-		// false
-		for (int j = 0; j < l; ++j)
-			for (int i = 0; i <= j; ++i) {
-				if (i == j) {
-					p[i][j] = true;
-					continue;
-				}
-				if (s.charAt(i) == s.charAt(j) && (j == i + 1 || p[i + 1][j - 1])) {
-					p[i][j] = true;
-					if (j - i > max) {
-						max = j - i;
+		if(l == 0)
+			return "";
+		boolean[][] dp = new boolean[l][l];
+		int max = 1;
+		int mi=0, mj=0;
+		for(int j=0; j<l; ++j) {
+			dp[j][j] = true;
+			for(int i=j-1; i>=0; --i) {
+				if(s.charAt(i) == s.charAt(j) && (j==i+1 || dp[i+1][j-1])) {
+					dp[i][j] = true;
+					if(max < j-i+1) {
+						max = j-i+1;
 						mi = i;
 						mj = j;
 					}
-				} else
-					p[i][j] = false;
+				}
+				else
+					dp[i][j] = false;
 			}
-
-		return s.substring(mi, mj + 1);
-	}
+		}
+		return s.substring(mi, mj+1);	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

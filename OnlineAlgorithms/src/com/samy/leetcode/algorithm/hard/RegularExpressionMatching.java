@@ -1,5 +1,8 @@
 package com.samy.leetcode.algorithm.hard;
 
+import java.util.Deque;
+import java.util.LinkedList;
+
 public class RegularExpressionMatching {
 
   /**
@@ -20,5 +23,10 @@ public class RegularExpressionMatching {
       }
     }
     return false;
+  }
+
+  public static void main(String[] args) {
+    Deque<Integer> stack = new LinkedList<>();
+    System.out.println(new Integer(1)==null);
   }
 }
