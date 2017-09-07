@@ -1,4 +1,4 @@
-package com.samy.company_oa;// you can also use imports, for example:
+package com.samy.company;// you can also use imports, for example:
 // import java.util.*;
 
 // you can write to stdout for debugging purposes, e.g.

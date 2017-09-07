@@ -1,4 +1,4 @@
-package com.samy.company_oa.chinalife;
+package com.samy.company.chinalife;
 
 import java.util.*;
 

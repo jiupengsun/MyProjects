@@ -1,4 +1,4 @@
-package com.samy.company_oa.Cloudera;
+package com.samy.company.Cloudera;
 
 /**
  * Created by samy on 11/19/16.

@@ -1,4 +1,4 @@
-package com.samy.company_oa;
+package com.samy.company;
 
 import java.util.*;
 

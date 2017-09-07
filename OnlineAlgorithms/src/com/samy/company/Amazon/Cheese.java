@@ -1,4 +1,4 @@
-package com.samy.leetcode.company.Amazon;
+package com.samy.company.Amazon;
 
 /**
  * Created by samy on 10/30/16.
