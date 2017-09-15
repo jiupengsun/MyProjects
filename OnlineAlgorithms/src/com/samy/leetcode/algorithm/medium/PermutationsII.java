@@ -1,14 +1,11 @@
 package com.samy.leetcode.algorithm.medium;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class PermutationsII {
 
 	/**
-	 * 
+	 *
 	 * @param nums
 	 * @return
 	 * Apr 6, 2016
@@ -33,6 +30,39 @@ public class PermutationsII {
 		}
 
 		return perm;
+	}
+
+	public List<List<Integer>> permuteUnique2(int[] nums) {
+		Arrays.sort(nums);
+		List<List<Integer>> list = new ArrayList<>();
+		helper(nums, 0, list);
+		return list;
+	}
+
+	private void helper(int[] nums, int st, List<List<Integer>> list) {
+		if(st == nums.length-1) {
+			List<Integer> l = new ArrayList<>(nums.length);
+			for(int i: nums)
+				l.add(i);
+			list.add(l);
+			return;
+		}
+		Set<Integer> set = new HashSet<>();
+		for(int i=st; i<nums.length; ++i) {
+			if(!set.add(nums[i]))
+				continue;
+			swap(nums, st, i);
+			helper(nums, st+1, list);
+			swap(nums, st, i);
+		}
+	}
+
+	private void swap(int[] nums, int i, int j) {
+		if(i != j) {
+			int tmp = nums[i];
+			nums[i] = nums[j];
+			nums[j] = tmp;
+		}
 	}
 
 	public static void main(String[] args) {

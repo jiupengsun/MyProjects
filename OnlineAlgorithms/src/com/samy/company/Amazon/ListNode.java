@@ -1,8 +1,8 @@
 package com.samy.company.Amazon;
 
 public class ListNode {
-  int val;
-  ListNode next;
+  public int val;
+  public ListNode next;
   ListNode(int v) {
     val = v;
   }

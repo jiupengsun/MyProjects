@@ -61,4 +61,44 @@ public class MinimumWindowSubstring {
     }
     return s.substring(start, start+min);
   }
+
+  /**
+   * more clean code
+   * @param s
+   * @param t
+   * @return
+   */
+  public String minWindow2(String s, String t) {
+    int[] letters = new int[256];
+    for(char c: t.toCharArray())
+      letters[c]++;
+    int[] copy = new int[256];
+    int i=0, j=0, max=Integer.MAX_VALUE, pos=0, count=0;
+    while(j < s.length()) {
+      if(letters[s.charAt(j)] > 0 &&
+           copy[s.charAt(j)]++ < letters[s.charAt(j)]) {
+        ++count;
+      }
+      if(count == t.length()) {
+        // move i
+        while(i <= j) {
+          if(letters[s.charAt(i)] > 0 &&
+               --copy[s.charAt(i)] < letters[s.charAt(i)]) {
+            if(max > j-i+1) {
+              max = j - i + 1;
+              pos = i;
+              if(max == 1)
+                return s.charAt(i) + "";
+            }
+            count--;
+            ++i;
+            break;
+          }
+          ++i;
+        }
+      }
+      ++j;
+    }
+    return max==Integer.MAX_VALUE ? "" : s.substring(pos, pos+max);
+  }
 }
