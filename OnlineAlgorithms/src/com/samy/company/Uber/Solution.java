@@ -125,10 +125,25 @@ public class Solution {
     }
   }
 
+  /**
+   *
+   * @param nums
+   * @return
+   */
+  public static int max_get(int[] nums) {
+    return helper(nums, 0, nums.length-1, true);
+  }
+
+  private static int helper(int[] nums, int st, int en, boolean turn) {
+    if(st == en)
+      return turn ? nums[st] : 0;
+    int left = helper(nums, st+1, en, !turn);
+    int right = helper(nums, st, en-1, !turn);
+    return turn ? Math.max(left + nums[st], right + nums[en])
+             : Math.min(left, right);
+  }
+
   public static void main(String[] args) {
-    int[] inter = new int[]{2, -1, -2, 1};
-    specialSort(inter);
-    for(int i: inter)
-      System.out.print(i + " ");
+    System.out.println(max_get(new int[]{5,9,3,1}));
   }
 }

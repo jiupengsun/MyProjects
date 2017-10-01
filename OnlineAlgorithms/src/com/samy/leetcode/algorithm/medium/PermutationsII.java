@@ -33,7 +33,6 @@ public class PermutationsII {
 	}
 
 	public List<List<Integer>> permuteUnique2(int[] nums) {
-		Arrays.sort(nums);
 		List<List<Integer>> list = new ArrayList<>();
 		helper(nums, 0, list);
 		return list;
