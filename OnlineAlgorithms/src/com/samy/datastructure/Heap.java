@@ -77,11 +77,17 @@ public class Heap {
   }
 
   public static void main(String[] args) {
-    int[] heap = new int[]{2,8,1,7,9,10,3,14,4,16};
-    Heap.min_heapify(heap, heap.length);
-    for(int i : heap)
-      System.out.print(i + " ");
-    System.out.println();
+    long i = 10000;
+    int count = 0;
+    while(i > 1) {
+      if((i&1) == 0) {
+        i >>= 1;
+      } else {
+        i = 3 * i + 1;
+      }
+      ++count;
+    }
+    System.out.println(count);
   }
 
 }

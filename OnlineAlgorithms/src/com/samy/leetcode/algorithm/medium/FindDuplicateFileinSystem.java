@@ -1,5 +1,6 @@
 package com.samy.leetcode.algorithm.medium;
 
+import java.io.File;
 import java.util.*;
 
 public class FindDuplicateFileinSystem {
@@ -18,7 +19,7 @@ public class FindDuplicateFileinSystem {
         String name = arr[i].substring(0, pos);
         String content = arr[i].substring(pos+1, arr[i].length()-1);
         Map<String, List<String>> subMap = map.getOrDefault(content.length(), new HashMap<>());
-        List<String> list = subMap.getOrDefault(content, new ArrayList<String>());
+        List<String> list = subMap.getOrDefault(content, new ArrayList<>());
         // add path
         list.add(arr[0] + "/" + name);
         subMap.put(content, list);
@@ -35,6 +36,38 @@ public class FindDuplicateFileinSystem {
       }
     }
     return list;
+  }
+
+  public List<List<String>> findDuplicate(String rootPath) {
+    List<List<String>> result = new LinkedList<>();
+    Map<Long, Map<Integer, List<String>>> map = new HashMap<>();
+    BFS(rootPath, map);
+    // put into list
+    for(Map<Integer, List<String>> values: map.values()) {
+      for(Map.Entry<Integer, List<String>> entry: values.entrySet()) {
+        result.add(entry.getValue());
+      }
+    }
+    return result;
+  }
+
+  private void BFS(String rootPath, Map<Long, Map<Integer, List<String>>> map) {
+    Queue<File> que = new LinkedList<>();
+    Set<String> visit = new HashSet<>();
+    que.add(new File(rootPath));
+    while(!que.isEmpty()) {
+      File directory = que.poll();
+      visit.add(directory.getAbsolutePath());
+      File[] files = directory.listFiles();
+      for(File f: files) {
+        if(f.isDirectory() && !visit.contains(f.getAbsolutePath())) {
+          que.add(f);
+        } else {
+          // f is file, then compare
+          Map<Integer, List<String>> subMap = map.getOrDefault(f.length(), new HashMap<>());
+        }
+      }
+    }
   }
 
   public static void main(String[] args) {

@@ -1,9 +1,36 @@
 package com.samy.leetcode.algorithm.medium;
 
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class DesignHitCounter {}
+
+
+class HitCounter2 {
+  Queue<Integer> que;
+  int capacity;
+
+  /** Initialize your data structure here. */
+  public HitCounter2(int c) {
+    que = new LinkedList<>();
+    capacity = c;
+  }
+
+  /** Record a hit.
+   @param timestamp - The current timestamp (in seconds granularity). */
+  public void hit(int timestamp) {
+    que.add(timestamp);
+    int limit = Math.max(timestamp-capacity, 0);
+    // remove head elements that smaller than limit
+    while(que.peek() <= limit)
+      que.poll();
+  }
+
+  /** Return the number of hits in the past 5 minutes.
+   @param timestamp - The current timestamp (in seconds granularity). */
+  public int getHits(int timestamp) {
+      return que.size();
+  }
+}
 
 class HitCounter {
   TreeMap<Integer, Integer> map;

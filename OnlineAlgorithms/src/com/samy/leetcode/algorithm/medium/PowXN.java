@@ -3,7 +3,7 @@ package com.samy.leetcode.algorithm.medium;
 public class PowXN {
 
 	/**
-	 * 
+	 *
 	 * @param x
 	 * @param n
 	 * @return
@@ -24,6 +24,32 @@ public class PowXN {
 		double x2 = myPow(x, n >> 1);
 		x2 *= x2;
 		return (n & 1) == 0 ? x2 : x2 * x;
+	}
+
+  /**
+   * using iterative method
+   * @param x
+   * @param n
+   * @return
+   */
+	public double myPow2(double x, int n) {
+	  // notice n may equal Integer.MIN_VALUE
+    // then -n will overflow, so use long type here
+		long exp = n;
+		if(exp < 0) {
+			x = 1 / x;
+			exp = -exp;
+		}
+		double r = 1;
+		while(exp > 0) {
+			while(exp>0 && (exp&1) == 0) {
+				x *= x;
+				exp >>= 1;
+			}
+			r *= x;
+			--exp;
+		}
+		return r;
 	}
 
 	public static void main(String[] args) {
