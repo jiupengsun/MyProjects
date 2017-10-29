@@ -1,2 +1,0 @@
-lication/xml, or application/xhtml+xml. Mimetype=video/mp4, URL=https://d2y36twrtb17ty.cloudfront.net:443/sessions/63b0725d-6143-496f-87ab-d3dc80cd5ad3/d8c83d3a-8074-4afe-ae3b-693e2250999a-f743aed6-0632-4a7d-9ea5-cb4aa93e6115.mp4?invocationId=dfe8e030-2417-e611-9466-22000b010df0
-	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:600)

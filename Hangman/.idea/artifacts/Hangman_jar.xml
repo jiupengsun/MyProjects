@@ -1,9 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="Hangman:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/Hangman_jar</output-path>
-    <root id="archive" name="Hangman.jar">
-      <element id="module-output" name="Hangman" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/lib/fastjson-1.2.2.jar" path-in-jar="/" />
-    </root>
-  </artifact>
-</component>
