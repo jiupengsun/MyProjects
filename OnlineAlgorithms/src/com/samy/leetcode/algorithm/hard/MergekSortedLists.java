@@ -17,12 +17,8 @@ public class MergekSortedLists {
     if(lists==null || lists.length==0)
       return null;
     ListNode fakeHead = new ListNode(0);
-    PriorityQueue<ListNode> que = new PriorityQueue<ListNode>(new Comparator<ListNode>(){
-      @Override
-      public int compare(ListNode n1, ListNode n2) {
-        return n1.val - n2.val;
-      }
-    });
+    // lambda has very low efficiency
+    PriorityQueue<ListNode> que = new PriorityQueue<ListNode>(Comparator.comparingInt(n1 -> n1.val));
     for(ListNode n : lists) {
       if(n != null)
         que.add(n);

@@ -7,11 +7,11 @@ import java.util.List;
 public class CombinationSumII {
 
 	/**
-	 * 
+	 *
 	 * @param candidates
 	 * @param target
 	 * @return
-	 * 2016Äê2ÔÂ24ÈÕ
+	 * 2016ï¿½ï¿½2ï¿½ï¿½24ï¿½ï¿½
 	 * @author Jiupeng
 	 * @description 172 test cases, 6ms beats 70.29%
 	 * @reference https://leetcode.com/problems/combination-sum-ii/
@@ -31,7 +31,7 @@ public class CombinationSumII {
 				--end;
 			if (end >= 0) {
 				List<List<Integer>> colSub = helper(candidates,
-						target - candidates[end], end - 1);
+					target - candidates[end], end - 1);
 				for (List<Integer> list : colSub) {
 					list.add(candidates[end]);
 					collection.add(list);
@@ -43,6 +43,36 @@ public class CombinationSumII {
 			}
 		}
 		return collection;
+	}
+
+	public List<List<Integer>> combinationSum2_2(int[] candidates, int target) {
+		Arrays.sort(candidates);
+		List<List<Integer>> list = new ArrayList<>();
+		boolean[] used = new boolean[candidates.length];
+		helper(candidates, 0, target, list, used);
+		return list;
+	}
+
+	private void helper(int[] candidates, int st, int target, List<List<Integer>> list, boolean[] used) {
+		if(target == 0) {
+			List<Integer> l = new ArrayList<>();
+			for(int i=0; i<st; ++i) {
+				if(used[i])
+					l.add(candidates[i]);
+			}
+			list.add(l);
+			return;
+		}
+		if(st == candidates.length || candidates[st] > target)
+			return;
+		// use current value
+		if(st==0 || candidates[st]!=candidates[st-1] || used[st-1]) {
+			used[st] = true;
+			helper(candidates, st+1, target-candidates[st], list, used);
+			used[st] = false;
+		}
+		// don't use current value
+		helper(candidates, st+1, target, list, used);
 	}
 
 	public static void main(String[] args) {

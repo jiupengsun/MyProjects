@@ -1,5 +1,6 @@
 package com.samy.leetcode.algorithm.easy;
 
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -16,10 +17,10 @@ public class SymmetricTree {
 	 */
 
 	/**
-	 * 
+	 *
 	 * @param root
 	 * @return
-	 * 2016Äê1ÔÂ14ÈÕ
+	 * 2016ï¿½ï¿½1ï¿½ï¿½14ï¿½ï¿½
 	 * @author Jiupeng
 	 * @description
 	 * @reference https://leetcode.com/problems/symmetric-tree/
@@ -31,10 +32,10 @@ public class SymmetricTree {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param root
 	 * @return
-	 * 2016Äê1ÔÂ14ÈÕ
+	 * 2016ï¿½ï¿½1ï¿½ï¿½14ï¿½ï¿½
 	 * @author Jiupeng
 	 * @description Using queue to fulfill this task without recursion
 	 * @reference
@@ -61,11 +62,11 @@ public class SymmetricTree {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param t1
 	 * @param t2
 	 * @return
-	 * 2016Äê1ÔÂ14ÈÕ
+	 * 2016ï¿½ï¿½1ï¿½ï¿½14ï¿½ï¿½
 	 * @author Jiupeng
 	 * @description compare if two trees are exactly the mirror, including both of values and structure
 	 * @reference
@@ -77,6 +78,27 @@ public class SymmetricTree {
 			return false;
 		return t1.val == t2.val && compareBinaryTree(t1.left, t2.right) && compareBinaryTree(t1.right, t2.left);
 
+	}
+
+	public boolean isSymmetric2(TreeNode root) {
+		if(root==null)
+			return true;
+		Deque<TreeNode> stack = new LinkedList<>();
+		stack.push(root.left);
+		stack.push(root.right);
+		while(!stack.isEmpty()) {
+			TreeNode left = stack.pop();
+			TreeNode right = stack.pop();
+			if(left==null && right==null)
+				continue;
+			if(left==null || right==null || left.val!=right.val)
+				return false;
+			stack.push(left.left);
+			stack.push(right.right);
+			stack.push(left.right);
+			stack.push(right.left);
+		}
+		return true;
 	}
 
 	public static void main(String[] args) {

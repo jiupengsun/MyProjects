@@ -1,6 +1,6 @@
 package com.samy.company.Uber;
 
-import com.samy.company.Amazon.ListNode;
+import com.samy.datastructure.ListNode;
 
 public class InsertintoaCyclicSortedList {
 

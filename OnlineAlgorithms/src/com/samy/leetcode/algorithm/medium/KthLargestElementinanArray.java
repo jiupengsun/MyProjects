@@ -7,7 +7,7 @@ import java.util.Arrays;
 public class KthLargestElementinanArray {
 
 	/**
-	 * 
+	 *
 	 * @param nums
 	 * @param k
 	 * @return
@@ -22,13 +22,13 @@ public class KthLargestElementinanArray {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param nums
 	 * @param k
 	 * @return
 	 * @author Jiupeng
 	 * @description 31 test cases, 130ms beats 2.49%
-	 * @reference 
+	 * @reference
 	 * @interpretation https://en.wikipedia.org/wiki/Selection_algorithm
 	 * http://c3p0demo.googlecode.com/svn/trunk/scalaDemo/script/Order_statistics.ppt
 	 */
@@ -51,13 +51,13 @@ public class KthLargestElementinanArray {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param nums
 	 * @param k
 	 * @return
 	 * @author Jiupeng
 	 * @description 31 test cases, 4ms beats 80.07%
-	 * @reference 
+	 * @reference
 	 * @interpretation http://stackoverflow.com/questions/251781/how-to-find-the-kth-largest-element-in-an-unsorted-array-of-length-n-in-on#255128
 	 */
 	public int findKthLargest3(int[] nums, int k) {
@@ -85,7 +85,7 @@ public class KthLargestElementinanArray {
 
 	/**
 	 *
-   * quick selection algorithm to solve this problem
+	 * quick selection algorithm to solve this problem
 	 * @param nums
 	 * @param k
 	 * @return
@@ -121,14 +121,14 @@ public class KthLargestElementinanArray {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param nums
 	 * @param left
 	 * @param right
 	 * @return
 	 * @author Jiupeng
 	 * @description passed
-	 * @reference 
+	 * @reference
 	 * @interpretation
 	 */
 	private int medianOf3(int[] nums, int left, int right) {
@@ -143,14 +143,14 @@ public class KthLargestElementinanArray {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param nums
 	 * @param left
 	 * @param right
 	 * @return
 	 * @author Jiupeng
 	 * @description not passed yet
-	 * @reference 
+	 * @reference
 	 * @interpretation
 	 */
 	private int medianOf5(int[] nums, int left, int right) {
@@ -162,11 +162,11 @@ public class KthLargestElementinanArray {
 			swap(nums, median5, left + (i - left) / 5);
 		}
 		return select(nums, left, left + (int) Math.ceil((right - left) / 5) - 1,
-				left + (right - left) / 10);
+			left + (right - left) / 10);
 	}
 
 	/**
-	 * 
+	 *
 	 * @param nums
 	 * @param left
 	 * @param right
@@ -203,26 +203,59 @@ public class KthLargestElementinanArray {
 		nums[b] = t;
 	}
 
-  /**
-   * using heap to solve this problem
-   * @param nums
-   * @param k
-   * @return
-   */
+	/**
+	 * using heap to solve this problem
+	 * @param nums
+	 * @param k
+	 * @return
+	 */
 	public int findKthLargest4(int[] nums, int k) {
-    int length = nums.length;
-    // suppose k is always less or equal than length
-    // build min heap
-    Heap.min_heapify(nums, k);
-    for (int i=k; i<length; ++i) {
-      if (nums[i] > nums[0]) {
-        // stop top k largest elements in heap
-        swap(nums, 0, i);
-        Heap.min_heapify(nums, k);
-      }
-    }
-    return nums[0];
-  }
+		int length = nums.length;
+		// suppose k is always less or equal than length
+		// build min heap
+		Heap.min_heapify(nums, k);
+		for (int i=k; i<length; ++i) {
+			if (nums[i] > nums[0]) {
+				// stop top k largest elements in heap
+				swap(nums, 0, i);
+				Heap.min_heapify(nums, k);
+			}
+		}
+		return nums[0];
+	}
+
+	/**
+	 * quick select but more concise code
+	 * @param nums
+	 * @param k
+	 * @return
+	 */
+	public int findKthLargest5(int[] nums, int k) {
+		// quick select
+		int pos = 0, i=0, j=nums.length-1;
+		--k;
+		while((pos = partitions(nums, i, j)) != k) {
+			if(pos < k) {
+				i = pos + 1;
+			} else
+				j = pos - 1;
+		}
+		return nums[pos];
+	}
+
+	private int partitions(int[] nums, int i, int j) {
+		int sen = nums[i];
+		int k = i;
+		while(k <= j) {
+			if(nums[k] > sen) {
+				swap(nums, i++, k--);
+			} else if(nums[k] < sen) {
+				swap(nums, j--, k--);
+			}
+			++k;
+		}
+		return j;
+	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

@@ -1,5 +1,7 @@
 package com.samy.leetcode.algorithm.medium;
 
+import java.util.Arrays;
+
 public class CombinationSumIV {
 
   /**
@@ -9,21 +11,20 @@ public class CombinationSumIV {
    * @return
    */
   public int combinationSum4(int[] nums, int target) {
+    Arrays.sort(nums);
     int[] dp = new int[target + 1];
     dp[0] = 1;
     for(int i=1; i<=target; ++i) {
       int sum = 0;
-      for(int n: nums) {
-        if(n <= i) {
-          sum += dp[i - n];
-        }
-      }
+      for(int j=0; j<nums.length && nums[j]<=i; ++j)
+        sum += dp[i - nums[j]];
       dp[i] = sum;
     }
     return dp[target];
   }
 
   public static void main(String[] args) {
-    System.out.println(Integer.MAX_VALUE);
+    CombinationSumIV cs = new CombinationSumIV();
+    System.out.println(cs.combinationSum4(new int[]{1,2,3}, 4));
   }
 }

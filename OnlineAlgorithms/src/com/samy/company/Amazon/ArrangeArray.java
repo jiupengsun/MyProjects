@@ -1,5 +1,7 @@
 package com.samy.company.Amazon;
 
+import com.samy.datastructure.ListNode;
+
 public class ArrangeArray {
 
   public void arrange(int[] nums) {
