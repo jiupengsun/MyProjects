@@ -1,5 +1,8 @@
 package com.samy.leetcode.algorithm.easy;
 
+import com.samy.datastructure.TreeNode;
+
+
 public class MergeTwoBinarTrees {
   /**
    * https://leetcode.com/problems/merge-two-binary-trees/description/

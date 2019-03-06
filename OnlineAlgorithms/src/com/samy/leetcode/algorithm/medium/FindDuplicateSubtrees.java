@@ -1,5 +1,6 @@
 package com.samy.leetcode.algorithm.medium;
 
+import com.samy.datastructure.TreeNode;
 import java.util.List;
 
 public class FindDuplicateSubtrees {

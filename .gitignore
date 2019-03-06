@@ -7,3 +7,7 @@ run.sh
 *.swo
 */classes/*
 */venv/*
+*.iml
+*/.idea/*
+.DS_Store
+*/out/*

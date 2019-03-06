@@ -1,5 +1,6 @@
 package com.samy.leetcode.algorithm.easy;
 
+import com.samy.datastructure.TreeNode;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;

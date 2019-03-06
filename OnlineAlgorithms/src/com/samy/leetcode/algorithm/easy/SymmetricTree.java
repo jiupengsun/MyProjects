@@ -1,5 +1,6 @@
 package com.samy.leetcode.algorithm.easy;
 
+import com.samy.datastructure.TreeNode;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -105,7 +106,7 @@ public class SymmetricTree {
 		// TODO Auto-generated method stub
 		SymmetricTree s = new SymmetricTree();
 		int[] n = { 1, 2, 2, -1, 3, -1, 3 };
-		TreeNode tn = TreeNode.constructABinaryTreeSampleByArray(n);
+		TreeNode tn = TreeNode.constructBinaryTreeByArray(n);
 		System.out.println(s.isSymmetric(tn));
 	}
 

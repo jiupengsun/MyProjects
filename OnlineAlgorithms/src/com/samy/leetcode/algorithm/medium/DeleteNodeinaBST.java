@@ -1,5 +1,8 @@
 package com.samy.leetcode.algorithm.medium;
 
+import com.samy.datastructure.TreeNode;
+
+
 public class DeleteNodeinaBST {
 
   /**

@@ -1,5 +1,8 @@
 package com.samy.leetcode.algorithm.hard;
 
+import com.samy.datastructure.TreeNode;
+
+
 public class RecoverBinarySearchTree {
 
   TreeNode prev = null;

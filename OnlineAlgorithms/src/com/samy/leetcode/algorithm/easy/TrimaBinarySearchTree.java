@@ -1,5 +1,8 @@
 package com.samy.leetcode.algorithm.easy;
 
+import com.samy.datastructure.TreeNode;
+
+
 public class TrimaBinarySearchTree {
   /**
    * https://leetcode.com/problems/trim-a-binary-search-tree/description/

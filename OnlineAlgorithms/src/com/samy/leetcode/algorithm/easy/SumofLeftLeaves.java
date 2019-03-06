@@ -1,5 +1,8 @@
 package com.samy.leetcode.algorithm.easy;
 
+import com.samy.datastructure.TreeNode;
+
+
 /**
  * Created by samy on 10/1/16.
  */

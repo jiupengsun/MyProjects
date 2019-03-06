@@ -1,5 +1,8 @@
 package com.samy.leetcode.algorithm.medium;
 
+import com.samy.datastructure.TreeNode;
+
+
 /**
  * https://leetcode.com/problems/serialize-and-deserialize-bst/description/
  */
