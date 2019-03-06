@@ -8,5 +8,6 @@ run.sh
 */classes/*
 */venv/*
 *.iml
-*/.idea/
+*/.idea/*
 .DS_Store
+*/out/*
