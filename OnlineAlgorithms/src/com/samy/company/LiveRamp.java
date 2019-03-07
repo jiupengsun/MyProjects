@@ -1,6 +1,6 @@
 package com.samy.company;
 
-import com.samy.leetcode.algorithm.medium.Trie;
+import com.samy.datastructure.Trie;
 
 import java.util.*;
 
