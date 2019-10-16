@@ -71,15 +71,6 @@ public class Kosaraju implements StronglyConnectedComponent {
     stack.push(node);
   }
 
-  private Map<Integer, List<Integer>> convertToGraph(List<List<Integer>> connections) {
-    Map<Integer, List<Integer>> graph = new HashMap<>();
-    for (List<Integer> edge : connections) {
-      List<Integer> to = graph.computeIfAbsent(edge.get(0), k -> new ArrayList<>());
-      to.add(edge.get(1));
-    }
-    return graph;
-  }
-
   public static void main(String[] args) {
     Kosaraju k = new Kosaraju();
     List<List<Integer>> connections = new ArrayList<>();
