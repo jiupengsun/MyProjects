@@ -11,16 +11,16 @@ import java.util.Queue;
 public class FindAnagramMappings {
   public int[] anagramMappings(int[] A, int[] B) {
     Map<Integer, Queue<Integer>> map = new HashMap<>();
-    for(int i=0; i<B.length; ++i) {
+    for (int i = 0; i < B.length; ++i) {
       Queue<Integer> que = map.get(B[i]);
-      if(que == null) {
+      if (que == null) {
         que = new LinkedList<>();
         map.put(B[i], que);
       }
       que.add(i);
     }
     int[] res = new int[A.length];
-    for(int i=0; i<A.length; ++i) {
+    for (int i = 0; i < A.length; ++i) {
       Queue<Integer> que = map.get(A[i]);
       res[i] = que.poll();
     }

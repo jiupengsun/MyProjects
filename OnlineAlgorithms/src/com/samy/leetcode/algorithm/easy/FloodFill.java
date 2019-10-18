@@ -14,19 +14,19 @@ public class FloodFill {
     Queue<int[]> que = new LinkedList<>();
     boolean[][] visit = new boolean[row][col];
     int ori = image[sr][sc];
-    if(ori != newColor)
+    if (ori != newColor)
       que.add(new int[]{sr, sc});
-    while(!que.isEmpty()) {
+    while (!que.isEmpty()) {
       int[] pos = que.poll();
-      if(visit[pos[0]][pos[1]])
+      if (visit[pos[0]][pos[1]])
         continue;
       visit[pos[0]][pos[1]] = true;
       image[pos[0]][pos[1]] = newColor;
       // check four directions
-      for(int[] d: direct) {
-        int i = Math.max(0, Math.min(pos[0]+d[0], row-1));
-        int j = Math.max(0, Math.min(pos[1]+d[1], col-1));
-        if(!visit[i][j] && image[i][j]==ori)
+      for (int[] d : direct) {
+        int i = Math.max(0, Math.min(pos[0] + d[0], row - 1));
+        int j = Math.max(0, Math.min(pos[1] + d[1], col - 1));
+        if (!visit[i][j] && image[i][j] == ori)
           que.add(new int[]{i, j});
       }
     }

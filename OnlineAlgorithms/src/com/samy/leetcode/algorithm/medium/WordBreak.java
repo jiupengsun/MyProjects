@@ -14,9 +14,9 @@ public class WordBreak {
     Set<String> dict = new HashSet<>(wordDict);
     int l = s.length();
     boolean[] dp = new boolean[l];
-    for(int i=0; i<l; ++i) {
-      for(int j=0; j<=i; ++j) {
-        if((j == 0 || dp[j-1]) && dict.contains(s.substring(j, i+1))) {
+    for (int i = 0; i < l; ++i) {
+      for (int j = 0; j <= i; ++j) {
+        if ((j == 0 || dp[j - 1]) && dict.contains(s.substring(j, i + 1))) {
           dp[i] = true;
           break;
         }

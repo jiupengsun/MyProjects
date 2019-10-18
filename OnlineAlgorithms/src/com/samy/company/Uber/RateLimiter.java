@@ -17,7 +17,8 @@ public class RateLimiter {
    * initialize a rate limiter
    * two parameters indicate the function can call maxCallingTimes
    * within interval period, otherwise it will block a specific time
-   * @param interval unit is seconds
+   *
+   * @param interval        unit is seconds
    * @param maxCallingTimes max times within specific period indicates by interval
    */
   private RateLimiter(int interval, int maxCallingTimes) {
@@ -34,9 +35,9 @@ public class RateLimiter {
     // need add n tokens in the system
     lock.lock();
     tokens += seconds * maxCapacity / interval;
-    if(tokens < maxCapacity)
+    if (tokens < maxCapacity)
       tokens = maxCapacity;
-    if(tokens < 1) {
+    if (tokens < 1) {
       wait(1000 * interval / maxCapacity - spend);
       tokens++;
     }

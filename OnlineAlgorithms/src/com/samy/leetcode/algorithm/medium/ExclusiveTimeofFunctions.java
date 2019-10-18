@@ -8,6 +8,7 @@ public class ExclusiveTimeofFunctions {
 
   /**
    * https://leetcode.com/submissions/detail/122314507/
+   *
    * @param n
    * @param logs
    * @return
@@ -16,11 +17,11 @@ public class ExclusiveTimeofFunctions {
     int[] timeSlot = new int[n];
     int interval = 0;
     Deque<int[]> stack = new LinkedList<>();
-    for(String log: logs) {
+    for (String log : logs) {
       String[] l = log.split(":");
       int id = Integer.parseInt(l[0]);
       int time = Integer.parseInt(l[2]);
-      if(l[1].equals("start")) {
+      if (l[1].equals("start")) {
         stack.push(new int[]{id, time, interval});
         interval = 0;
       } else {

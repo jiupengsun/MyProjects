@@ -8,23 +8,23 @@ import java.util.Map;
 
 public class EmployeeImportance {
   public int getImportance(List<Employee> employees, int id) {
-    if(employees == null)
+    if (employees == null)
       return 0;
     Map<Integer, Employee> map = new HashMap<>();
     Employee target = null;
-    for(Employee e: employees) {
-      if(e.id == id)
+    for (Employee e : employees) {
+      if (e.id == id)
         target = e;
       map.put(e.id, e);
     }
-    if(target == null)
+    if (target == null)
       return 0;
     return countImp(target, map);
   }
 
   private int countImp(Employee e, Map<Integer, Employee> map) {
     int sum = e.importance;
-    for(int c: e.subordinates) {
+    for (int c : e.subordinates) {
       Employee child = map.get(c);
       sum += countImp(child, map);
     }

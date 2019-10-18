@@ -8,8 +8,12 @@ import com.samy.datastructure.TreeNode;
  */
 public class SumofLeftLeaves {
 
+  public static void main(String[] args) {
+  }
+
   /**
    * https://leetcode.com/problems/sum-of-left-leaves/
+   *
    * @param root
    * @return
    */
@@ -28,13 +32,10 @@ public class SumofLeftLeaves {
 
   public int sumOfLeftLeaves2(TreeNode root) {
     int sum = 0;
-    if(root == null)
+    if (root == null)
       return sum;
-    if(root.left!=null && root.left.left==null && root.left.right==null)
+    if (root.left != null && root.left.left == null && root.left.right == null)
       sum += root.left.val;
     return sum + sumOfLeftLeaves(root.left) + sumOfLeftLeaves(root.right);
-  }
-
-  public static void main(String[] args) {
   }
 }

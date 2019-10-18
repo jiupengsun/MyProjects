@@ -21,12 +21,12 @@ public class KAverage {
   }
 
   public void add(int val) {
-    synchronized(lock) {
+    synchronized (lock) {
       sum -= window[current];
       sum += val;
       window[current++] = val;
       current %= window.length;
-      if(current_size < window.length)
+      if (current_size < window.length)
         ++current_size;
       aver = (double) sum / current_size;
     }

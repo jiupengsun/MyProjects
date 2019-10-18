@@ -7,15 +7,16 @@ public class EvaluateReversePolishNotation {
 
   /**
    * https://leetcode.com/problems/evaluate-reverse-polish-notation/description/
+   *
    * @param tokens
    * @return
    */
   public int evalRPN(String[] tokens) {
     Deque<Integer> stack = new LinkedList<>();
-    int j=0;
+    int j = 0;
     int p, q;
-    while(j < tokens.length) {
-      switch(tokens[j]) {
+    while (j < tokens.length) {
+      switch (tokens[j]) {
         case "+":
           p = stack.pop();
           q = stack.pop();

@@ -6,14 +6,9 @@ import java.util.*;
  * <a href="https://leetcode.com/problems/k-similar-strings/">K-Similar Strings</a>
  */
 public class KSimilarStrings {
-  private class Node {
-    String val;
-    int step;
-
-    Node(String v, int s) {
-      val = v;
-      step = s;
-    }
+  public static void main(String[] args) {
+    KSimilarStrings k = new KSimilarStrings();
+    System.out.println(k.kSimilarity("abcbca", "ababcc"));
   }
 
   public int kSimilarity(String A, String B) {
@@ -30,13 +25,13 @@ public class KSimilarStrings {
     que.add(A);
     while (!que.isEmpty()) {
       int size = que.size();
-      for (int s=0; s<size; ++s) {
+      for (int s = 0; s < size; ++s) {
         String current = que.poll();
         if (current.equals(B)) return count;
         visited.add(current);
         int i = 0;
         while (current.charAt(i) == B.charAt(i)) i++;
-        for (int j=i+1; j<A.length(); ++j) {
+        for (int j = i + 1; j < A.length(); ++j) {
           if (current.charAt(j) == B.charAt(i)) {
             // do swap
             String A_new = swap(current, i, j);
@@ -63,7 +58,7 @@ public class KSimilarStrings {
     Map<String, Integer> rightVisit = new HashMap<>();
     leftQue.add(new Node(A, 0));
     rightQue.add(new Node(B, 0));
-    while(!leftQue.isEmpty() && !rightQue.isEmpty()) {
+    while (!leftQue.isEmpty() && !rightQue.isEmpty()) {
       Queue<Node> newQue = new LinkedList<>();
       // move a step from left
       Node leftNode = null;
@@ -92,7 +87,7 @@ public class KSimilarStrings {
               // find
               return rightNode.step + leftVisit.get(next) + 1;
             }
-            newQue.add(new Node(next, rightNode.step+1));
+            newQue.add(new Node(next, rightNode.step + 1));
           }
         }
       }
@@ -129,8 +124,8 @@ public class KSimilarStrings {
   private List<String> swapOne(String val) {
     char[] carray = val.toCharArray();
     List<String> l = new ArrayList<>();
-    for (int i=0; i<carray.length-1; ++i) {
-      for (int j=i+1; j<carray.length; ++j) {
+    for (int i = 0; i < carray.length - 1; ++i) {
+      for (int j = i + 1; j < carray.length; ++j) {
         if (carray[i] != carray[j]) {
           swap(carray, i, j);
           l.add(String.valueOf(carray));
@@ -155,8 +150,13 @@ public class KSimilarStrings {
     return String.valueOf(carray);
   }
 
-  public static void main(String[] args) {
-    KSimilarStrings k = new KSimilarStrings();
-    System.out.println(k.kSimilarity("abcbca", "ababcc"));
+  private class Node {
+    String val;
+    int step;
+
+    Node(String v, int s) {
+      val = v;
+      step = s;
+    }
   }
 }

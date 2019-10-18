@@ -5,13 +5,13 @@ package com.samy.leetcode.algorithm.hard;
  */
 public class CountVowelsPermutation {
   public int countVowelPermutation(int n) {
-    long a=1, e=1, i=1, o=1, u=1;
+    long a = 1, e = 1, i = 1, o = 1, u = 1;
     int j = 1, mod = 1000000007;
     while (j < n) {
       long _a = e;
-      long _e = a+i;
-      long _i = a+e+o+u;
-      long _o = i+u;
+      long _e = a + i;
+      long _i = a + e + o + u;
+      long _o = i + u;
       long _u = a;
       a = _a % mod;
       e = _e % mod;
@@ -20,6 +20,6 @@ public class CountVowelsPermutation {
       u = _u % mod;
       j++;
     }
-    return (int)((a+e+i+o+u) % mod);
+    return (int) ((a + e + i + o + u) % mod);
   }
 }

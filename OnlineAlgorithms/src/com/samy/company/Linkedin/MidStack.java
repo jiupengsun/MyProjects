@@ -7,21 +7,13 @@ package com.samy.company.Linkedin;
  * e.g. 1,2,3,4,5,6 return 3
  */
 public class MidStack {
-  class Node {
-    int val;
-    Node prev, next;
-    Node(int v) {
-      val = v;
-    }
-  }
-
   private int length;
   private int leftLength;
   private Node head, tail, middle;
 
   public void push(int v) {
     Node n = new Node(v);
-    if(head == null) {
+    if (head == null) {
       head = n;
       tail = n;
       middle = n;
@@ -30,7 +22,7 @@ public class MidStack {
       tail.next = n;
       tail = n;
       ++length;
-      if(((leftLength+1)<<1) < length) {
+      if (((leftLength + 1) << 1) < length) {
         // move middle
         leftLength++;
         middle = middle.next;
@@ -44,27 +36,27 @@ public class MidStack {
 
   public int pop() {
     int v = tail.val;
-    if(((leftLength+1)<<1) > length) {
+    if (((leftLength + 1) << 1) > length) {
       leftLength--;
       middle = middle.prev;
     }
     --length;
     tail = tail.prev;
-    if(head.next == null)
+    if (head.next == null)
       head = null;
     return v;
   }
 
-  public int popMiddle(){
+  public int popMiddle() {
     Node n = middle;
     leftLength--;
     length--;
     middle = middle.prev;
-    if(n.prev != null)
+    if (n.prev != null)
       n.prev.next = n.next;
     else
       head = head.next;
-    if(n.next != null)
+    if (n.next != null)
       n.next.prev = n.prev;
     else
       tail = tail.prev;
@@ -73,5 +65,14 @@ public class MidStack {
 
   public int peekMiddle() {
     return middle.val;
+  }
+
+  class Node {
+    int val;
+    Node prev, next;
+
+    Node(int v) {
+      val = v;
+    }
   }
 }

@@ -16,7 +16,7 @@ public class RandomPickIndex {
     List<Integer> list = map.get(target);
     if (list == null) {
       list = new ArrayList<>();
-      for (int i=0; i<array.length; ++i) {
+      for (int i = 0; i < array.length; ++i) {
         if (array[i] == target)
           list.add(i);
       }

@@ -1,10 +1,6 @@
 package com.samy.algorithm;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Stack;
+import java.util.*;
 
 
 /**
@@ -18,6 +14,26 @@ import java.util.Stack;
 public class Tarjan implements StronglyConnectedComponent {
   private int id = 1;
 
+  public static void main(String[] args) {
+    Tarjan t = new Tarjan();
+    List<List<Integer>> connections = new ArrayList<>();
+    connections.add(Arrays.asList(0, 1));
+    connections.add(Arrays.asList(1, 2));
+    connections.add(Arrays.asList(2, 0));
+    connections.add(Arrays.asList(1, 3));
+    connections.add(Arrays.asList(3, 4));
+    connections.add(Arrays.asList(4, 5));
+    connections.add(Arrays.asList(5, 3));
+    connections.add(Arrays.asList(4, 6));
+    List<List<Integer>> results = t.getSCCs(7, connections);
+    for (List<Integer> l : results) {
+      for (int e : l) {
+        System.out.print(String.valueOf(e) + ' ');
+      }
+      System.out.println();
+    }
+  }
+
   @Override
   public List<List<Integer>> getSCCs(int n, List<List<Integer>> connections) {
     Map<Integer, List<Integer>> graph = convertToGraph(connections);
@@ -27,7 +43,7 @@ public class Tarjan implements StronglyConnectedComponent {
     int[] low = new int[n];
     List<List<Integer>> results = new ArrayList<>();
     id = 1;
-    for (int i=0; i<n; ++i) {
+    for (int i = 0; i < n; ++i) {
       if (!visited[i]) {
         DFSHelper(i, visited, isOnStack, low, stack, graph, results);
       }
@@ -66,25 +82,5 @@ public class Tarjan implements StronglyConnectedComponent {
       results.add(list);
     }
     return low[node];
-  }
-
-  public static void main(String[] args) {
-    Tarjan t = new Tarjan();
-    List<List<Integer>> connections = new ArrayList<>();
-    connections.add(Arrays.asList(0, 1));
-    connections.add(Arrays.asList(1, 2));
-    connections.add(Arrays.asList(2, 0));
-    connections.add(Arrays.asList(1, 3));
-    connections.add(Arrays.asList(3, 4));
-    connections.add(Arrays.asList(4, 5));
-    connections.add(Arrays.asList(5, 3));
-    connections.add(Arrays.asList(4, 6));
-    List<List<Integer>> results = t.getSCCs(7, connections);
-    for (List<Integer> l : results) {
-      for (int e : l) {
-        System.out.print(String.valueOf(e) + ' ');
-      }
-      System.out.println();
-    }
   }
 }

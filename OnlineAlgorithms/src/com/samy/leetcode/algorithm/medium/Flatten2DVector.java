@@ -6,7 +6,8 @@ import java.util.List;
 /**
  * https://leetcode.com/problems/flatten-2d-vector/description/
  */
-public class Flatten2DVector {}
+public class Flatten2DVector {
+}
 
 class Vector2D implements Iterator<Integer> {
   Iterator<List<Integer>> iter;
@@ -23,8 +24,8 @@ class Vector2D implements Iterator<Integer> {
 
   @Override
   public boolean hasNext() {
-    while(subIter == null || !subIter.hasNext()) {
-      if(iter==null || !iter.hasNext())
+    while (subIter == null || !subIter.hasNext()) {
+      if (iter == null || !iter.hasNext())
         return false;
       subIter = iter.next().iterator();
     }

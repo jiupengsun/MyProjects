@@ -3,6 +3,7 @@ package com.samy.leetcode.algorithm.easy;
 public class BinaryNumberwithAlternatingBits {
   /**
    * https://leetcode.com/problems/binary-number-with-alternating-bits/
+   *
    * @param n
    * @return
    */
@@ -13,6 +14,6 @@ public class BinaryNumberwithAlternatingBits {
     n |= n >> 4;
     n |= n >> 8;
     n |= n >> 16;
-    return tmp==(n & 0x55555555) || tmp==(n & 0xAAAAAAAA);
+    return tmp == (n & 0x55555555) || tmp == (n & 0xAAAAAAAA);
   }
 }

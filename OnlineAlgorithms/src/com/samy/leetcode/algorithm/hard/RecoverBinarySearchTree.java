@@ -43,30 +43,31 @@ public class RecoverBinarySearchTree {
 
   /**
    * Use morris tree to solve this problem
+   *
    * @param root
    */
   public void recoverTreeByMorris(TreeNode root) {
-    TreeNode prev=null, second=null, last=null;
-    while(root != null) {
-      if(last!=null && last.val>root.val) {
-        if(prev == null) {
+    TreeNode prev = null, second = null, last = null;
+    while (root != null) {
+      if (last != null && last.val > root.val) {
+        if (prev == null) {
           prev = last;
           second = root;
         } else {
           second = root;
         }
       }
-      if(root.left == null) {
+      if (root.left == null) {
         last = root;
         root = root.right;
         continue;
       }
       // find precursor node
       TreeNode tmp = root.left;
-      while(tmp.right!=null && tmp.right!=root) {
+      while (tmp.right != null && tmp.right != root) {
         tmp = tmp.right;
       }
-      if(tmp.right == null) {
+      if (tmp.right == null) {
         tmp.right = root;
         root = root.left;
       } else {

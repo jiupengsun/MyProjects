@@ -2,9 +2,9 @@ package com.samy.leetcode.algorithm.easy;
 
 public class JudgeRouteCircle {
   public boolean judgeCircle(String moves) {
-    int h=0, v=0;
-    for(char c: moves.toCharArray()) {
-      switch(c) {
+    int h = 0, v = 0;
+    for (char c : moves.toCharArray()) {
+      switch (c) {
         case 'U':
           v++;
           break;
@@ -19,6 +19,6 @@ public class JudgeRouteCircle {
           break;
       }
     }
-    return h==0 && v==0;
+    return h == 0 && v == 0;
   }
 }

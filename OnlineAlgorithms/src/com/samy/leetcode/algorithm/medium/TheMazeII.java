@@ -7,8 +7,9 @@ public class TheMazeII {
 
   /**
    * https://leetcode.com/problems/the-maze-ii/description/
-   *
+   * <p>
    * Use Dijkstra algorithm: https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
+   *
    * @param maze
    * @param start
    * @param destination
@@ -27,16 +28,16 @@ public class TheMazeII {
       {-1, 0}, {0, -1}, {1, 0}, {0, 1}
     };
     que.add(start);
-    while(!que.isEmpty()) {
+    while (!que.isEmpty()) {
       int[] next = que.poll();
       int current = path[next[0]][next[1]];
-      if(next[0]==destination[0] && next[1]==destination[1])
+      if (next[0] == destination[0] && next[1] == destination[1])
         return current;
       visit[next[0]][next[1]] = true;
-      for(int i=0; i<4; ++i) {
+      for (int i = 0; i < 4; ++i) {
         int p = next[0], q = next[1];
         int count = 0;
-        while(!isWall(maze, p+direction[i][0], q+direction[i][1])) {
+        while (!isWall(maze, p + direction[i][0], q + direction[i][1])) {
           p += direction[i][0];
           q += direction[i][1];
           count++;
@@ -45,7 +46,7 @@ public class TheMazeII {
          * !!!!!!!!!!!!!!!!!!!!!!!
          * Notice I shouldn't update a node if it already has minimum path
          */
-        if(!visit[p][q] && (path[p][q]==0 || path[p][q] > current+count)) {
+        if (!visit[p][q] && (path[p][q] == 0 || path[p][q] > current + count)) {
           path[p][q] = current + count;
           que.add(new int[]{p, q});
         }
@@ -55,6 +56,6 @@ public class TheMazeII {
   }
 
   private boolean isWall(int[][] maze, int i, int j) {
-    return i<0 || j<0 || i==maze.length || j==maze[0].length || maze[i][j]==1;
+    return i < 0 || j < 0 || i == maze.length || j == maze[0].length || maze[i][j] == 1;
   }
 }

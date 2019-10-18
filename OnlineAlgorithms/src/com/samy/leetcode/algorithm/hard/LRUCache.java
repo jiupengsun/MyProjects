@@ -8,22 +8,10 @@ import java.util.Map;
  * https://leetcode.com/problems/lru-cache/
  */
 public class LRUCache {
-  class Node {
-    int key;
-    int value;
-    Node prev, next;
-
-    Node(int k, int v) {
-      key = k;
-      value = v;
-    }
-  }
-
   int capacity;
   int currentSize;
   Map<Integer, Node> map;
   Node head, tail;
-
   public LRUCache(int capacity) {
     this.capacity = capacity;
     currentSize = 0;
@@ -42,10 +30,10 @@ public class LRUCache {
 
   public void put(int key, int value) {
     Node n = map.get(key);
-    if(n == null) {
+    if (n == null) {
       n = new Node(key, value);
       map.put(key, n);
-      if(head == null) {
+      if (head == null) {
         head = n;
         tail = n;
         currentSize++;
@@ -54,7 +42,7 @@ public class LRUCache {
       n.next = head;
       head.prev = n;
       head = n;
-      if(currentSize == capacity) {
+      if (currentSize == capacity) {
         map.remove(tail.key);
         tail = tail.prev;
         tail.next = null;
@@ -67,11 +55,11 @@ public class LRUCache {
   }
 
   private void update(Node n) {
-    if(currentSize == 1 || head == n)
+    if (currentSize == 1 || head == n)
       return;
 
     n.prev.next = n.next;
-    if(n.next != null)
+    if (n.next != null)
       n.next.prev = n.prev;
     else
       tail = n.prev;
@@ -79,5 +67,16 @@ public class LRUCache {
     n.next = head;
     head.prev = n;
     head = n;
+  }
+
+  class Node {
+    int key;
+    int value;
+    Node prev, next;
+
+    Node(int k, int v) {
+      key = k;
+      value = v;
+    }
   }
 }

@@ -11,8 +11,8 @@ public class Qumulo {
     if (N < M)
       return;
     int[] array = new int[(N >> 1) + 1];
-    for(int i=1, j=0; i<N; ++i) {
-      if(i % M == 0)
+    for (int i = 1, j = 0; i < N; ++i) {
+      if (i % M == 0)
         continue;
       array[j++] = i;
     }
@@ -28,20 +28,19 @@ public class Qumulo {
   }
 }
 
-class Graph{
-
-  private static Map<String, List<String>> graph;
-  private static Set<String> vectors;
+class Graph {
 
   static Scanner in;
+  private static Map<String, List<String>> graph;
+  private static Set<String> vectors;
 
   private static boolean hasCircle(String node, Set<String> hasVisited) {
     hasVisited.add(node);
     List<String> subGraph = graph.get(node);
-    if(subGraph == null)
+    if (subGraph == null)
       return false;
-    for(String v : subGraph) {
-      if(hasVisited.contains(v) || hasCircle(v, hasVisited))
+    for (String v : subGraph) {
+      if (hasVisited.contains(v) || hasCircle(v, hasVisited))
         return true;
     }
     return false;
@@ -49,12 +48,12 @@ class Graph{
 
   private static boolean isTree() {
     Iterator<String> it = graph.keySet().iterator();
-    while(it.hasNext()) {
+    while (it.hasNext()) {
       String v = it.next();
       Set<String> hasVisited = new HashSet<>();
-      if(hasCircle(v, hasVisited))
+      if (hasCircle(v, hasVisited))
         return false;
-      if(hasVisited.size() == vectors.size())
+      if (hasVisited.size() == vectors.size())
         return true;
     }
     return false;
@@ -65,7 +64,7 @@ class Graph{
     graph = new HashMap<>();
     vectors = new HashSet<>();
     String line;
-    while( in.hasNext() && (line = in.nextLine()) != null && !line.equals("")) {
+    while (in.hasNext() && (line = in.nextLine()) != null && !line.equals("")) {
       String[] g = line.split(" ");
       List<String> edge = graph.get(g[0]);
       if (edge == null)
@@ -80,7 +79,7 @@ class Graph{
 
 }
 
-class RPN{
+class RPN {
 
   private static Stack<Integer> stack;
 
@@ -88,13 +87,13 @@ class RPN{
     stack = new Stack<>();
     Scanner in = new Scanner(System.in);
     String line;
-    while(in.hasNext()) {
+    while (in.hasNext()) {
       line = in.nextLine().trim();
-      if(!in.equals("")) {
+      if (!in.equals("")) {
         String[] seq = line.split(" ");
         int left, right;
-        for(String s : seq) {
-          switch(s) {
+        for (String s : seq) {
+          switch (s) {
             case "+":
               right = stack.pop();
               left = stack.pop();

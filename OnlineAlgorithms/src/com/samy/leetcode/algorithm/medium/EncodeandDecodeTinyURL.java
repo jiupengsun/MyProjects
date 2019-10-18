@@ -10,7 +10,7 @@ public class EncodeandDecodeTinyURL {
 
   // Encodes a URL to a shortened URL.
   public String encode(String longUrl) {
-    if(urlToTiny.containsKey(longUrl))
+    if (urlToTiny.containsKey(longUrl))
       return urlToTiny.get(longUrl);
     String s = String.valueOf(seq++);
     urlToTiny.put(longUrl, s);

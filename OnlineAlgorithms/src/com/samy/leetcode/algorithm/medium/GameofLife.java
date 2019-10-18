@@ -2,10 +2,13 @@ package com.samy.leetcode.algorithm.medium;
 
 public class GameofLife {
 
+  public static void main(String[] args) {
+    // TODO Auto-generated method stub
+
+  }
+
   /**
-   *
-   * @param board
-   * 2016��3��4��
+   * @param board 2016��3��4��
    * @author Jiupeng
    * @description 22 test cases, 1ms beats 13.28%
    * @reference https://leetcode.com/problems/game-of-life/
@@ -43,43 +46,38 @@ public class GameofLife {
   }
 
   public void gameOfLife2(int[][] board) {
-    for(int i=0; i<board.length; ++i) {
-      for(int j=0; j<board[0].length; ++j) {
+    for (int i = 0; i < board.length; ++i) {
+      for (int j = 0; j < board[0].length; ++j) {
         int lives = checkLives(board, i, j);
-        if(lives<2 || lives>3) {
+        if (lives < 2 || lives > 3) {
           board[i][j] &= ~2;
-        } else if((board[i][j] & 1)==1 || lives==3) {
-            board[i][j] |= 2;
+        } else if ((board[i][j] & 1) == 1 || lives == 3) {
+          board[i][j] |= 2;
         }
       }
     }
     // move to next state
-    for(int i=0; i<board.length; ++i) {
-      for(int j=0; j<board[0].length; ++j)
+    for (int i = 0; i < board.length; ++i) {
+      for (int j = 0; j < board[0].length; ++j)
         board[i][j] >>= 1;
     }
   }
 
   private int checkLives(int[][] board, int i, int j) {
-    int row_up = Math.max(0, i-1);
-    int row_down = Math.min(board.length-1, i+1);
-    int col_left = Math.max(0, j-1);
-    int col_right = Math.min(board.length-1, j+1);
+    int row_up = Math.max(0, i - 1);
+    int row_down = Math.min(board.length - 1, i + 1);
+    int col_left = Math.max(0, j - 1);
+    int col_right = Math.min(board.length - 1, j + 1);
     int count = 0;
-    for(int m=row_up; m<=row_down; ++m) {
-      for(int n=col_left; n<=col_right; ++n) {
-        if(m==i && n==j)
+    for (int m = row_up; m <= row_down; ++m) {
+      for (int n = col_left; n <= col_right; ++n) {
+        if (m == i && n == j)
           continue;
-        if((board[m][n] & 1) == 1)
+        if ((board[m][n] & 1) == 1)
           ++count;
       }
     }
     return count;
-  }
-
-  public static void main(String[] args) {
-    // TODO Auto-generated method stub
-
   }
 
 }

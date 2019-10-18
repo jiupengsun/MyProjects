@@ -2,8 +2,15 @@ package com.samy.leetcode.algorithm.medium;
 
 public class MaximumProductSubarray {
 
+  public static void main(String[] args) {
+    int[] nums = new int[]{2, -5, -2, -4, 3};
+    MaximumProductSubarray mps = new MaximumProductSubarray();
+    System.out.println(mps.maxProduct(nums));
+  }
+
   /**
    * https://leetcode.com/problems/maximum-product-subarray/description/
+   *
    * @param nums
    * @return
    */
@@ -31,11 +38,5 @@ public class MaximumProductSubarray {
       r = Math.max(r, imax);
     }
     return r;
-  }
-
-  public static void main(String[] args) {
-    int[] nums = new int[]{2, -5, -2, -4, 3};
-    MaximumProductSubarray mps = new MaximumProductSubarray();
-    System.out.println(mps.maxProduct(nums));
   }
 }

@@ -5,29 +5,16 @@ import java.util.Map;
 
 /**
  * https://leetcode.com/problems/lfu-cache/description/
- *
+ * <p>
  * right now this isn't an O(1) solution
  * could refer to https://discuss.leetcode.com/topic/69137/java-o-1-accept-solution-using-hashmap-doublelinkedlist-and-linkedhashset
  * which is an O(1) solution by using LinkedHashMap
  */
 public class LFUCache {
-  class Node {
-    int key;
-    int value;
-    int count;
-    Node prev, next;
-    Node(int k, int v) {
-      key = k;
-      value = v;
-      count = 1;
-    }
-  }
-
   int capacity;
   int currentSize;
   Map<Integer, Node> map;
   Node head, tail;
-
   public LFUCache(int capacity) {
     this.capacity = capacity;
     currentSize = 0;
@@ -36,7 +23,7 @@ public class LFUCache {
 
   public int get(int key) {
     Node n = map.get(key);
-    if(n == null)
+    if (n == null)
       return -1;
     n.count++;
     compare(n);
@@ -44,21 +31,21 @@ public class LFUCache {
   }
 
   public void put(int key, int value) {
-    if(capacity == 0)
+    if (capacity == 0)
       return;
     Node n = map.get(key);
-    if(n == null) {
+    if (n == null) {
       n = new Node(key, value);
       map.put(key, n);
-      if(head == null) {
+      if (head == null) {
         head = n;
         tail = n;
         currentSize++;
         return;
       }
-      if(currentSize == capacity) {
+      if (currentSize == capacity) {
         map.remove(tail.key);
-        if(head == tail) {
+        if (head == tail) {
           head = n;
           tail = n;
           return;
@@ -80,15 +67,15 @@ public class LFUCache {
   }
 
   private void compare(Node n) {
-    if(head == n)
+    if (head == n)
       return;
     Node tmp = n;
-    while(tmp != null && tmp.count <= n.count)
+    while (tmp != null && tmp.count <= n.count)
       tmp = tmp.prev;
-    if(tmp == null) {
+    if (tmp == null) {
       // n should be put on head
       n.prev.next = n.next;
-      if(n.next != null) {
+      if (n.next != null) {
         n.next.prev = n.prev;
       } else
         tail = n.prev;
@@ -98,10 +85,10 @@ public class LFUCache {
       head = n;
     } else {
       // n should be put after tmp
-      if(tmp.next == n)
+      if (tmp.next == n)
         return;
       n.prev.next = n.next;
-      if(n.next != null) {
+      if (n.next != null) {
         n.next.prev = n.prev;
       } else
         tail = n.prev;
@@ -109,6 +96,19 @@ public class LFUCache {
       n.next = tmp.next;
       n.next.prev = n;
       tmp.next = n;
+    }
+  }
+
+  class Node {
+    int key;
+    int value;
+    int count;
+    Node prev, next;
+
+    Node(int k, int v) {
+      key = k;
+      value = v;
+      count = 1;
     }
   }
 }

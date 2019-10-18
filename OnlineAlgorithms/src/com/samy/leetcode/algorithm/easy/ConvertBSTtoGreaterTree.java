@@ -9,11 +9,12 @@ public class ConvertBSTtoGreaterTree {
 
   /**
    * https://leetcode.com/problems/convert-bst-to-greater-tree/description/
+   *
    * @param root
    * @return
    */
   public TreeNode convertBST(TreeNode root) {
-    if(root == null)
+    if (root == null)
       return null;
     convertBST(root.right);
     root.val += sum;

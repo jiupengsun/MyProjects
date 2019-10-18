@@ -3,34 +3,39 @@ package com.samy.company.Linkedin;
 public class TopSharedUrl {
 
   private static TopSharedUrl instance;
-  private TopSharedUrl() {}
+
+  private TopSharedUrl() {
+  }
 
   public static TopSharedUrl getInstance() {
-    if(instance == null) {
+    if (instance == null) {
       synchronized (instance) {
-        if(instance == null)
+        if (instance == null)
           instance = new TopSharedUrl();
       }
     }
     return instance;
   }
 
-  public void shared(String url, int time) {}
+  public static void main(String[] args) {
+    new Thread(new Job()).start();
+  }
+
+  public void shared(String url, int time) {
+  }
 
   public String top() {
     return "";
-  }
-
-  public static void main(String[] args) {
-    new Thread(new Job()).start();
   }
 }
 
 class Job implements Runnable {
   boolean isStop = false;
+
   public void setFlag(boolean f) {
     isStop = f;
   }
+
   @Override
   public void run() {
     do {
@@ -43,6 +48,6 @@ class Job implements Runnable {
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
-    } while(!isStop);
+    } while (!isStop);
   }
 }

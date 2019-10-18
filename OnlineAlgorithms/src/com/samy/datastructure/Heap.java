@@ -21,11 +21,55 @@ public class Heap {
     heap = new int[this.max_heap_size];
   }
 
+  private static void swap(int[] array, int i, int j) {
+    if (i == j)
+      return;
+    int tmp = array[i];
+    array[i] = array[j];
+    array[j] = tmp;
+  }
+
+  public static void min_heapify(int[] array, int length) {
+    if (length > array.length)
+      return;
+    for (int i = (length >> 1) - 1; i >= 0; --i) {
+      min_heapify(array, i, length);
+    }
+  }
+
+  private static void min_heapify(int[] array, int i, int length) {
+    int select = i;
+    int left_child = (i << 1) + 1;
+    int right_child = left_child + 1;
+    if (left_child < length && array[left_child] < array[select])
+      select = left_child;
+    if (right_child < length && array[right_child] < array[select])
+      select = right_child;
+    if (select != i) {
+      swap(array, i, select);
+      min_heapify(array, select, length);
+    }
+  }
+
+  public static void main(String[] args) {
+    long i = 10000;
+    int count = 0;
+    while (i > 1) {
+      if ((i & 1) == 0) {
+        i >>= 1;
+      } else {
+        i = 3 * i + 1;
+      }
+      ++count;
+    }
+    System.out.println(count);
+  }
+
   /**
    * heapify this heap
    */
   private void max_heapify() {
-    for(int i=(max_heap_size >> 1)-1; i>=0; --i) {
+    for (int i = (max_heap_size >> 1) - 1; i >= 0; --i) {
       max_heapify(i);
     }
   }
@@ -44,50 +88,6 @@ public class Heap {
       swap(heap, smaller, i);
       max_heapify(smaller);
     }
-  }
-
-  private static void swap(int[] array, int i, int j) {
-    if (i == j)
-      return;
-    int tmp = array[i];
-    array[i] = array[j];
-    array[j] = tmp;
-  }
-
-  public static void min_heapify(int[] array, int length) {
-    if (length > array.length)
-      return;
-    for(int i=(length>>1) - 1; i>=0; --i) {
-      min_heapify(array, i, length);
-    }
-  }
-
-  private static void min_heapify(int[] array, int i, int length) {
-    int select = i;
-    int left_child = (i<<1) + 1;
-    int right_child = left_child + 1;
-    if (left_child < length && array[left_child] < array[select])
-      select = left_child;
-    if (right_child < length && array[right_child] < array[select])
-      select = right_child;
-    if (select != i) {
-      swap(array, i, select);
-      min_heapify(array, select, length);
-    }
-  }
-
-  public static void main(String[] args) {
-    long i = 10000;
-    int count = 0;
-    while(i > 1) {
-      if((i&1) == 0) {
-        i >>= 1;
-      } else {
-        i = 3 * i + 1;
-      }
-      ++count;
-    }
-    System.out.println(count);
   }
 
 }

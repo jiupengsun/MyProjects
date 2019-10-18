@@ -8,6 +8,13 @@ import com.samy.datastructure.TreeNode;
  */
 public class MorrisTree {
 
+  public static void main(String[] args) {
+
+    TreeNode root = TreeNode.constructBinaryTreeByArray(new int[]{3, 2, 5, 1, -1, 4, 6, -1, -1, -1, -1, -1, -1, -1, 8});
+    MorrisTree mt = new MorrisTree();
+    mt.postOrderTraverse(root);
+  }
+
   public void inOrderTraverse(TreeNode root) {
     while (root != null) {
       if (root.left == null) {
@@ -31,8 +38,8 @@ public class MorrisTree {
   }
 
   public void preOrderTraverse(TreeNode root) {
-    while(root != null) {
-      if(root.left == null) {
+    while (root != null) {
+      if (root.left == null) {
         root.print();
         root = root.right;
         continue;
@@ -56,16 +63,16 @@ public class MorrisTree {
     TreeNode fakeRoot = new TreeNode(0);
     fakeRoot.left = root;
     root = fakeRoot;
-    while(root != null) {
-      if(root.left == null) {
+    while (root != null) {
+      if (root.left == null) {
         root = root.right;
         continue;
       }
       TreeNode tmp = root.left;
-      while(tmp.right!=null && tmp.right!=root) {
+      while (tmp.right != null && tmp.right != root) {
         tmp = tmp.right;
       }
-      if(tmp.right == null) {
+      if (tmp.right == null) {
         tmp.right = root;
         root = root.left;
       } else {
@@ -78,16 +85,9 @@ public class MorrisTree {
   }
 
   private void reverseOutput(TreeNode root) {
-    if(root == null)
+    if (root == null)
       return;
     reverseOutput(root.right);
     root.print();
-  }
-
-  public static void main(String[] args) {
-
-    TreeNode root = TreeNode.constructBinaryTreeByArray(new int[]{3,2,5,1,-1,4,6,-1,-1,-1,-1,-1,-1,-1,8});
-    MorrisTree mt = new MorrisTree();
-    mt.postOrderTraverse(root);
   }
 }

@@ -23,7 +23,7 @@ public class Trie {
     TrieNode father = this.root;
     int i = 0;
 
-    for(int l = word.length(); i < l; ++i) {
+    for (int l = word.length(); i < l; ++i) {
       char c = word.charAt(i);
       TrieNode child = father.branches[c - 97];
       if (child == null) {
@@ -42,7 +42,7 @@ public class Trie {
     TrieNode father = this.root;
     int i = 0;
 
-    for(int l = word.length(); i < l; ++i) {
+    for (int l = word.length(); i < l; ++i) {
       char c = word.charAt(i);
       if (father.branches[c - 97] == null) {
         return false;
@@ -58,7 +58,7 @@ public class Trie {
     TrieNode father = this.root;
     int i = 0;
 
-    for(int l = prefix.length(); i < l; ++i) {
+    for (int l = prefix.length(); i < l; ++i) {
       char c = prefix.charAt(i);
       if (father.branches[c - 97] == null) {
         return false;
@@ -77,7 +77,7 @@ public class Trie {
     char[] var5 = array;
     int var6 = array.length;
 
-    for(int var7 = 0; var7 < var6; ++var7) {
+    for (int var7 = 0; var7 < var6; ++var7) {
       char c = var5[var7];
       if (father.branches[c - 97] == null) {
         return;
@@ -89,8 +89,8 @@ public class Trie {
 
     father.stop = false;
 
-    for(int i = array.length - 1; i >= 0; --i) {
-      father = (TrieNode)stack.pop();
+    for (int i = array.length - 1; i >= 0; --i) {
+      father = (TrieNode) stack.pop();
       if (this.isFreeNode(father.branches[array[i] - 97])) {
         father.branches[array[i] - 97] = null;
       }
@@ -106,7 +106,7 @@ public class Trie {
       TrieNode[] var2 = node.branches;
       int var3 = var2.length;
 
-      for(int var4 = 0; var4 < var3; ++var4) {
+      for (int var4 = 0; var4 < var3; ++var4) {
         TrieNode child = var2[var4];
         if (child != null) {
           return false;

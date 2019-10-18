@@ -8,7 +8,7 @@ import java.util.List;
 public class KDistanceTree {
 
   public List<Integer> print(TreeNode root, TreeNode target, int k) {
-    if(root == null)
+    if (root == null)
       return new ArrayList<>();
     List<Integer> list = new LinkedList<>();
     Deque<TreeNode> stack = new LinkedList<>();
@@ -20,31 +20,31 @@ public class KDistanceTree {
     TreeNode tmp = null;
     Boolean flag = null;
     do {
-      if(tmp == null) {
+      if (tmp == null) {
         tmp = stack.pop();
         flag = mark.pop();
       }
       // judge current state
-      if(flag == null) {
+      if (flag == null) {
         // new node
-        if(tmp == target) {
+        if (tmp == target) {
           // find
           break;
         }
-        if(tmp.left != null) {
+        if (tmp.left != null) {
           stack.push(tmp);
           mark.push(false);
           tmp = tmp.left;
-        } else if(tmp.right != null) {
+        } else if (tmp.right != null) {
           stack.push(tmp);
           mark.push(true);
           tmp = tmp.right;
         } else {
           tmp = null;
         }
-      } else if(!flag) {
+      } else if (!flag) {
         // back from left
-        if(tmp.right != null) {
+        if (tmp.right != null) {
           stack.push(tmp);
           mark.push(true);
           tmp = tmp.right;
@@ -54,32 +54,32 @@ public class KDistanceTree {
         // back from right
         tmp = null;
       }
-    } while(!stack.isEmpty());
+    } while (!stack.isEmpty());
 
-    if(tmp == target) {
+    if (tmp == target) {
       // find
       getKthChild(target, k, list);
       int i = 1;
-      while(!stack.isEmpty()) {
+      while (!stack.isEmpty()) {
         tmp = stack.pop();
         flag = mark.pop();
-        if(!flag) {
+        if (!flag) {
           // back from left
-          getKthChild(tmp.right, k-i-1, list);
+          getKthChild(tmp.right, k - i - 1, list);
         } else
-          getKthChild(tmp.left, k-i-1, list);
+          getKthChild(tmp.left, k - i - 1, list);
       }
     }
     return list;
   }
 
   private void getKthChild(TreeNode root, int k, List<Integer> list) {
-    if(root == null)
+    if (root == null)
       return;
-    if(k == 0)
+    if (k == 0)
       list.add(root.val);
-    getKthChild(root.left, k-1, list);
-    getKthChild(root.right, k-1, list);
+    getKthChild(root.left, k - 1, list);
+    getKthChild(root.right, k - 1, list);
   }
 }
 
@@ -87,6 +87,7 @@ public class KDistanceTree {
 class TreeNode {
   int val;
   TreeNode left, right;
+
   TreeNode(int t) {
     val = t;
   }

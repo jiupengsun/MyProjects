@@ -4,9 +4,10 @@ import java.util.*;
 
 abstract class MonitorSystem {
 
-  MonitorSystem(int hours) {}
+  MonitorSystem(int hours) {
+  }
 
-  abstract void log (String exception, long timestamp);
+  abstract void log(String exception, long timestamp);
 
   abstract List<String> top(int number);
 }
@@ -20,20 +21,9 @@ abstract class MonitorSystem {
  */
 class Monitor extends MonitorSystem {
 
-  class Node {
-    String message;
-    long timestamp;
-
-    Node(String s, long t) {
-      message = s;
-      timestamp = t;
-    }
-  }
-
   Map<String, Integer> map;
   Queue<Node> que;
   long intervalByMs;
-
   Monitor(int hours) {
     super(hours);
     intervalByMs = hours * 24 * 60 * 3600 * 1000;
@@ -48,10 +38,10 @@ class Monitor extends MonitorSystem {
   @Override
   List<String> top(int number) {
     long start = System.currentTimeMillis() - intervalByMs;
-    while(!que.isEmpty() && que.peek().timestamp <= start) {
+    while (!que.isEmpty() && que.peek().timestamp <= start) {
       Node n = que.poll();
       Integer count = map.get(n.message);
-      if(--count == 0)
+      if (--count == 0)
         map.remove(n.message);
       else
         map.put(n.message, count);
@@ -60,9 +50,19 @@ class Monitor extends MonitorSystem {
     List<Map.Entry<String, Integer>> l = new ArrayList<>(map.entrySet());
     l.sort((o1, o2) -> o2.getValue() - o1.getValue());
     List<String> list = new ArrayList<>(500);
-    for(int i=0, j=Math.min(500, l.size()); i<j; ++i)
+    for (int i = 0, j = Math.min(500, l.size()); i < j; ++i)
       list.add(l.get(i).getKey());
     return list;
+  }
+
+  class Node {
+    String message;
+    long timestamp;
+
+    Node(String s, long t) {
+      message = s;
+      timestamp = t;
+    }
   }
 }
 
@@ -90,6 +90,7 @@ class Monitor2 extends MonitorSystem {
 
   /**
    * O(1)
+   *
    * @param exception
    * @param timestamp
    */
@@ -98,10 +99,10 @@ class Monitor2 extends MonitorSystem {
     // million seconds to minutes
     int minutes = (int) (timestamp / 3600000);
     int index = minutes % maxMinutes;
-    if(minuteArray[index] == minutes) {
+    if (minuteArray[index] == minutes) {
       // same timestamp
       Map<String, Integer> ele = map.get(exception);
-      ele.put(exception, ele.getOrDefault(ele, 0 ) + 1);
+      ele.put(exception, ele.getOrDefault(ele, 0) + 1);
     } else {
       // new timestamp
       map.remove(minuteArray[index]);
@@ -114,6 +115,7 @@ class Monitor2 extends MonitorSystem {
 
   /**
    * O(N) where N is the number of distinct string in past 500
+   *
    * @param number
    * @return
    */
@@ -121,11 +123,11 @@ class Monitor2 extends MonitorSystem {
   List<String> top(int number) {
     int minutes = (int) (System.currentTimeMillis() / 3600000 - maxMinutes);
     Map<String, Integer> sumMap = new HashMap<>();
-    for(int i: minuteArray) {
-      if(i > minutes) {
+    for (int i : minuteArray) {
+      if (i > minutes) {
         Map<String, Integer> ele = map.get(i);
-        if(ele != null) {
-          for(Map.Entry<String, Integer> m: ele.entrySet()) {
+        if (ele != null) {
+          for (Map.Entry<String, Integer> m : ele.entrySet()) {
             sumMap.put(m.getKey(), sumMap.getOrDefault(m.getKey(), 0) + m.getValue());
           }
         }
@@ -137,9 +139,9 @@ class Monitor2 extends MonitorSystem {
     List<Map.Entry<String, Integer>> l = new ArrayList<>(sumMap.entrySet());
     // if size of l is much larger than 500
     // than we can use heap sort, which is O(nlogk) where k equals 500
-    l.sort((e1, e2)->e2.getValue()-e1.getValue());
+    l.sort((e1, e2) -> e2.getValue() - e1.getValue());
     List<String> list = new ArrayList<>(500);
-    for(int i=0, j=Math.min(500, l.size()); i<j; ++i) {
+    for (int i = 0, j = Math.min(500, l.size()); i < j; ++i) {
       list.add(l.get(i).getKey());
     }
     return list;

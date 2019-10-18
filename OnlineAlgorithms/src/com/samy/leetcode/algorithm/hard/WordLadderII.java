@@ -8,129 +8,8 @@ import java.util.*;
  */
 public class WordLadderII {
 
-  private final char[] letters = new char[]{'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o',
-      'p','q','r','s','t','u','v','w','x','y','z'};
-
-  public List<List<String>> findLadders(String beginWord, String endWord, Set<String> wordList) {
-    Set<String> visited = new HashSet<>();
-    Map<String, List<List<String>>> layer1 = new HashMap<>();
-    Map<String, List<List<String>>> layer2 = new HashMap<>();
-    List<List<String>> p1 = new ArrayList<>();
-    p1.add(new ArrayList<>());
-    List<List<String>> p2 = new ArrayList<>();
-    p2.add(new LinkedList<>());
-    // initialize layer
-    layer1.put(beginWord, p1);
-    layer2.put(endWord, p2);
-    List<List<String>> paths = new ArrayList<>();
-    Iterator<String> iter = null;
-    int min_path = Integer.MAX_VALUE;
-    while(!layer1.isEmpty() && !layer2.isEmpty() && paths.size()==0) {
-      Map<String, List<List<String>>> newlayer1 = new HashMap<>();
-      iter = layer1.keySet().iterator();
-      while(iter.hasNext()) {
-        String word = iter.next();
-        List<List<String>> left = layer1.get(word);
-        for(List<String> l : left)
-          l.add(word);
-        visited.add(word);
-        if(layer2.containsKey(word)) {
-          // meet in middle
-          List<List<String>> right = layer2.get(word);
-          int path_l = left.get(0).size() + right.get(0).size();
-          if(path_l > min_path)
-            continue;
-          if(path_l < min_path) {
-            paths = new ArrayList<>();
-            min_path = path_l;
-          }
-          for(List<String> l : left)
-            for(List<String> r : right) {
-              List<String> path = new ArrayList<>();
-              path.addAll(l);
-              path.addAll(r);
-              paths.add(path);
-            }
-        } else {
-          Iterator<String> it = nextWord(word, wordList).iterator();
-          while(it.hasNext()) {
-            String w = it.next();
-            if(!visited.contains(w)) {
-              List<List<String>> prepath = newlayer1.get(w);
-              if (prepath == null)
-                prepath = new ArrayList<>();
-              for(List<String> l : left)
-                prepath.add(new ArrayList<>(l));
-              newlayer1.put(w, prepath);
-            }
-          }
-        }
-      }
-      layer1 = newlayer1;
-
-      Map<String, List<List<String>>> newlayer2 = new HashMap<>();
-      iter = layer2.keySet().iterator();
-      while(iter.hasNext()) {
-        String word = iter.next();
-        List<List<String>> right = layer2.get(word);
-        for(List<String> r : right)
-          r.add(0, word);
-        visited.add(word);
-        if(layer1.containsKey(word)) {
-          // meet in middle
-          List<List<String>> left = layer1.get(word);
-          int path_l = left.get(0).size() + right.get(0).size();
-          if(path_l > min_path)
-            continue;
-          if(path_l < min_path) {
-            paths = new ArrayList<>();
-            min_path = path_l;
-          }
-          for(List<String> l : left)
-            for(List<String> r : right) {
-              List<String> path = new ArrayList<>();
-              path.addAll(l);
-              path.addAll(r);
-              paths.add(path);
-            }
-        } else {
-          Iterator<String> it = nextWord(word, wordList).iterator();
-          while(it.hasNext()) {
-            String w = it.next();
-            if(!visited.contains(w)) {
-              List<List<String>> prepath = newlayer2.get(w);
-              if(prepath == null)
-                prepath = new ArrayList<>();
-              for(List<String> r : right) {
-                prepath.add(new LinkedList<>(r));
-              }
-              newlayer2.put(w, prepath);
-            }
-          }
-        }
-      }
-      layer2 = newlayer2;
-    }
-    return paths;
-  }
-
-  private Set<String> nextWord(String word, Set<String> dict) {
-    Set<String> set = new HashSet<>();
-    char[] letter = word.toCharArray();
-    for(int i=0; i<letter.length; ++i) {
-      char tmp = letter[i];
-      for(char c : letters) {
-        if(c == tmp)
-          continue;
-        letter[i] = c;
-        String nw = new String(letter);
-        if(dict.contains(nw))
-          set.add(nw);
-      }
-      letter[i] = tmp;
-    }
-    return set;
-  }
+  private final char[] letters = new char[]{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o',
+    'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
 
   public static void main(String[] args) {
     Set<String> dict = new HashSet<>();
@@ -176,7 +55,128 @@ public class WordLadderII {
     System.out.println(dict.size());*/
     WordLadderII wl = new WordLadderII();
     List<List<String>> result = wl.findLadders(beginWord, endWord, dict);
-    for(List<String> l : result)
+    for (List<String> l : result)
       System.out.println(l);
+  }
+
+  public List<List<String>> findLadders(String beginWord, String endWord, Set<String> wordList) {
+    Set<String> visited = new HashSet<>();
+    Map<String, List<List<String>>> layer1 = new HashMap<>();
+    Map<String, List<List<String>>> layer2 = new HashMap<>();
+    List<List<String>> p1 = new ArrayList<>();
+    p1.add(new ArrayList<>());
+    List<List<String>> p2 = new ArrayList<>();
+    p2.add(new LinkedList<>());
+    // initialize layer
+    layer1.put(beginWord, p1);
+    layer2.put(endWord, p2);
+    List<List<String>> paths = new ArrayList<>();
+    Iterator<String> iter = null;
+    int min_path = Integer.MAX_VALUE;
+    while (!layer1.isEmpty() && !layer2.isEmpty() && paths.size() == 0) {
+      Map<String, List<List<String>>> newlayer1 = new HashMap<>();
+      iter = layer1.keySet().iterator();
+      while (iter.hasNext()) {
+        String word = iter.next();
+        List<List<String>> left = layer1.get(word);
+        for (List<String> l : left)
+          l.add(word);
+        visited.add(word);
+        if (layer2.containsKey(word)) {
+          // meet in middle
+          List<List<String>> right = layer2.get(word);
+          int path_l = left.get(0).size() + right.get(0).size();
+          if (path_l > min_path)
+            continue;
+          if (path_l < min_path) {
+            paths = new ArrayList<>();
+            min_path = path_l;
+          }
+          for (List<String> l : left)
+            for (List<String> r : right) {
+              List<String> path = new ArrayList<>();
+              path.addAll(l);
+              path.addAll(r);
+              paths.add(path);
+            }
+        } else {
+          Iterator<String> it = nextWord(word, wordList).iterator();
+          while (it.hasNext()) {
+            String w = it.next();
+            if (!visited.contains(w)) {
+              List<List<String>> prepath = newlayer1.get(w);
+              if (prepath == null)
+                prepath = new ArrayList<>();
+              for (List<String> l : left)
+                prepath.add(new ArrayList<>(l));
+              newlayer1.put(w, prepath);
+            }
+          }
+        }
+      }
+      layer1 = newlayer1;
+
+      Map<String, List<List<String>>> newlayer2 = new HashMap<>();
+      iter = layer2.keySet().iterator();
+      while (iter.hasNext()) {
+        String word = iter.next();
+        List<List<String>> right = layer2.get(word);
+        for (List<String> r : right)
+          r.add(0, word);
+        visited.add(word);
+        if (layer1.containsKey(word)) {
+          // meet in middle
+          List<List<String>> left = layer1.get(word);
+          int path_l = left.get(0).size() + right.get(0).size();
+          if (path_l > min_path)
+            continue;
+          if (path_l < min_path) {
+            paths = new ArrayList<>();
+            min_path = path_l;
+          }
+          for (List<String> l : left)
+            for (List<String> r : right) {
+              List<String> path = new ArrayList<>();
+              path.addAll(l);
+              path.addAll(r);
+              paths.add(path);
+            }
+        } else {
+          Iterator<String> it = nextWord(word, wordList).iterator();
+          while (it.hasNext()) {
+            String w = it.next();
+            if (!visited.contains(w)) {
+              List<List<String>> prepath = newlayer2.get(w);
+              if (prepath == null)
+                prepath = new ArrayList<>();
+              for (List<String> r : right) {
+                prepath.add(new LinkedList<>(r));
+              }
+              newlayer2.put(w, prepath);
+            }
+          }
+        }
+      }
+      layer2 = newlayer2;
+    }
+    return paths;
+  }
+
+  private Set<String> nextWord(String word, Set<String> dict) {
+    Set<String> set = new HashSet<>();
+    char[] letter = word.toCharArray();
+    for (int i = 0; i < letter.length; ++i) {
+      char tmp = letter[i];
+      for (char c : letters) {
+        if (c == tmp)
+          continue;
+        letter[i] = c;
+        String nw = new String(letter);
+        if (dict.contains(nw))
+          set.add(nw);
+      }
+      letter[i] = tmp;
+    }
+    return set;
   }
 }

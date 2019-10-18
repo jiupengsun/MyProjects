@@ -6,6 +6,26 @@ import java.util.*;
  * <a href="https://www.geeksforgeeks.org/strongly-connected-components/">Kosaraju’s algorithm</a>
  */
 public class Kosaraju implements StronglyConnectedComponent {
+  public static void main(String[] args) {
+    Kosaraju k = new Kosaraju();
+    List<List<Integer>> connections = new ArrayList<>();
+    connections.add(Arrays.asList(0, 1));
+    connections.add(Arrays.asList(1, 2));
+    connections.add(Arrays.asList(2, 0));
+    connections.add(Arrays.asList(1, 3));
+    connections.add(Arrays.asList(3, 4));
+    connections.add(Arrays.asList(4, 5));
+    connections.add(Arrays.asList(5, 3));
+    connections.add(Arrays.asList(4, 6));
+    List<List<Integer>> results = k.getSCCs(7, connections);
+    for (List<Integer> l : results) {
+      for (int e : l) {
+        System.out.print(String.valueOf(e) + ' ');
+      }
+      System.out.println();
+    }
+  }
+
   @Override
   public List<List<Integer>> getSCCs(int n, List<List<Integer>> connections) {
     Stack<Integer> stack = new Stack<>();
@@ -23,7 +43,7 @@ public class Kosaraju implements StronglyConnectedComponent {
   }
 
   private void getSCCs(Stack<Integer> stack, boolean[] visited, Map<Integer, List<Integer>> graph, List<List<Integer>> sccs) {
-    while(!stack.isEmpty()) {
+    while (!stack.isEmpty()) {
       int node = stack.pop();
       if (!visited[node]) {
         List<Integer> scc = new ArrayList<>();
@@ -69,25 +89,5 @@ public class Kosaraju implements StronglyConnectedComponent {
       }
     }
     stack.push(node);
-  }
-
-  public static void main(String[] args) {
-    Kosaraju k = new Kosaraju();
-    List<List<Integer>> connections = new ArrayList<>();
-    connections.add(Arrays.asList(0, 1));
-    connections.add(Arrays.asList(1, 2));
-    connections.add(Arrays.asList(2, 0));
-    connections.add(Arrays.asList(1, 3));
-    connections.add(Arrays.asList(3, 4));
-    connections.add(Arrays.asList(4, 5));
-    connections.add(Arrays.asList(5, 3));
-    connections.add(Arrays.asList(4, 6));
-    List<List<Integer>> results = k.getSCCs(7, connections);
-    for (List<Integer> l : results) {
-      for (int e : l) {
-        System.out.print(String.valueOf(e) + ' ');
-      }
-      System.out.println();
-    }
   }
 }

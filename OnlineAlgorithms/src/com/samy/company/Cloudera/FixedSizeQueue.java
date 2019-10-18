@@ -19,8 +19,8 @@ public class FixedSizeQueue {
   }
 
   public void add(Object o) throws Exception {
-    synchronized(lock) {
-      while(size == queue.length) {
+    synchronized (lock) {
+      while (size == queue.length) {
         lock.wait();
       }
       queue[tail++] = o;
@@ -31,8 +31,8 @@ public class FixedSizeQueue {
   }
 
   public Object remove() throws Exception {
-    synchronized(lock) {
-      while(size == 0) {
+    synchronized (lock) {
+      while (size == 0) {
         lock.wait();
       }
       Object o = queue[head++];

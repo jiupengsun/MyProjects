@@ -11,6 +11,7 @@ public class TreeNode {
 
   /**
    * construct a binary tree by array
+   *
    * @param n
    * @return
    */
@@ -19,7 +20,6 @@ public class TreeNode {
   }
 
   /**
-   *
    * @param i
    * @param n
    * @return

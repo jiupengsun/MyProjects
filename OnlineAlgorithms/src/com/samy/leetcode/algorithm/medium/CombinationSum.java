@@ -6,12 +6,19 @@ import java.util.List;
 
 public class CombinationSum {
 
+  public static void main(String[] args) {
+    // TODO Auto-generated method stub
+    int[] candidates = {1, 2, 3};
+    int target = 6;
+    CombinationSum cs = new CombinationSum();
+    List<List<Integer>> collection = cs.combinationSum(candidates, target);
+    System.out.println(collection);
+  }
+
   /**
-   *
    * @param candidates
    * @param target
-   * @return
-   * 2016��2��23��
+   * @return 2016��2��23��
    * @author Jiupeng
    * @description 168 test cases, 8ms beats 53.94%
    * @reference https://leetcode.com/problems/combination-sum/
@@ -59,30 +66,21 @@ public class CombinationSum {
   }
 
   private void helper(int[] candidates, int st, int target, List<List<Integer>> list, List<Integer> l) {
-    if(target == 0) {
+    if (target == 0) {
       list.add(new ArrayList<>(l));
       return;
     }
-    if(st == candidates.length || candidates[st] > target)
+    if (st == candidates.length || candidates[st] > target)
       return;
     int k = target / candidates[st];
-    for(int i=0; i<k; ++i)
+    for (int i = 0; i < k; ++i)
       l.add(candidates[st]);
-    while(k > 0) {
-      helper(candidates, st+1, target-k*candidates[st], list, l);
+    while (k > 0) {
+      helper(candidates, st + 1, target - k * candidates[st], list, l);
       l.remove(l.size() - 1);
       --k;
     }
-    helper(candidates, st+1, target-k*candidates[st], list, l);
-  }
-
-  public static void main(String[] args) {
-    // TODO Auto-generated method stub
-    int[] candidates = { 1, 2, 3 };
-    int target = 6;
-    CombinationSum cs = new CombinationSum();
-    List<List<Integer>> collection = cs.combinationSum(candidates, target);
-    System.out.println(collection);
+    helper(candidates, st + 1, target - k * candidates[st], list, l);
   }
 
 }

@@ -4,6 +4,14 @@ import com.samy.datastructure.ListNode;
 
 public class ArrangeArray {
 
+  public static void main(String[] args) {
+    ArrangeArray aa = new ArrangeArray();
+    int[] nums = new int[]{1, 2, 3, -1, -2, -3};
+    aa.arrange(nums);
+    for (int i : nums)
+      System.out.println(i);
+  }
+
   public void arrange(int[] nums) {
     /**
      * two pointer, i j
@@ -14,17 +22,17 @@ public class ArrangeArray {
      *  move j to the first positive number, then swap(i, j)
      * positive = !positive
      */
-    int i=0, j=0;
+    int i = 0, j = 0;
     boolean flag = nums[0] > 0;
-    while(j < nums.length) {
-      if(i <= j && (flag && nums[i] < 0 || !flag && nums[i] > 0)) {
-        if(flag)
-          while(j < nums.length && nums[j] < 0)
+    while (j < nums.length) {
+      if (i <= j && (flag && nums[i] < 0 || !flag && nums[i] > 0)) {
+        if (flag)
+          while (j < nums.length && nums[j] < 0)
             ++j;
         else
-          while(j < nums.length && nums[j] > 0)
+          while (j < nums.length && nums[j] > 0)
             ++j;
-        if(j < nums.length) {
+        if (j < nums.length) {
           swap(nums, i++, j);
         }
       } else {
@@ -42,14 +50,14 @@ public class ArrangeArray {
      * then reverse(start, end)
      * prev.next = end, start.next=original end.next
      */
-    if(k <= 1)
+    if (k <= 1)
       return head;
     ListNode fakeHead = new ListNode(0);
     fakeHead.next = head;
-    ListNode prev = fakeHead, start=head, tmp=head;
+    ListNode prev = fakeHead, start = head, tmp = head;
     int count = k - 1;
-    while(tmp != null) {
-      if(count == 0) {
+    while (tmp != null) {
+      if (count == 0) {
         ListNode next = tmp.next;
         reverse(start, tmp);
         prev.next = tmp;
@@ -57,7 +65,7 @@ public class ArrangeArray {
         prev = start;
         tmp = next;
         start = next;
-        count = k-1;
+        count = k - 1;
       } else {
         tmp = tmp.next;
         --count;
@@ -67,10 +75,10 @@ public class ArrangeArray {
   }
 
   private void reverse(ListNode head, ListNode tail) {
-    if(head == tail)
+    if (head == tail)
       return;
-    ListNode prev=head, next=head.next;
-    while(next != tail.next) {
+    ListNode prev = head, next = head.next;
+    while (next != tail.next) {
       ListNode tmp = next.next;
       next.next = prev;
       prev = next;
@@ -79,18 +87,10 @@ public class ArrangeArray {
   }
 
   private void swap(int[] nums, int i, int j) {
-    if(i != j) {
+    if (i != j) {
       int tmp = nums[i];
       nums[i] = nums[j];
       nums[j] = tmp;
     }
-  }
-
-  public static void main(String[] args) {
-    ArrangeArray aa = new ArrangeArray();
-    int[] nums = new int[] {1,2,3,-1,-2,-3};
-    aa.arrange(nums);
-    for(int i: nums)
-      System.out.println(i);
   }
 }

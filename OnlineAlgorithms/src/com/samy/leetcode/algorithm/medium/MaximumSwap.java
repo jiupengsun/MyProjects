@@ -9,19 +9,20 @@ public class MaximumSwap {
 
   /**
    * https://leetcode.com/problems/maximum-swap/discuss/
+   *
    * @param num
    * @return
    */
   public int maximumSwap(int num) {
     List<Integer> list = new ArrayList<>(10);
-    PriorityQueue<Integer> que = new PriorityQueue<>(new Comparator<Integer>(){
+    PriorityQueue<Integer> que = new PriorityQueue<>(new Comparator<Integer>() {
       @Override
       public int compare(Integer i1, Integer i2) {
-        return i2-i1;
+        return i2 - i1;
       }
     });
     int ori = num;
-    while(num > 0) {
+    while (num > 0) {
       int d = num % 10;
       list.add(d);
       que.add(d);
@@ -29,19 +30,19 @@ public class MaximumSwap {
     }
     Integer[] array = new Integer[list.size()];
     list.toArray(array);
-    for(int i=array.length-1; i>0; --i) {
+    for (int i = array.length - 1; i > 0; --i) {
       int d = que.poll();
-      if(array[i] < d) {
+      if (array[i] < d) {
         // find one
-        for(int j=0; j<i; ++j) {
-          if(array[j] == d) {
+        for (int j = 0; j < i; ++j) {
+          if (array[j] == d) {
             swap(array, i, j);
             break;
           }
         }
         int n = 0;
-        for(int j=array.length-1; j>=0; --j)
-          n = n*10 + array[j];
+        for (int j = array.length - 1; j >= 0; --j)
+          n = n * 10 + array[j];
         return n;
       }
     }

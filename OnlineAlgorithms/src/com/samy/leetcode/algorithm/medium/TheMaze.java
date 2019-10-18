@@ -7,6 +7,7 @@ public class TheMaze {
 
   /**
    * https://leetcode.com/problems/the-maze/description/
+   *
    * @param maze
    * @param start
    * @param destination
@@ -19,19 +20,19 @@ public class TheMaze {
     boolean[][] visit = new boolean[maze.length][maze[0].length];
     Deque<int[]> stack = new LinkedList<>();
     stack.push(start);
-    while(!stack.isEmpty()) {
+    while (!stack.isEmpty()) {
       int[] next = stack.pop();
-      if(next[0]==destination[0] && next[1]==destination[1])
+      if (next[0] == destination[0] && next[1] == destination[1])
         return true;
       visit[next[0]][next[1]] = true;
       // judge
-      for(int i=0; i<4; ++i) {
-        int p=next[0], q=next[1];
-        while(!isWall(maze,p+direction[i][0], q+direction[i][1])) {
+      for (int i = 0; i < 4; ++i) {
+        int p = next[0], q = next[1];
+        while (!isWall(maze, p + direction[i][0], q + direction[i][1])) {
           p += direction[i][0];
           q += direction[i][1];
         }
-        if(!visit[p][q])
+        if (!visit[p][q])
           stack.push(new int[]{p, q});
       }
     }
@@ -39,6 +40,6 @@ public class TheMaze {
   }
 
   private boolean isWall(int[][] maze, int p, int q) {
-    return p<0 || q<0 || p==maze.length || q==maze[0].length || maze[p][q]==1;
+    return p < 0 || q < 0 || p == maze.length || q == maze[0].length || maze[p][q] == 1;
   }
 }

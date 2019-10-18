@@ -16,9 +16,9 @@ public class TokenBucket {
     long now = System.currentTimeMillis();
     token += (now - timestamp) / interval;
     timestamp = now;
-    if(token > capacity)
+    if (token > capacity)
       token = capacity;
-    if(token < 1)
+    if (token < 1)
       return false;
     token--;
     return true;

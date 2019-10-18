@@ -24,20 +24,20 @@ public class Cheese {
       return true;
 
     // check left
-    if (j > 0 && dfs[i][j-1] == 0)
-      if (DFS(maze, dfs, i, j-1, row, col))
+    if (j > 0 && dfs[i][j - 1] == 0)
+      if (DFS(maze, dfs, i, j - 1, row, col))
         return true;
     // check up
-    if (i > 0 && dfs[i-1][j] == 0)
-      if (DFS(maze, dfs, i-1, j, row, col))
+    if (i > 0 && dfs[i - 1][j] == 0)
+      if (DFS(maze, dfs, i - 1, j, row, col))
         return true;
     // check right
-    if (j < col - 1 && dfs[i][j+1] == 0)
-      if (DFS(maze, dfs, i, j+1, row, col))
+    if (j < col - 1 && dfs[i][j + 1] == 0)
+      if (DFS(maze, dfs, i, j + 1, row, col))
         return true;
     // check bottom
-    if (i < row - 1 && dfs[i+1][j] == 0)
-      if (DFS(maze, dfs, i+1, j, row, col))
+    if (i < row - 1 && dfs[i + 1][j] == 0)
+      if (DFS(maze, dfs, i + 1, j, row, col))
         return true;
     // all directions failed
     return false;
@@ -45,14 +45,14 @@ public class Cheese {
 
   public static void main(String[] args) {
     int maze[][] = {
-        {1, 0, 1, 1, 1, 0, 0, 1},
-        {1, 0, 0, 0, 1, 1, 1, 1},
-        {1, 0, 0, 0, 1, 0, 0, 0},
-        {1, 0, 1, 0, 9, 0, 1, 1},
-        {1, 1, 1, 0, 0, 0, 0, 1},
-        {1, 0, 1, 0, 1, 1, 0, 1},
-        {1, 0, 0, 0, 0, 1, 0, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1}
+      {1, 0, 1, 1, 1, 0, 0, 1},
+      {1, 0, 0, 0, 1, 1, 1, 1},
+      {1, 0, 0, 0, 1, 0, 0, 0},
+      {1, 0, 1, 0, 9, 0, 1, 1},
+      {1, 1, 1, 0, 0, 0, 0, 1},
+      {1, 0, 1, 0, 1, 1, 0, 1},
+      {1, 0, 0, 0, 0, 1, 0, 1},
+      {1, 1, 1, 1, 1, 1, 1, 1}
     };
 
     Cheese c = new Cheese();

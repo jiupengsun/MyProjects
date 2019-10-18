@@ -13,14 +13,14 @@ public class MaxAreaofIsland {
 
   public int maxAreaOfIsland(int[][] grid) {
     int row = grid.length;
-    if(row == 0)
+    if (row == 0)
       return 0;
     int col = grid[0].length;
     int max = 0;
     boolean[][] visit = new boolean[row][col];
-    for(int i=0; i<row; ++i) {
-      for(int j=0; j<col; ++j) {
-        if(grid[i][j] == 1) {
+    for (int i = 0; i < row; ++i) {
+      for (int j = 0; j < col; ++j) {
+        if (grid[i][j] == 1) {
           max = Math.max(max, BFS(grid, i, j, visit));
         }
       }
@@ -32,16 +32,16 @@ public class MaxAreaofIsland {
     Queue<int[]> que = new LinkedList<>();
     que.add(new int[]{m, n});
     int area = 0;
-    while(!que.isEmpty()) {
+    while (!que.isEmpty()) {
       int[] p = que.poll();
-      if(visit[p[0]][p[1]])
+      if (visit[p[0]][p[1]])
         continue;
       visit[p[0]][p[1]] = true;
       area++;
-      for(int[] d: direct) {
-        int i = Math.max(0, Math.min(p[0]+d[0], grid.length-1));
-        int j = Math.max(0, Math.min(p[1]+d[1], grid[0].length-1));
-        if(!visit[i][j] && grid[i][j]==1)
+      for (int[] d : direct) {
+        int i = Math.max(0, Math.min(p[0] + d[0], grid.length - 1));
+        int j = Math.max(0, Math.min(p[1] + d[1], grid[0].length - 1));
+        if (!visit[i][j] && grid[i][j] == 1)
           que.add(new int[]{i, j});
       }
     }

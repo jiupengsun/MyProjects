@@ -1,8 +1,10 @@
 package com.samy.company.Dropbox;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -10,6 +12,7 @@ public class Solution {
 
   /**
    * Given a byte array and file, judge if the byte array exists in the file
+   *
    * @param f
    * @param array
    * @return
@@ -20,6 +23,7 @@ public class Solution {
 
   /**
    * bfs version
+   *
    * @param url
    * @return
    */
@@ -30,12 +34,12 @@ public class Solution {
     BlockingQueue<String> que = new LinkedBlockingQueue<>();
 
     que.add(url);
-    while(!que.isEmpty()) {
+    while (!que.isEmpty()) {
       String u = que.poll();
       visit.add(u);
       List<String> next = getNextUrl(u);
-      for(String s: next) {
-        if(!visit.contains(s))
+      for (String s : next) {
+        if (!visit.contains(s))
           que.add(s);
       }
     }
@@ -44,17 +48,18 @@ public class Solution {
 
   /**
    * IDS version
+   *
    * @param url
    * @return
    */
   public void DFS(String url, int depth, Set<String> visit) {
-    if(depth == 0)
+    if (depth == 0)
       return;
     visit.add(url);
     List<String> next = getNextUrl(url);
-    for(String s: next) {
-      if(!visit.contains(s))
-        DFS(s, depth-1, visit);
+    for (String s : next) {
+      if (!visit.contains(s))
+        DFS(s, depth - 1, visit);
     }
   }
 

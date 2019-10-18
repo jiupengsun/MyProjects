@@ -3,6 +3,7 @@ package com.samy.company;// you can also use imports, for example:
 
 // you can write to stdout for debugging purposes, e.g.
 // System.out.println("this is a debug message");
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,13 +15,13 @@ public class Solution {
       return 0;
     int left_max = Integer.MIN_VALUE;
     int right_min = Integer.MAX_VALUE;
-    int left=0, right=length-1;
-    for(int i=0; i<length; ++i) {
+    int left = 0, right = length - 1;
+    for (int i = 0; i < length; ++i) {
       if (left_max > A[i])
         left = Math.max(left, i);
       left_max = Math.max(left_max, A[i]);
     }
-    for(int i=length-1; i>=0; --i) {
+    for (int i = length - 1; i >= 0; --i) {
       if (right_min < A[i])
         right = Math.min(right, i);
       right_min = Math.min(right_min, A[i]);
@@ -80,24 +81,24 @@ class Solution1 {
   public String solution(int A, int B, int C, int D) {
     // write your code in Java SE 8
     int[][] transform = getTime(A, B, C, D);
-    int max_hour=-1, max_min=-1;
-    for(int i=0, row=transform.length; i<row; ++i) {
-      if(transform[i][0] > 23 || transform[i][1] > 59)
+    int max_hour = -1, max_min = -1;
+    for (int i = 0, row = transform.length; i < row; ++i) {
+      if (transform[i][0] > 23 || transform[i][1] > 59)
         continue;
-      if(transform[i][0] > max_hour) {
+      if (transform[i][0] > max_hour) {
         max_hour = transform[i][0];
         max_min = transform[i][1];
       } else if (transform[i][0] == max_hour && transform[i][1] > max_min) {
         max_min = transform[i][1];
       }
     }
-    if(max_hour == -1)
+    if (max_hour == -1)
       return "NOT POSSIBLE";
     StringBuilder sb = new StringBuilder("");
-    if(max_hour < 10)
+    if (max_hour < 10)
       sb.append("0");
     sb.append(max_hour + ":");
-    if(max_min < 10)
+    if (max_min < 10)
       sb.append("0");
     sb.append(max_min);
     return sb.toString();
@@ -109,7 +110,7 @@ class Solution1 {
     backTracking(time, 0, 4, list);
     int[][] transform = new int[list.size()][2];
     int i = 0;
-    for(List<Integer> l : list) {
+    for (List<Integer> l : list) {
       int hour = l.get(0) * 10 + l.get(1);
       int minute = l.get(2) * 10 + l.get(3);
       transform[i][0] = hour;
@@ -121,16 +122,16 @@ class Solution1 {
   }
 
   private void backTracking(int[] array, int index, int length, List<List<Integer>> list) {
-    if(index == length - 1) {
+    if (index == length - 1) {
       List<Integer> l = new ArrayList<Integer>();
-      for(int i : array)
+      for (int i : array)
         l.add(i);
       list.add(l);
       return;
     }
-    for(int i=index; i<length; ++i) {
+    for (int i = index; i < length; ++i) {
       swap(array, i, index);
-      backTracking(array, index+1, length, list);
+      backTracking(array, index + 1, length, list);
       swap(array, index, i);
     }
   }

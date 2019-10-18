@@ -9,16 +9,17 @@ public class GroupShiftedStrings {
 
   /**
    * https://leetcode.com/problems/group-shifted-strings/description/
+   *
    * @param strings
    * @return
    */
   public List<List<String>> groupStrings(String[] strings) {
     Map<String, List<String>> map = new HashMap<>();
-    for(String s: strings) {
+    for (String s : strings) {
       StringBuilder sb = new StringBuilder("");
-      for(int i=1, l=s.length(); i<l; ++i) {
-        int diff = s.charAt(i) - s.charAt(i-1);
-        if(diff < 0)
+      for (int i = 1, l = s.length(); i < l; ++i) {
+        int diff = s.charAt(i) - s.charAt(i - 1);
+        if (diff < 0)
           diff += 26;
         sb.append(String.valueOf(diff) + " ");
       }

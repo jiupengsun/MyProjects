@@ -7,14 +7,15 @@ public class SelfDividingNumbers {
 
   /**
    * https://leetcode.com/problems/self-dividing-numbers/description/
+   *
    * @param left
    * @param right
    * @return
    */
   public List<Integer> selfDividingNumbers(int left, int right) {
     List<Integer> list = new ArrayList<>();
-    for(int i=left; i<=right; ++i) {
-      if(isDN(i))
+    for (int i = left; i <= right; ++i) {
+      if (isDN(i))
         list.add(i);
     }
     return list;
@@ -22,9 +23,9 @@ public class SelfDividingNumbers {
 
   private boolean isDN(int i) {
     int n = i;
-    while(i > 0) {
+    while (i > 0) {
       int d = i % 10;
-      if(d == 0 || n%d != 0)
+      if (d == 0 || n % d != 0)
         return false;
       i /= 10;
     }

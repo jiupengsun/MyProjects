@@ -10,6 +10,23 @@ import java.util.*;
 public class CriticalConnectionsinaNetwork {
   private int count = 1;
 
+  public static void main(String[] args) {
+    CriticalConnectionsinaNetwork c = new CriticalConnectionsinaNetwork();
+    List<List<Integer>> connections = new ArrayList<>();
+    connections.add(Arrays.asList(0, 1));
+    connections.add(Arrays.asList(1, 2));
+    connections.add(Arrays.asList(2, 0));
+    connections.add(Arrays.asList(1, 3));
+    connections.add(Arrays.asList(3, 4));
+    connections.add(Arrays.asList(4, 5));
+    connections.add(Arrays.asList(5, 3));
+    List<List<Integer>> results = c.criticalConnections(6, connections);
+    for (List<Integer> l : results) {
+      System.out.print(String.format("%d %d", l.get(0), l.get(1)));
+    }
+    System.out.println();
+  }
+
   public List<List<Integer>> criticalConnections(int n, List<List<Integer>> connections) {
     Map<Integer, List<Integer>> graph = new HashMap<>();
     for (List<Integer> l : connections) {
@@ -47,22 +64,5 @@ public class CriticalConnectionsinaNetwork {
     }
     min[node] = Math.min(minCount, min[node]);
     return min[node];
-  }
-
-  public static void main(String[] args) {
-    CriticalConnectionsinaNetwork c = new CriticalConnectionsinaNetwork();
-    List<List<Integer>> connections = new ArrayList<>();
-    connections.add(Arrays.asList(0, 1));
-    connections.add(Arrays.asList(1, 2));
-    connections.add(Arrays.asList(2, 0));
-    connections.add(Arrays.asList(1, 3));
-    connections.add(Arrays.asList(3, 4));
-    connections.add(Arrays.asList(4, 5));
-    connections.add(Arrays.asList(5, 3));
-    List<List<Integer>> results = c.criticalConnections(6, connections);
-    for (List<Integer> l : results) {
-      System.out.print(String.format("%d %d", l.get(0), l.get(1)));
-    }
-    System.out.println();
   }
 }
